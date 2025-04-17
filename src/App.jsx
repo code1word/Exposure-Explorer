@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import OurNavbar from "./components/Navbar";
 import Home from "./components/Home";
 import LearnSettings from "./components/LearnSettings";
 import PracticeMode from "./components/PracticeMode";
@@ -10,11 +10,13 @@ import ShutterSpeed from "./components/ShutterSpeed";
 import ISO from "./components/ISO";
 import CheatSheet from "./components/CheatSheet";
 import CheatSheetDetail from "./components/cheatsheet/CheatSheetDetail";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
     <div>
-      <Navbar />
+      <OurNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/learn" element={<LearnSettings />} />

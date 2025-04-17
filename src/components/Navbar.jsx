@@ -1,22 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
-function Navbar() {
+function OurNavbar() {
   return (
-    <nav
-      style={{
-        display: "flex",
-        gap: "1.5rem",
-        padding: "1rem",
-        backgroundColor: "#f0f0f0",
-      }}
-    >
-      <Link to="/">Home</Link>
-      <Link to="/learn">Learn Settings</Link>
-      <Link to="/simulator">Interactive Simulator</Link>
-      <Link to="/practice">Practice Mode</Link>
-    </nav>
+    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+      <Container>
+        <Navbar.Brand href="/">Exposure Explorer</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/learn">Learn</Nav.Link>
+            <Nav.Link href="/simulator">Interactive Simulator</Nav.Link>
+            <Nav.Link href="/practice">Practice Mode</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
-export default Navbar;
+export default OurNavbar;
