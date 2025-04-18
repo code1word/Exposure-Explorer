@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function LearnSettings() {
+  const [progress, setProgress] = useState({
+    aperture: "Not started",
+    shutter: "Not started",
+    iso: "Not started",
+  });
+
+  useEffect(() => {
+    const aperture =
+      sessionStorage.getItem("progress_aperture") || "Not started";
+    const shutter = sessionStorage.getItem("progress_shutter") || "Not started";
+    const iso = sessionStorage.getItem("progress_iso") || "Not started";
+
+    setProgress({ aperture, shutter, iso });
+  }, []);
+
+  const formatStatus = (status) => {
+    if (status === "Completed") return "✅ Completed";
+    if (status === "In Progress") return "🟡 In Progress";
+    return "⚪ Not started";
+  };
+
   return (
     <div style={{ padding: "1.5rem" }}>
       <h2>The Exposure Triangle</h2>
@@ -10,20 +31,21 @@ function LearnSettings() {
         triangle. Click on each one to see how it impacts your photo.
       </p>
 
-      {/* Settings Links */}
       <div style={{ marginTop: "2rem" }}>
         <p>
-          <Link to="/learn/aperture">🔳 Learn about Aperture</Link>
+          <Link to="/learn/aperture">🔳 Learn about Aperture</Link> —{" "}
+          {formatStatus(progress.aperture)}
         </p>
         <p>
-          <Link to="/learn/shutter">🕒 Learn about Shutter Speed</Link>
+          <Link to="/learn/shutter">🕒 Learn about Shutter Speed</Link> —{" "}
+          {formatStatus(progress.shutter)}
         </p>
         <p>
-          <Link to="/learn/iso">🌗 Learn about ISO</Link>
+          <Link to="/learn/iso">🌗 Learn about ISO</Link> —{" "}
+          {formatStatus(progress.iso)}
         </p>
       </div>
 
-      {/* Settings Cheat Sheet */}
       <div style={{ marginTop: "3rem" }}>
         <p>
           <Link to="/learn/cheatsheet">🧭 Settings Cheat Sheet</Link>
