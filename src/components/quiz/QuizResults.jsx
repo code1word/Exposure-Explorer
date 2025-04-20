@@ -91,7 +91,27 @@ function QuizResults() {
       <h2>
         <em>You scored a {score}/{questionKeys.length}!</em>
       </h2>
-      <p>Want to give it another shot or review your answers?</p>
+      
+      <h3>
+        Feel free to review a topic, explore the simulator at your own pace, or get some more practice.
+      </h3>
+      <br />
+      <br />
+      <div>
+        <h4>Review your answers:</h4>
+        {questionKeys.map((key, index) => {
+          const isCorrect = selectedAnswers[key] === quizQuestionData[key].answer;
+          return (
+            <div key={key}>
+              <Link to={`/learn/practice/${key}?reviewMode=true`}>
+                <button style={{ margin: "0.5rem" }}>
+                  {isCorrect ? "✅" : "❌"} Question {index + 1}
+                </button>
+              </Link>
+            </div>
+          );
+        })}
+      </div>
       <button onClick={handleStart} style={{ marginTop: "2rem" }}>
         Try Again
       </button>

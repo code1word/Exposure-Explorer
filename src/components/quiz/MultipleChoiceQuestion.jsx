@@ -58,6 +58,13 @@ function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
   const { selectedAnswers, recordAnswer } = useContext(QuizContext);
   const selectedAnswer = selectedAnswers[questionKey];
 
+  const getStatusEmoji = (option) => {
+    if (!reviewMode) return null;
+    if (option === info.answer) return "✅";
+    if (option === selectedAnswer) return "❌";
+    return null;
+  };
+
   const handleSelect = (option) => {
     recordAnswer(questionKey, option);
   };
@@ -73,8 +80,10 @@ function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
               value={option}
               checked={selectedAnswer === option}
               onChange={() => handleSelect(option)}
+              disabled={reviewMode} // Prevent changes in review
+              readOnly
             />
-            {option}
+            {option} {getStatusEmoji(option)}
           </label>
         </div>
       ))}

@@ -1,7 +1,7 @@
 //src/components/QuizQuestion.jsx
 
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { quizQuestionData } from "../data/quizQuestionData";
 import MultipleChoiceQuestion from "./quiz/MultipleChoiceQuestion";
@@ -26,24 +26,26 @@ function QuizQuestion() {
 
   const handleNext = () => {
     if (nextKey) {
-      navigate(`/learn/practice/${nextKey}`);
+      navigate(`/learn/practice/${nextKey}${reviewMode ? "?reviewMode=true" : ""}`);
     }
   };
-
+  
   const handlePrevious = () => {
-    if (previousKey){
-      navigate(`/learn/practice/${previousKey}`);
+    if (previousKey) {
+      navigate(`/learn/practice/${previousKey}${reviewMode ? "?reviewMode=true" : ""}`);
     }
   };
-
+  
   const handleFinish = () => {
     navigate(`/learn/practice/results`);
   };
 
+  const [searchParams] = useSearchParams();
+  const reviewMode = searchParams.get("reviewMode") === "true";
   const renderQuestionContent = (info) => {
     switch (info.format) {
       case "multiple_choice":
-        return <MultipleChoiceQuestion info={info} questionKey={type}/>;
+        return <MultipleChoiceQuestion info={info} questionKey={type} reviewMode={reviewMode}/>;
       case "match-image":
         return <MatchImageQuestion info={info} />;
       default:
@@ -97,11 +99,14 @@ function QuizQuestion() {
         </div>
       )}
 
+      {reviewMode && (
+        <Link to="/learn/practice/results">
+          <button style={{ marginTop: "1rem" }}>← Back to Results</button>
+        </Link>
+      )}
 
-      <br />
-      <Link to="/practice">
-        <button style={{ marginTop: "2rem" }}>← Back to Start</button>
-      </Link>
+
+      
     </div>
   );
 }
