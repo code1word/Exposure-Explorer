@@ -46,30 +46,59 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
     <div>
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
         {currentOrder.map((imgSrc, index) => (
-          <div
-            key={imgSrc}
-            draggable={!reviewMode}
-            onDragStart={() => handleDragStart(index)}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={() => handleDrop(index)}
-            style={{
-              border: "2px solid #ccc",
-              borderRadius: "8px",
-              padding: "0.5rem",
-              backgroundColor: reviewMode ? "#f9f9f9" : "#fff",
-              cursor: reviewMode ? "default" : "grab",
-              textAlign: "center",
-              transition: "transform 0.2s",
-            }}
-          >
-            <img
-              src={imgSrc}
-              alt={`ordered-img-${index}`}
-              style={{ width: "150px", height: "auto", borderRadius: "6px" }}
-            />
-          </div>
+            <React.Fragment key={imgSrc}>
+                {/* DROP ZONE before each image */}
+                <div
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={() => handleDrop(index)}
+                    style={{
+                    width: "10px",
+                    height: "150px",
+                    backgroundColor: "transparent",
+                    borderLeft: "2px dashed #aaa",
+                    margin: "0 4px",
+                    }}
+                />
+                
+                {/* IMAGE BLOCK */}
+                <div
+                    draggable={!reviewMode}
+                    onDragStart={() => handleDragStart(index)}
+                    style={{
+                    border: "2px solid #ccc",
+                    borderRadius: "8px",
+                    padding: "0.5rem",
+                    backgroundColor: reviewMode ? "#f9f9f9" : "#fff",
+                    cursor: reviewMode ? "default" : "grab",
+                    textAlign: "center",
+                    transition: "transform 0.2s",
+                    }}
+                >
+                    <img
+                    src={imgSrc}
+                    alt={`ordered-img-${index}`}
+                    style={{ width: "150px", height: "auto", borderRadius: "6px" }}
+                    />
+                </div>
+            </React.Fragment>
         ))}
-      </div>
+
+        {/* DROP ZONE after last image */}
+        <div
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={() => handleDrop(currentOrder.length)}
+            style={{
+            width: "10px",
+            height: "150px",
+            backgroundColor: "transparent",
+            borderLeft: "2px dashed #aaa",
+            margin: "0 4px",
+            }}
+        />
+        </div>
+
+
+
 
       {reviewMode && (
         <div style={{ marginTop: "1rem", textAlign: "center", fontWeight: "bold" }}>
