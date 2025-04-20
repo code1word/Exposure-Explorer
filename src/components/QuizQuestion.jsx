@@ -43,7 +43,7 @@ function QuizQuestion() {
   const renderQuestionContent = (info) => {
     switch (info.format) {
       case "multiple_choice":
-        return <MultipleChoiceQuestion info={info} />;
+        return <MultipleChoiceQuestion info={info} questionKey={type}/>;
       case "match-image":
         return <MatchImageQuestion info={info} />;
       default:

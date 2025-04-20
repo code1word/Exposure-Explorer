@@ -3,23 +3,8 @@
 import React, { useState, useContext } from "react";
 import { QuizContext } from "../../context/QuizContext";
 
-function MultipleChoiceQuestion_old({info}){
-    return (
-      <div>
-        {info.options.map((option, i) => (
-          <div key={i}>
-            <label>
-              <input type="radio" name="quiz" />
-              {option}
-            </label>
-          </div>
-        ))}
-      </div>
-    
-    );
-}
 
-function MultipleChoiceQuestion({ info }) {
+function MultipleChoiceQuestion_old({ info }) {
   const [answered, setAnswered] = useState(false);
   const { selectedAnswers, handleSelectAnswer, recordAnswer } = useContext(QuizContext);
 
@@ -58,6 +43,43 @@ function MultipleChoiceQuestion({ info }) {
         </div>
       ))}
       {selectedAnswer && (
+        <p style={{ marginTop: "1rem" }}>
+          {selectedAnswer === info.answer
+            ? "✅ Correct!"
+            : `❌ Incorrect. Correct answer: ${info.answer}`}
+        </p>
+      )}
+    </div>
+  );
+}
+
+
+function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
+  const { selectedAnswers, recordAnswer } = useContext(QuizContext);
+  const selectedAnswer = selectedAnswers[questionKey];
+
+  const handleSelect = (option) => {
+    recordAnswer(questionKey, option);
+  };
+
+  return (
+    <div>
+      {info.options.map((option, i) => (
+        <div key={i}>
+          <label>
+            <input
+              type="radio"
+              name={`quiz-${info.question_number}`}
+              value={option}
+              checked={selectedAnswer === option}
+              onChange={() => handleSelect(option)}
+            />
+            {option}
+          </label>
+        </div>
+      ))}
+
+      {reviewMode && selectedAnswer && (
         <p style={{ marginTop: "1rem" }}>
           {selectedAnswer === info.answer
             ? "✅ Correct!"

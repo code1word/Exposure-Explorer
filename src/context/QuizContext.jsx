@@ -5,7 +5,7 @@ import React, { createContext, useState } from "react";
 export const QuizContext = createContext();
 
 // Create a provider component
-export function QuizProvider({ children }) {
+export function QuizProvider_old({ children }) {
   const [score, setScore] = useState(0); // Correct answers counter
   const [answeredQuestions, setAnsweredQuestions] = useState({}); // Track which were answered
   const [selectedAnswers, setSelectedAnswers] = useState({}); // Track selected answers
@@ -45,3 +45,24 @@ export function QuizProvider({ children }) {
     </QuizContext.Provider>
   );
 }
+
+export function QuizProvider({ children }) {
+    const [selectedAnswers, setSelectedAnswers] = useState({});
+  
+    const recordAnswer = (key, selectedAnswer) => {
+      setSelectedAnswers(prev => ({
+        ...prev,
+        [key]: selectedAnswer,
+      }));
+    };
+  
+    const resetQuiz = () => {
+      setSelectedAnswers({});
+    };
+  
+    return (
+      <QuizContext.Provider value={{ selectedAnswers, recordAnswer, resetQuiz }}>
+        {children}
+      </QuizContext.Provider>
+    );
+  }

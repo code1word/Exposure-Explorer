@@ -11,7 +11,7 @@ import MatchImageQuestion from "../quiz/MatchImageQuestion";
 import { QuizContext } from "../../context/QuizContext";
 
 
-function QuizResults() {
+function QuizResults_old() {
 
   const { score, selectedAnswers, resetQuiz } = useContext(QuizContext);
   {/*const [score, setScore] = useState(0);*/}
@@ -53,6 +53,48 @@ function QuizResults() {
         Try Again
       </button>
 
+    </div>
+  );
+}
+
+function QuizResults() {
+  const { selectedAnswers, resetQuiz } = useContext(QuizContext);
+  const [score, setScore] = useState(0);
+  const navigate = useNavigate();
+  const questionKeys = Object.keys(quizQuestionData);
+
+  useEffect(() => {
+    console.log("selectedAnswers", selectedAnswers); // See what's inside
+
+    let calculatedScore = 0;
+    questionKeys.forEach(key => {
+      const selected = selectedAnswers[key];
+      console.log("selectedAnswer", selected)
+      const correct = quizQuestionData[key].answer;
+      console.log("quizQuestionData answer", correct)
+      if (selected === correct) {
+        calculatedScore += 1;
+      }
+    });
+    setScore(calculatedScore);
+    console.log("calculated score", calculatedScore);
+    console.log("score", score);
+  }, [selectedAnswers, questionKeys]);
+
+  const handleStart = () => {
+    resetQuiz();
+    navigate(`/learn/practice/${questionKeys[0]}`);
+  };
+
+  return (
+    <div style={{ padding: "2rem", textAlign: "center" }}>
+      <h2>
+        <em>You scored a {score}/{questionKeys.length}!</em>
+      </h2>
+      <p>Want to give it another shot or review your answers?</p>
+      <button onClick={handleStart} style={{ marginTop: "2rem" }}>
+        Try Again
+      </button>
     </div>
   );
 }
