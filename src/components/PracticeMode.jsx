@@ -7,9 +7,7 @@ import { faArrowDown, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Container, ProgressBar } from "react-bootstrap";
 import { quizQuestionData } from "../data/quizQuestionData";
 import { Button } from "react-bootstrap";
-import MultipleChoiceQuestion from "./quiz/MultipleChoiceQuestion";
-import MatchImageQuestion from "./quiz/MatchImageQuestion";
-import { QuizContext } from "../context/QuizContext"; 
+import { QuizContext } from "../context/QuizContextMultipleChoice"; 
 
 
 function PracticeMode() {

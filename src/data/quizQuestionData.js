@@ -1,4 +1,5 @@
 //src/data/quizQuestionData
+//question numbers are unique and ordered - if we want to do random questions from a larger collection need to change this
 
 export const quizQuestionData = {
     q1: {
@@ -21,5 +22,33 @@ export const quizQuestionData = {
                   "Changes the depth of field"],
         answer: "Makes it brighter but adds noise",
       },
+    q5: {
+      format: "table_fill_blanks",
+      question_number: "5",
+      question: "Fill in the table below using the word bank.",
+      wordBank: [
+        "Large f-stop", 
+        "Shallower",
+        "More light",
+        "Darker",
+        "Less light",
+        "Small f-stop",
+        "Brighter",
+        "Deeper"
+      ],
+      rows: ["Wider", "Narrower"],
+      columns: ["Light Entering Camera", "Image Brightness", "Depth of Field", "F-stop"],
+      correctAnswers: {
+        "Wider-Light Entering Camera": "More light",
+        "Wider-Image Brightness": "Brighter",
+        "Wider-Depth of Field": "Shallower",
+        "Wider-F-stop": "Small f-stop",
+        "Narrower-Light Entering Camera": "Less light",
+        "Narrower-Image Brightness": "Darker",
+        "Narrower-Depth of Field": "Deeper",
+        "Narrower-F-stop": "Large f-stop",
+      }
+    }
+      
 
 };

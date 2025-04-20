@@ -5,6 +5,7 @@ import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom"
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { quizQuestionData } from "../data/quizQuestionData";
 import MultipleChoiceQuestion from "./quiz/MultipleChoiceQuestion";
+import TableFillBlanksQuestion from "./quiz/TableFillBlanksQuestion";
 
 function QuizQuestion() {
   const { type } = useParams();
@@ -40,14 +41,50 @@ function QuizQuestion() {
     navigate(`/learn/practice/results`);
   };
 
+  const renderNavigationButtons = () => {
+    if (previousKey && nextKey) {
+      return (
+        <div>
+          <button onClick={handlePrevious} style={{ marginTop: "1.5rem" }}>
+            ← Previous
+          </button>
+          <button onClick={handleNext} style={{ marginTop: "1.5rem" }}>
+            Next →
+          </button>
+        </div>
+      );
+    } else if (nextKey) {
+      return (
+        <div>
+          <button onClick={handleNext} style={{ marginTop: "1.5rem" }}>
+            Next →
+          </button>
+        </div>
+      );
+    } else if (previousKey) {
+      return (
+        <div>
+          <button onClick={handlePrevious} style={{ marginTop: "1.5rem" }}>
+            ← Previous
+          </button>
+          <button onClick={handleFinish} style={{ marginTop: "1.5rem" }}>
+            Finish →
+          </button>
+        </div>
+      );
+    }
+  
+    return null;
+  };
+
   const [searchParams] = useSearchParams();
   const reviewMode = searchParams.get("reviewMode") === "true";
   const renderQuestionContent = (info) => {
     switch (info.format) {
       case "multiple_choice":
         return <MultipleChoiceQuestion info={info} questionKey={type} reviewMode={reviewMode}/>;
-      case "match-image":
-        return <MatchImageQuestion info={info} />;
+      case "table_fill_blanks":
+        return <TableFillBlanksQuestion info={info} questionKey={type} reviewMode={reviewMode} />;
       default:
         return <p>Unsupported question format.</p>;
     }
@@ -71,39 +108,7 @@ function QuizQuestion() {
 
       {renderQuestionContent(info)}
       
-      {previousKey && nextKey && (
-        <div>
-          <button onClick={handlePrevious} style={{ marginTop: "1.5rem" }}>
-            ← Previous
-          </button>
-          <button onClick={handleNext} style={{ marginTop: "1.5rem" }}>
-            Next →
-          </button>
-        </div>
-      )}
-      {nextKey && (
-        <div>
-          <button onClick={handleNext} style={{ marginTop: "1.5rem" }}>
-            Next →
-          </button>
-        </div>
-      )}
-      { previousKey && (
-        <div>
-          <button onClick={handlePrevious} style={{ marginTop: "1.5rem" }}>
-            ← Previous
-          </button>
-          <button onClick={handleFinish} style={{ marginTop: "1.5rem" }}>
-              Finish →
-            </button>
-        </div>
-      )}
-
-      {reviewMode && (
-        <Link to="/learn/practice/results">
-          <button style={{ marginTop: "1rem" }}>← Back to Results</button>
-        </Link>
-      )}
+      {renderNavigationButtons()}
 
 
       
