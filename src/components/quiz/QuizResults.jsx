@@ -7,11 +7,14 @@ import { Container, ProgressBar } from "react-bootstrap";
 import { quizQuestionData } from "../../data/quizQuestionData";
 import MultipleChoiceQuestion from "../quiz/MultipleChoiceQuestion";
 import TableFillBlanksQuestion from "../quiz/TableFillBlanksQuestion";
+import OrderImagesQuestion from "../quiz/OrderImagesQuestion";
 
-import { QuizContext } from "../../context/QuizContextMultipleChoice";
+import { QuizContext as QuizContextMultipleChoice } from "../../context/QuizContextMultipleChoice";
+import { QuizContext as QuizContextTableFillBlanks } from "../../context/QuizContextTable";
+import { QuizContext as QuizContextOrderImages } from "../../context/QuizContextOrderImages";
 
 function QuizResults() {
-  const { selectedAnswers, resetQuiz } = useContext(QuizContext);
+  const { selectedAnswers, resetQuiz } = useContext(QuizContextMultipleChoice);
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
   const questionKeys = Object.keys(quizQuestionData);

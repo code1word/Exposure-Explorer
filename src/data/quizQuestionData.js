@@ -1,5 +1,9 @@
-//src/data/quizQuestionData
+//src/data/quizQuestionData.js
 //question numbers are unique and ordered - if we want to do random questions from a larger collection need to change this
+import orderLandscape from "./quiz_images/orderLandscape.png";
+import orderActionShot from "./quiz_images/orderActionShot.png";
+import orderNightPhotography from "./quiz_images/orderNightPhotography.png";
+import orderPortrait from "./quiz_images/orderPortrait.png";
 
 export const quizQuestionData = {
     q1: {
@@ -49,6 +53,23 @@ export const quizQuestionData = {
                   "Changes the depth of field"],
         answer: "Makes it brighter but adds noise",
       },
+    q4: {
+      format: "order_images",
+      question_number: "4",
+      question: "Different types of pictures require different settings. Drag and drop the following types of pictures to order them from lowest to highest shutter speed.",
+      images: [
+        orderLandscape,
+        orderActionShot,
+        orderNightPhotography,
+        orderPortrait
+      ],
+      correctOrder: [
+        orderNightPhotography,  // lowest shutter speed
+        orderLandscape,
+        orderPortrait,
+        orderActionShot   // highest shutter speed
+      ]
+    }
     
       
 
