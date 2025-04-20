@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Container, ProgressBar } from "react-bootstrap";
+import PhotoSlider from "./PhotoSlider";
 
 function ISO() {
   const [step, setStep] = useState(() => {
@@ -45,11 +46,11 @@ function ISO() {
   }, [step]);
 
   const sectionStyle = (visible) => ({
-    overflow: "hidden",
     opacity: visible ? 1 : 0,
-    maxHeight: visible ? "500px" : "0px",
+    maxHeight: visible ? "1000px" : "0px",
     transition: "opacity 1.5s ease, max-height 2s ease",
     marginTop: visible ? "2rem" : "0",
+    overflow: "hidden",
   });
 
   const progressWidth = ((step + 1) / 3) * 100;
@@ -104,7 +105,7 @@ function ISO() {
   );
 
   return (
-    <Container className="py-4" style={{ maxWidth: "650px" }}>
+    <Container className="py-4">
       <ProgressBar
         className="mb-3"
         style={{
@@ -203,6 +204,33 @@ function ISO() {
           and a brighter image.
         </p>
 
+        <PhotoSlider
+          title="ISO"
+          description="Use the slider to see how ISO affects exposure"
+          imageSrcFunction={(val) => {
+            const clamped = Math.max(0, Math.min(1, val)); // Clamp between 0–1
+            const stepped = (Math.round(clamped * 20) / 20).toFixed(2); // Snap to nearest 0.05
+            return `/dummy_stack/focus_${stepped}.png`;
+          }}
+          min={0}
+          max={1}
+          step={0.01}
+          initialValue={0.4}
+          unitPrefix=""
+          leftLabel="Lower ISO"
+          leftDescriptions={[
+            "Less sensitivity",
+            "Less Exposure",
+            "Dimmer image",
+          ]}
+          rightLabel="Higher ISO"
+          rightDescriptions={[
+            "More sensitivity",
+            "More exposure",
+            "Brighter image",
+          ]}
+        />
+
         {step === 1 && renderDownArrow()}
       </div>
       <div style={sectionStyle(step >= 2)}>
@@ -215,6 +243,30 @@ function ISO() {
           A higher ISO increases brightness but also adds more noise to the
           image.
         </p>
+
+        <PhotoSlider
+          title="ISO"
+          description="Use the slider to see how ISO introduces image noise"
+          imageSrcFunction={(val) => {
+            const clamped = Math.max(0, Math.min(1, val)); // Clamp between 0–1
+            const stepped = (Math.round(clamped * 20) / 20).toFixed(2); // Snap to nearest 0.05
+            return `/dummy_stack/focus_${stepped}.png`;
+          }}
+          min={0}
+          max={1}
+          step={0.01}
+          initialValue={0.4}
+          unitPrefix=""
+          leftLabel="Lower ISO"
+          leftDescriptions={["Less sensitivity", "Clean image", "Less noise"]}
+          rightLabel="Higher ISO"
+          rightDescriptions={[
+            "More sensitivity",
+            "Brighter image",
+            "More noise",
+          ]}
+        />
+
         <p
           style={{
             marginTop: "2rem",
