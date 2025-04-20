@@ -12,6 +12,9 @@ import CheatSheet from "./components/CheatSheet";
 import CheatSheetDetail from "./components/cheatsheet/CheatSheetDetail";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import QuizQuestion from "./components/QuizQuestion";
+import QuizResults from "./components/quiz/QuizResults";
+
 
 function App() {
   return (
@@ -27,6 +30,8 @@ function App() {
         <Route path="/simulator" element={<InteractiveSim />} />
         <Route path="/learn/cheatsheet" element={<CheatSheet />} />
         <Route path="/learn/cheatsheet/:type" element={<CheatSheetDetail />} />
+        <Route path="/learn/practice/:type" element={<QuizQuestion />} />
+        <Route path="/learn/practice/results" element={<QuizResults />} />
       </Routes>
     </div>
   );
