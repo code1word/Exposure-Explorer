@@ -1,6 +1,6 @@
 // src/components/quiz/QuizResults
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, ProgressBar } from "react-bootstrap";
@@ -14,31 +14,44 @@ import { QuizContext as QuizContextTableFillBlanks } from "../../context/QuizCon
 import { QuizContext as QuizContextOrderImages } from "../../context/QuizContextOrderImages";
 
 function QuizResults() {
-  const { selectedAnswers, resetQuiz } = useContext(QuizContextMultipleChoice);
+  const { selectedAnswers: selectedAnswersMC, resetQuiz: resetQuizMC } = useContext(QuizContextMultipleChoice);
+  const { selectedOrder: selectedOrderImages, resetQuiz: resetQuizORD } = useContext(QuizContextOrderImages);
+  
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
-  const questionKeys = Object.keys(quizQuestionData);
+  const questionKeys = useMemo(() => Object.keys(quizQuestionData), []);
+  const [questionCorrectness, setQuestionCorrectness] = useState({});
+
 
   useEffect(() => {
-    console.log("selectedAnswers", selectedAnswers); // See what's inside
-
     let calculatedScore = 0;
-    questionKeys.forEach(key => {
-      const selected = selectedAnswers[key];
-      console.log("selectedAnswer", selected)
-      const correct = quizQuestionData[key].answer;
-      console.log("quizQuestionData answer", correct)
-      if (selected === correct) {
-        calculatedScore += 1;
+    let newCorrectness = {};
+  
+    questionKeys.forEach((key) => {
+      const question = quizQuestionData[key];
+      const questionNum = question.question_number;
+  
+      let isCorrect = false;
+  
+      if (question.format === "multiple_choice") {
+        isCorrect = selectedAnswersMC[key] === question.answer;
+      }else if (question.format === "order_images") {
+        const userOrder = selectedOrderImages[key];
+        isCorrect =
+          JSON.stringify(userOrder) === JSON.stringify(question.correctOrder);
       }
+  
+      newCorrectness[questionNum] = isCorrect;
+      if (isCorrect) calculatedScore++;
     });
+  
+    setQuestionCorrectness(newCorrectness);
     setScore(calculatedScore);
-    console.log("calculated score", calculatedScore);
-    console.log("score", score);
-  }, [selectedAnswers, questionKeys]);
+  }, [selectedAnswersMC, selectedOrderImages, questionKeys]);
 
   const handleStart = () => {
-    resetQuiz();
+    resetQuizMC();
+    resetQuizORD();
     navigate(`/learn/practice/${questionKeys[0]}`);
   };
 
@@ -55,8 +68,12 @@ function QuizResults() {
       <br />
       <div>
         <h4>Review your answers:</h4>
+
         {questionKeys.map((key, index) => {
-          const isCorrect = selectedAnswers[key] === quizQuestionData[key].answer;
+          const question = quizQuestionData[key];
+          const questionNum = question.question_number;
+          const isCorrect = questionCorrectness[questionNum];
+
           return (
             <div key={key}>
               <Link to={`/learn/practice/${key}?reviewMode=true`}>
@@ -67,6 +84,7 @@ function QuizResults() {
             </div>
           );
         })}
+
       </div>
       <button onClick={handleStart} style={{ marginTop: "2rem" }}>
         Try Again
