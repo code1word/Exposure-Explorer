@@ -13,8 +13,7 @@ function DraggableItem({ answer, onDrag }) {
         if (monitor.didDrop()) {
           onDrag(item.answer); // Successful drop
         } else {
-          // If drop is unsuccessful, return to the word bank
-          onDrag(item.answer, false); // Pass a flag to indicate to return the word
+          onDrag(item.answer, false); // Return to word bank
         }
       },
       collect: (monitor) => ({
@@ -52,7 +51,9 @@ function DroppableCell({
 }) {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemType,
-    drop: (item) => onDrop(item.answer, row, col),
+    drop: (item) => {
+        onDrop(item.answer, row, col); // No need for success here
+    },
     canDrop: () => !reviewMode && currentValue === "", // Prevent dropping in review mode
   }));
 
@@ -91,10 +92,11 @@ function DroppableCell({
             cursor: "pointer",
             border: "none",
             backgroundColor: "#f44336",
+            backgroundColor: "rgb(1,1,1,0)",
             color: "white",
           }}
         >
-          Remove
+          🗑️
         </button>
       )}
     </div>
@@ -117,10 +119,25 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
     return blankCells;
   });
 
+  
+
   // Store word bank and track used answers separately
   const [wordBank, setWordBank] = useState(info.wordBank);
   const [usedAnswers, setUsedAnswers] = useState([]); // Track used answers that have been placed in the table
   const [pendingAnswers, setPendingAnswers] = useState(null); // Track answers that need to be recorded later
+
+  useEffect(() => {
+    const storedAnswers = selectedAnswers[questionKey];
+    if (storedAnswers) {
+      setAnswers(storedAnswers);
+  
+      const used = Object.values(storedAnswers).filter(Boolean);
+      setUsedAnswers(used);
+  
+      // Remove used words from the word bank
+      setWordBank(info.wordBank.filter((word) => !used.includes(word)));
+    }
+  }, [selectedAnswers, questionKey, info.wordBank]);
 
   useEffect(() => {
     // If there are pending answers, record them after render
@@ -131,48 +148,55 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
   }, [pendingAnswers, questionKey, recordAnswer]);
 
   const handleDrop = (answer, row, col) => {
-    if (reviewMode) return;
-
     const cellKey = `${row}-${col}`;
-
-    // Update the answers state
+  
     setAnswers((prevAnswers) => {
-      if (prevAnswers[cellKey] !== "") return prevAnswers; // don't overwrite existing answer
-
+      if (reviewMode || prevAnswers[cellKey] !== "") {
+        console.log("❌ Drop ignored - cell already filled or in review mode.");
+        return prevAnswers;
+      }
+  
       const updated = { ...prevAnswers, [cellKey]: answer };
-
-      // Set the pending answers to be recorded after render
       setPendingAnswers(updated);
-
+  
+      // Only update wordBank and usedAnswers on successful drop
+      setUsedAnswers((prevUsed) => {
+        if (!prevUsed.includes(answer)) {
+          return [...prevUsed, answer];
+        }
+        return prevUsed;
+      });
+  
+      setWordBank((prevWordBank) =>
+        prevWordBank.filter((item) => item !== answer)
+      );
+  
       return updated;
     });
-
-    // Track used answers
-    setUsedAnswers((prevUsed) => {
-      if (!prevUsed.includes(answer)) {
-        return [...prevUsed, answer];
-      }
-      return prevUsed;
-    });
-
-    // Remove the answer from the word bank
-    setWordBank((prevWordBank) =>
-      prevWordBank.filter((item) => item !== answer)
-    );
   };
 
-  const handleRemove = (row, col, word) => {
+    const handleRemove = (row, col, word) => {
     const cellKey = `${row}-${col}`;
 
-    // Remove the word from the answers state and place the word back in the word bank
+    // Remove the word from the answers state
     const updatedAnswers = { ...answers };
     updatedAnswers[cellKey] = ""; // Clear the cell
     setAnswers(updatedAnswers);
 
-    // Remove word from the used answers and place it back in the word bank
+    // Remove word from the usedAnswers
     setUsedAnswers((prevUsed) => prevUsed.filter((answer) => answer !== word));
+
+    // Add the word back to the word bank
     setWordBank((prevWordBank) => [...prevWordBank, word]);
-  };
+
+    // Ensure word is re-added to the word bank even if it was already there
+    setWordBank((prevWordBank) => {
+        if (!prevWordBank.includes(word)) {
+        return [...prevWordBank, word];
+        }
+        return prevWordBank;
+    });
+    };
 
   // Filter available answers to show unused words in the word bank
   const availableAnswers = useMemo(() => {
@@ -187,8 +211,8 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
           <DraggableItem
             key={answer}
             answer={answer}
-            onDrag={(answer) => handleDrop(answer)}
-          />
+            onDrag={() => {}}
+            />
         ))}
       </div>
 

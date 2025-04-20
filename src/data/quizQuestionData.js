@@ -13,18 +13,8 @@ export const quizQuestionData = {
         answer: "Aperture",
       },
     q2: {
-        format: "multiple_choice",
-        question_number: "2",
-        question: "What does increasing ISO do to a photo?",
-        options: ["Make it darker and sharper", 
-                  "Increases motion blur", 
-                  "Makes it brighter but adds noise", 
-                  "Changes the depth of field"],
-        answer: "Makes it brighter but adds noise",
-      },
-    q5: {
       format: "table_fill_blanks",
-      question_number: "5",
+      question_number: "2",
       question: "Fill in the table below using the word bank.",
       wordBank: [
         "Large f-stop", 
@@ -48,7 +38,18 @@ export const quizQuestionData = {
         "Narrower-Depth of Field": "Deeper",
         "Narrower-F-stop": "Large f-stop",
       }
-    }
+    },
+    q3: {
+        format: "multiple_choice",
+        question_number: "3",
+        question: "What does increasing ISO do to a photo?",
+        options: ["Make it darker and sharper", 
+                  "Increases motion blur", 
+                  "Makes it brighter but adds noise", 
+                  "Changes the depth of field"],
+        answer: "Makes it brighter but adds noise",
+      },
+    
       
 
 };
