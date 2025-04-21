@@ -7,6 +7,7 @@ import { quizQuestionData } from "../data/quizQuestionData";
 import MultipleChoiceQuestion from "./quiz/MultipleChoiceQuestion";
 import TableFillBlanksQuestion from "./quiz/TableFillBlanksQuestion";
 import OrderImagesQuestion from "./quiz/OrderImagesQuestion";
+import MatchImageQuestion from "./quiz/MatchImageQuestion";
 
 function QuizQuestion() {
   const { type } = useParams();
@@ -88,7 +89,10 @@ function QuizQuestion() {
         return <TableFillBlanksQuestion info={info} questionKey={type} reviewMode={reviewMode} />;
       case "order_images":
         return <OrderImagesQuestion info={info} questionKey={type} reviewMode={reviewMode} />;
-        default:
+      case "match_image":
+        return <MatchImageQuestion info={info} questionKey={type} reviewMode={reviewMode} />;
+      
+      default:
         return <p>Unsupported question format.</p>;
     }
   };

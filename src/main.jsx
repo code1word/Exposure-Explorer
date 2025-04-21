@@ -6,6 +6,7 @@ import App from "./App";
 import { QuizProvider as MultipleChoiceProvider } from "./context/QuizContextMultipleChoice";
 import { QuizProvider as TableProvider } from "./context/QuizContextTable";
 import { QuizProvider as OrderImagesProvider } from "./context/QuizContextOrderImages";
+import { QuizProvider as MatchImageProvider } from "./context/QuizContextMatchImage";
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -16,9 +17,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <MultipleChoiceProvider>
         <TableProvider>
           <OrderImagesProvider>
-            <DndProvider backend={HTML5Backend}>
-                <App />
-            </DndProvider>
+            <MatchImageProvider>
+              <DndProvider backend={HTML5Backend}>
+                  <App />
+              </DndProvider>
+            </MatchImageProvider>
           </OrderImagesProvider>
         </TableProvider>
           

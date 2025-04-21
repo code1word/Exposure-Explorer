@@ -12,10 +12,14 @@ import OrderImagesQuestion from "../quiz/OrderImagesQuestion";
 import { QuizContext as QuizContextMultipleChoice } from "../../context/QuizContextMultipleChoice";
 import { QuizContext as QuizContextTableFillBlanks } from "../../context/QuizContextTable";
 import { QuizContext as QuizContextOrderImages } from "../../context/QuizContextOrderImages";
+import { QuizContext as QuizContextMatchImage } from "../../context/QuizContextMatchImage";
+
 
 function QuizResults() {
   const { selectedAnswers: selectedAnswersMC, resetQuiz: resetQuizMC } = useContext(QuizContextMultipleChoice);
   const { selectedOrder: selectedOrderImages, resetQuiz: resetQuizORD } = useContext(QuizContextOrderImages);
+  const { selectedImages: selectedImageMatch1, resetQuiz: resetQuizMATCH1 } = useContext(QuizContextMatchImage);
+
   
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
@@ -35,10 +39,14 @@ function QuizResults() {
   
       if (question.format === "multiple_choice") {
         isCorrect = selectedAnswersMC[key] === question.answer;
-      }else if (question.format === "order_images") {
+      }
+      else if (question.format === "order_images") {
         const userOrder = selectedOrderImages[key];
         isCorrect =
           JSON.stringify(userOrder) === JSON.stringify(question.correctOrder);
+      }
+      else if (question.format === "match_image"){
+        isCorrect = selectedImageMatch1[key] === question.referenceImage;
       }
   
       newCorrectness[questionNum] = isCorrect;
@@ -52,6 +60,7 @@ function QuizResults() {
   const handleStart = () => {
     resetQuizMC();
     resetQuizORD();
+    resetQuizMATCH1();
     navigate(`/learn/practice/${questionKeys[0]}`);
   };
 

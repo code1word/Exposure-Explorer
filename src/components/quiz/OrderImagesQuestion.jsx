@@ -10,7 +10,7 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
   const [currentOrder, setCurrentOrder] = useState(
     selectedOrder[questionKey] || info.images
   );
-  console.log("currentOrder", currentOrder);
+  {/*console.log("currentOrder", currentOrder);*/}
 
   const [draggedIndex, setDraggedIndex] = useState(null);
 

@@ -5,6 +5,42 @@ import orderActionShot from "./quiz_images/orderActionShot.png";
 import orderNightPhotography from "./quiz_images/orderNightPhotography.png";
 import orderPortrait from "./quiz_images/orderPortrait.png";
 
+import orderPortrait00 from "./quiz_images/orderPortrait.png";
+import orderPortrait10 from "./quiz_images/orderPortrait.png";
+import orderPortrait20 from "./quiz_images/orderPortrait.png";
+import orderPortrait30 from "./quiz_images/orderPortrait.png";
+
+import orderPortrait40 from "./quiz_images/orderActionShot.png";
+
+import orderPortrait50 from "./quiz_images/orderPortrait.png";
+import orderPortrait60 from "./quiz_images/orderPortrait.png";
+import orderPortrait70 from "./quiz_images/orderPortrait.png";
+
+import orderPortrait80 from "./quiz_images/orderPortrait.png";
+import orderPortrait90 from "./quiz_images/orderPortrait.png";
+import orderPortrait100 from "./quiz_images/orderPortrait.png";
+
+const portraitImageMap = {
+  0: orderPortrait00,
+  1: orderPortrait10,
+  2: orderPortrait20,
+  3: orderPortrait30,
+  4: orderPortrait40,
+  5: orderPortrait50,
+  6: orderPortrait60,
+  7: orderPortrait70,
+  8: orderPortrait80,
+  9: orderPortrait90,
+  10: orderPortrait100,
+};
+
+
+
+/*
+ * All types of questions have the following fields:
+ *    format, question_number (unique and ordered), and hint 
+ */
+
 export const quizQuestionData = {
     q1: {
         format: "multiple_choice",
@@ -15,6 +51,7 @@ export const quizQuestionData = {
                   "Aperture", 
                   "None of the above"],
         answer: "Aperture",
+        hint: "hint for q1"
       },
     q2: {
       format: "table_fill_blanks",
@@ -41,7 +78,8 @@ export const quizQuestionData = {
         "Narrower-Image Brightness": "Darker",
         "Narrower-Depth of Field": "Deeper",
         "Narrower-F-stop": "Large f-stop",
-      }
+      },
+      hint: "hint for q2"
     },
     q3: {
         format: "multiple_choice",
@@ -52,6 +90,7 @@ export const quizQuestionData = {
                   "Makes it brighter but adds noise", 
                   "Changes the depth of field"],
         answer: "Makes it brighter but adds noise",
+        hint: "hint for q3"
       },
     q4: {
       format: "order_images",
@@ -68,8 +107,17 @@ export const quizQuestionData = {
         orderLandscape,
         orderPortrait,
         orderActionShot   // highest shutter speed
-      ]
-    }
+      ],
+      hint: "hint for q4"
+    },
+    q5: {
+      format: "match_image",
+      question_number: "5",
+      question: "Adjust the image using the slider until it matches the reference image.",
+      referenceImage: orderPortrait40,
+      correctSetting: "f/0.40",
+      hint: "hint for q5",
+    },
     
       
 
