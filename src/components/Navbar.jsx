@@ -12,7 +12,7 @@ function OurNavbar() {
           <Nav className="me-auto">
             <Nav.Link href="/learn">Learn Settings</Nav.Link>
             <Nav.Link href="/simulator">Interactive Simulator</Nav.Link>
-            <Nav.Link href="/practice">Practice Mode</Nav.Link>
+            <Nav.Link href="/practice">Quiz Mode</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

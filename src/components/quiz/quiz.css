@@ -1,0 +1,16 @@
+.wide-column {
+    min-width: 190px;
+    width: 190px;
+  }
+
+.qtitle-length {
+    height: 175px; 
+    overflowY: auto;
+          
+}
+
+.question-length {
+    height: 400px; 
+    overflowY: auto;
+    justify-content: center;
+}
