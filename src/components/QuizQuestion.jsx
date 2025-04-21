@@ -9,6 +9,19 @@ import TableFillBlanksQuestion from "./quiz/TableFillBlanksQuestion";
 import OrderImagesQuestion from "./quiz/OrderImagesQuestion";
 import MatchImageQuestion from "./quiz/MatchImageQuestion";
 
+const NavButton = ({ label, onClick, style = {} }) => (
+  <button
+    onClick={onClick}
+    style={{
+      marginTop: "1.5rem",
+      fontSize: "1.5rem",
+      ...style,
+    }}
+  >
+    {label}
+  </button>
+);
+
 function QuizQuestion() {
   const { type } = useParams();
   const info = quizQuestionData[type];
@@ -52,102 +65,28 @@ function QuizQuestion() {
   };
 
   const renderNavigationButtons = () => {
-
-    if (!reviewMode){
-      if (nextKey){
-        return (
-          <div>
-            <button onClick={handleNext} style={{ 
-              marginTop: "1.5rem",
-              fontSize: "1.5rem" }}>
-              Next →
-            </button>
-          </div>
-        );
-      } else if (previousKey){
-        return (
-          <button onClick={handleFinish} style={{ 
-            marginTop: "1.5rem",
-            fontSize: "1.5rem" }}>
-            Finish
-          </button>
-        )
-      }
-    }
-    else{
-      if (previousKey && nextKey) {
-      
-        return (
-          <div>
-            <div>
-              <button onClick={handlePrevious} style={{ 
-              marginTop: "1.5rem",
-              fontSize: "1.5rem" }}>
-                ← Previous
-              </button>
-              <button onClick={handleNext} style={{ 
-              marginTop: "1.5rem",
-              fontSize: "1.5rem" }}>
-                Next →
-              </button>
-            </div>
-            
-            <div>
-              <button onClick={handleFinish} style={{ 
-              marginTop: "1.5rem",
-              fontSize: "1.5rem" }}>
-                See Results
-              </button>
-            </div>
-          </div>
-        );
-      } else if (nextKey) {
-        return (
-          <div>
-            <div>
-              <button onClick={handleNext} style={{ 
-              marginTop: "1.5rem",
-              fontSize: "1.5rem" }}>
-                Next →
-              </button>
-            </div>
-            <div>
-              <button onClick={handleFinish} style={{ 
-              marginTop: "1.5rem",
-              fontSize: "1.5rem" }}>
-                  See Results
-              </button>
-            </div>
-            
-          </div>
-        );
-      } else if (previousKey) {
-        return (
-          <div>
-            <div>
-              <button onClick={handlePrevious} style={{ 
-              marginTop: "1.5rem",
-              fontSize: "1.5rem" }}>
-                ← Previous
-              </button>
-            </div>
-            
-            <div>
-              <button onClick={handleFinish} style={{ 
-              marginTop: "1.5rem",
-              fontSize: "1.5rem" }}>
-                See Results
-              </button>
-            </div>
-            
-          </div>
-        );
-      }
+    const nextBtn = nextKey && (
+      <NavButton label="Next →" onClick={handleNext} />
+    );
+    const prevBtn = previousKey && (
+      <NavButton label="← Previous" onClick={handlePrevious} />
+    );
+    const finishBtn = (
+      <NavButton label={reviewMode ? "See Results" : "Finish"} onClick={handleFinish} />
+    );
+  
+    if (reviewMode) {
+      return (
+        <div>
+          {prevBtn}
+          {nextBtn}
+          {finishBtn}
+        </div>
+      );
     }
   
-    return null;
+    return nextKey ? nextBtn : finishBtn;
   };
-
 
 
   const [searchParams] = useSearchParams();
