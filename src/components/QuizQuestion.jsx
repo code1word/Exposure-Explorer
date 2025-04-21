@@ -69,7 +69,7 @@ function QuizQuestion() {
           <button onClick={handleFinish} style={{ 
             marginTop: "1.5rem",
             fontSize: "1.5rem" }}>
-            See Results
+            Finish
           </button>
         )
       }
@@ -201,9 +201,11 @@ function QuizQuestion() {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <Container className="py-4">
-        <Row style={{ 
-          height: "75px", 
+      <Container className="py-4" style={{ 
+        height: "120px", display: "flex", flexDirection: "column" }}>
+          <div style={{ flex: "0 1 auto"}}>
+          <Row style={{ 
+          minHeight: "100px",
           overflowY: "auto" 
           }}>
           <Col md={1}></Col>
@@ -239,13 +241,14 @@ function QuizQuestion() {
             </Modal.Footer>
         </Modal>
         </Row>
+          </div>
+        
       </Container>
 
       <Container className="py-4">
-        <Row style={{ 
-          height: "400px", 
-          overflowY: "auto" 
-          }}>
+        <div style={{ flex: "1 1 auto" }}>
+
+          <Row>
 
           <Col md={1}></Col>
 
@@ -254,9 +257,9 @@ function QuizQuestion() {
           </Col>
 
           <Col md={1}></Col>
-        </Row>
+          </Row>
 
-        <Row className="text-end pt-0">
+          <Row className="text-end pt-0">
           <Col md={1}></Col>
 
           <Col md={7}></Col>
@@ -267,8 +270,10 @@ function QuizQuestion() {
 
 
           <Col md={1}></Col>
-          
-        </Row>
+
+          </Row>
+        </div>
+        
         
       </Container>
 

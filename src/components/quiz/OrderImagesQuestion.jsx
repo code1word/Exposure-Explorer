@@ -44,7 +44,7 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
 
   return (
     <div>
-      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
+      <div style={{ marginTop: "70px", display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
         {currentOrder.map((imgSrc, index) => (
           <div
             key={imgSrc}
