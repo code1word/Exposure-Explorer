@@ -5,6 +5,8 @@ import { useDrag, useDrop } from "react-dnd";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { QuizContext } from "../../context/QuizContextTable";
 
+import "./quiz.css";
+
 const ItemType = "ANSWER";
 
 // Draggable item for the word bank
@@ -181,7 +183,7 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
     });
   };
 
-    const handleRemove = (row, col, word) => {
+  const handleRemove = (row, col, word) => {
     const cellKey = `${row}-${col}`;
 
     // Remove the word from the answers state
@@ -202,7 +204,8 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
         }
         return prevWordBank;
     });
-    };
+    recordAnswer(questionKey, updatedAnswers);
+  };
 
   // Filter available answers to show unused words in the word bank
   const availableAnswers = useMemo(() => {
@@ -213,7 +216,8 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
     <div>
       <Row style={{ 
         height: "100px", 
-        overflowY: "auto" }}>
+        overflowY: "auto",
+        marginBottom: "30px" }}>
         <p><strong>Word Bank:</strong></p>
         <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "1rem" }}>
             {availableAnswers.map((answer) => (
@@ -227,39 +231,41 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
       </Row>
       
 
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            {info.columns.map((col) => (
-              <th key={col}>{col}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {info.rows.map((row) => (
-            <tr key={row}>
-              <td>{row}</td>
-              {info.columns.map((col) => {
-                const key = `${row}-${col}`;
-                return (
-                  <td key={key}>
-                    <DroppableCell
-                      row={row}
-                      col={col}
-                      currentValue={answers[key]} // Ensure the cell value is pulled from answers
-                      onDrop={handleDrop}
-                      reviewMode={reviewMode}
-                      correctValue={info.correctAnswers[key]}
-                      onRemove={handleRemove}
-                    />
-                  </td>
-                );
-              })}
+      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                {info.columns.map((col) => (
+                <th key={col} className="wide-column">{col}</th>
+                ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+            {info.rows.map((row) => (
+                <tr key={row}>
+                <td>{row}</td>
+                {info.columns.map((col) => {
+                    const key = `${row}-${col}`;
+                    return (
+                    <td key={key} className="wide-column">
+                        <DroppableCell
+                        row={row}
+                        col={col}
+                        currentValue={answers[key]} // Ensure the cell value is pulled from answers
+                        onDrop={handleDrop}
+                        reviewMode={reviewMode}
+                        correctValue={info.correctAnswers[key]}
+                        onRemove={handleRemove}
+                        />
+                    </td>
+                    );
+                })}
+                </tr>
+            ))}
+            </tbody>
+        </table>
+      </div>
     </div>
   );
 }

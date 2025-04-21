@@ -18,28 +18,28 @@ export const quizQuestionData = {
         format: "multiple_choice",
         question_number: "1",
         question: "Which setting controls how much of the scene is in focus?",
-        options: ["ISO", 
-                  "Shutter Speed", 
-                  "Aperture", 
-                  "None of the above"],
-        answer: "Aperture",
+        options: ["   ISO", 
+                  "   Shutter Speed", 
+                  "   Aperture", 
+                  "   None of the above"],
+        answer: "   Aperture",
         hint: "hint for q1"
       },
     q2: {
       format: "multiple_choice",
       question_number: "2",
       question: "What does increasing ISO do to a photo?",
-      options: ["Make it darker and sharper", 
-                "Increases motion blur", 
-                "Makes it brighter but adds noise", 
-                "Changes the depth of field"],
-      answer: "Makes it brighter but adds noise",
+      options: ["   Make it darker and sharper", 
+                "   Increases motion blur", 
+                "   Makes it brighter but adds noise", 
+                "   Changes the depth of field"],
+      answer: "   Makes it brighter but adds noise",
       hint: "hint for q2"
     },
     q3: {
       format: "table_fill_blanks",
       question_number: "3",
-      question: "Fill in the table below using the word bank.",
+      question: "Fill in the table for aperture below using the word bank.",
       wordBank: [
         "Large f-stop", 
         "Shallower",
@@ -50,7 +50,7 @@ export const quizQuestionData = {
         "Brighter",
         "Deeper"
       ],
-      rows: ["Wider", "Narrower"],
+      rows: ["Wider Aperture", "Narrower Aperture"],
       columns: ["Light Entering Camera", "Image Brightness", "Depth of Field", "F-stop"],
       correctAnswers: {
         "Wider-Light Entering Camera": "More light",

@@ -57,14 +57,18 @@ function QuizQuestion() {
       if (nextKey){
         return (
           <div>
-            <button onClick={handleNext} style={{ marginTop: "1.5rem" }}>
+            <button onClick={handleNext} style={{ 
+              marginTop: "1.5rem",
+              fontSize: "1.5rem" }}>
               Next →
             </button>
           </div>
         );
       } else if (previousKey){
         return (
-          <button onClick={handleFinish} style={{ marginTop: "1.5rem" }}>
+          <button onClick={handleFinish} style={{ 
+            marginTop: "1.5rem",
+            fontSize: "1.5rem" }}>
             See Results
           </button>
         )
@@ -76,16 +80,22 @@ function QuizQuestion() {
         return (
           <div>
             <div>
-              <button onClick={handlePrevious} style={{ marginTop: "1.5rem" }}>
+              <button onClick={handlePrevious} style={{ 
+              marginTop: "1.5rem",
+              fontSize: "1.5rem" }}>
                 ← Previous
               </button>
-              <button onClick={handleNext} style={{ marginTop: "1.5rem" }}>
+              <button onClick={handleNext} style={{ 
+              marginTop: "1.5rem",
+              fontSize: "1.5rem" }}>
                 Next →
               </button>
             </div>
             
             <div>
-              <button onClick={handleFinish} style={{ marginTop: "1.5rem" }}>
+              <button onClick={handleFinish} style={{ 
+              marginTop: "1.5rem",
+              fontSize: "1.5rem" }}>
                 See Results
               </button>
             </div>
@@ -95,12 +105,16 @@ function QuizQuestion() {
         return (
           <div>
             <div>
-              <button onClick={handleNext} style={{ marginTop: "1.5rem" }}>
+              <button onClick={handleNext} style={{ 
+              marginTop: "1.5rem",
+              fontSize: "1.5rem" }}>
                 Next →
               </button>
             </div>
             <div>
-              <button onClick={handleFinish} style={{ marginTop: "1.5rem" }}>
+              <button onClick={handleFinish} style={{ 
+              marginTop: "1.5rem",
+              fontSize: "1.5rem" }}>
                   See Results
               </button>
             </div>
@@ -111,13 +125,17 @@ function QuizQuestion() {
         return (
           <div>
             <div>
-              <button onClick={handlePrevious} style={{ marginTop: "1.5rem" }}>
+              <button onClick={handlePrevious} style={{ 
+              marginTop: "1.5rem",
+              fontSize: "1.5rem" }}>
                 ← Previous
               </button>
             </div>
             
             <div>
-              <button onClick={handleFinish} style={{ marginTop: "1.5rem" }}>
+              <button onClick={handleFinish} style={{ 
+              marginTop: "1.5rem",
+              fontSize: "1.5rem" }}>
                 See Results
               </button>
             </div>
@@ -193,12 +211,20 @@ function QuizQuestion() {
             <h2>Question {currentIndex+1}: {info.question}</h2>
           </Col>
           <Col md={1}>
-            <Button variant="secondary" size="md" onClick={handleShow}>
-              Hint <br />
-              ({hintsLeft} left)
-            </Button>
+            {!reviewMode && (
+              <Button 
+                variant="secondary" 
+                size="md" 
+                onClick={handleShow}>
+                  
+                Hint <br />
+                ({hintsLeft} left)
+              </Button>
+            )}
+            
           </Col>
           <Col md={1}></Col>
+
           <Modal show={showHint} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Hint</Modal.Title>
@@ -217,17 +243,16 @@ function QuizQuestion() {
 
       <Container className="py-4">
         <Row style={{ 
-          height: "350px", 
+          height: "400px", 
           overflowY: "auto" 
           }}>
 
           <Col md={1}></Col>
 
-          <Col md={9}>
+          <Col md={10}>
             {renderQuestionContent(info)}
           </Col>
 
-          <Col md={1}></Col>
           <Col md={1}></Col>
         </Row>
 

@@ -1,6 +1,8 @@
 // src/quizQuestions/MultipleChoice.jsx
 
 import React, { useState, useContext } from "react";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
+
 import { QuizContext } from "../../context/QuizContextMultipleChoice";
 
 
@@ -21,30 +23,42 @@ function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
 
   return (
     <div>
-      {info.options.map((option, i) => (
-        <div key={i}>
-          <label>
-            <input
-              type="radio"
-              name={`quiz-${info.question_number}`}
-              value={option}
-              checked={selectedAnswer === option}
-              onChange={() => handleSelect(option)}
-              disabled={reviewMode} // Prevent changes in review
-              readOnly
-            />
-            {option} {getStatusEmoji(option)}
-          </label>
-        </div>
-      ))}
+      <Row>
+        <Col md={1}></Col>
 
-      {reviewMode && selectedAnswer && (
-        <p style={{ marginTop: "1rem" }}>
-          {selectedAnswer === info.answer
-            ? "✅ Correct!"
-            : `❌ Incorrect. Correct answer: ${info.answer}`}
-        </p>
-      )}
+        <Col md={6}>
+          {info.options.map((option, i) => (
+            <div key={i}>
+              <label style={{
+                fontSize: "1.5rem"
+              }}>
+                <input
+                  type="radio"
+                  name={`quiz-${info.question_number}`}
+                  value={option}
+                  checked={selectedAnswer === option}
+                  onChange={() => handleSelect(option)}
+                  disabled={reviewMode} // Prevent changes in review
+                  readOnly
+                />
+                {option} {getStatusEmoji(option)}
+              </label>
+            </div>
+          ))}
+
+          {reviewMode && selectedAnswer && (
+            <p style={{ marginTop: "1rem" }}>
+              {selectedAnswer === info.answer
+                ? "✅ Correct!"
+                : `❌ Incorrect. Correct answer: ${info.answer}`}
+            </p>
+          )}
+        </Col>
+
+        
+        
+      </Row>
+      
     </div>
   );
 }
