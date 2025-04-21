@@ -5,35 +5,7 @@ import orderActionShot from "./quiz_images/orderActionShot.png";
 import orderNightPhotography from "./quiz_images/orderNightPhotography.png";
 import orderPortrait from "./quiz_images/orderPortrait.png";
 
-import orderPortrait00 from "./quiz_images/orderPortrait.png";
-import orderPortrait10 from "./quiz_images/orderPortrait.png";
-import orderPortrait20 from "./quiz_images/orderPortrait.png";
-import orderPortrait30 from "./quiz_images/orderPortrait.png";
-
 import orderPortrait40 from "./quiz_images/orderActionShot.png";
-
-import orderPortrait50 from "./quiz_images/orderPortrait.png";
-import orderPortrait60 from "./quiz_images/orderPortrait.png";
-import orderPortrait70 from "./quiz_images/orderPortrait.png";
-
-import orderPortrait80 from "./quiz_images/orderPortrait.png";
-import orderPortrait90 from "./quiz_images/orderPortrait.png";
-import orderPortrait100 from "./quiz_images/orderPortrait.png";
-
-const portraitImageMap = {
-  0: orderPortrait00,
-  1: orderPortrait10,
-  2: orderPortrait20,
-  3: orderPortrait30,
-  4: orderPortrait40,
-  5: orderPortrait50,
-  6: orderPortrait60,
-  7: orderPortrait70,
-  8: orderPortrait80,
-  9: orderPortrait90,
-  10: orderPortrait100,
-};
-
 
 
 /*
@@ -54,8 +26,19 @@ export const quizQuestionData = {
         hint: "hint for q1"
       },
     q2: {
-      format: "table_fill_blanks",
+      format: "multiple_choice",
       question_number: "2",
+      question: "What does increasing ISO do to a photo?",
+      options: ["Make it darker and sharper", 
+                "Increases motion blur", 
+                "Makes it brighter but adds noise", 
+                "Changes the depth of field"],
+      answer: "Makes it brighter but adds noise",
+      hint: "hint for q2"
+    },
+    q3: {
+      format: "table_fill_blanks",
+      question_number: "3",
       question: "Fill in the table below using the word bank.",
       wordBank: [
         "Large f-stop", 
@@ -79,19 +62,8 @@ export const quizQuestionData = {
         "Narrower-Depth of Field": "Deeper",
         "Narrower-F-stop": "Large f-stop",
       },
-      hint: "hint for q2"
+      hint: "hint for q3"
     },
-    q3: {
-        format: "multiple_choice",
-        question_number: "3",
-        question: "What does increasing ISO do to a photo?",
-        options: ["Make it darker and sharper", 
-                  "Increases motion blur", 
-                  "Makes it brighter but adds noise", 
-                  "Changes the depth of field"],
-        answer: "Makes it brighter but adds noise",
-        hint: "hint for q3"
-      },
     q4: {
       format: "order_images",
       question_number: "4",

@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import QuizPhotoSlider from "./QuizPhotoSlider"; 
 import { QuizContext } from "../../context/QuizContextMatchImage";
 
+//manual labor
 import orderPortrait00 from "../../data/quiz_images/orderPortrait.png";
 import orderPortrait10 from "../../data/quiz_images/orderPortrait.png";
 import orderPortrait20 from "../../data/quiz_images/orderPortrait.png";
@@ -88,7 +89,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
 
   return (
     <Container className="">
-      <Row className="align-items-center">
+      <Row className="d-flex align-items-center">
 
         <Row className="text-center pt-3">
           {/* Setting Description and Reference image title*/}
@@ -101,51 +102,54 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
           </Col>
 
         </Row>
-
-        {/* Slider section */}
-        <Col md={6}>
-          <QuizPhotoSlider
-            title="Aperture"
-            description=""
-            imageSrcFunction={(val) => {
-              const clamped = Math.max(0, Math.min(1, val));
-              const imageIndex = Math.round(clamped * 10);
-              return portraitImageMap[imageIndex];
-            }}
-            min={0}
-            max={1}
-            step={0.1}
-            initialValue={sliderValue}
-            onChange={handleSliderChange}
-            unitPrefix="f/"
-            leftLabel="Small aperture"
-            leftDescriptions={[]}
-            rightLabel="Large aperture"
-            rightDescriptions={[]}
-          />
-        </Col>
-
-        {/* Reference image section */}
-        <Col md={6}>
-          <Container className="text-center py-2">
-            <img
-              src={info.referenceImage}
-              alt="Reference"
-              style={{ 
-                maxWidth: "55%", 
-                height: "auto", 
-                padding: "none",
-                marginBottom: "0%" }}
+        
+        <Row className="align-items-start">
+          {/* Slider section */}
+          <Col md={6}>
+            <QuizPhotoSlider
+              title="Aperture"
+              description=""
+              imageSrcFunction={(val) => {
+                const clamped = Math.max(0, Math.min(1, val));
+                const imageIndex = Math.round(clamped * 10);
+                return portraitImageMap[imageIndex];
+              }}
+              min={0}
+              max={1}
+              step={0.1}
+              initialValue={sliderValue}
+              onChange={handleSliderChange}
+              unitPrefix="f/"
+              leftLabel="Small aperture"
+              leftDescriptions={[]}
+              rightLabel="Large aperture"
+              rightDescriptions={[]}
             />
-            {reviewMode && (
-              <div style={{ marginTop: "1rem", fontWeight: "bold", fontSize: "1.1rem" }}>
-                {getStatus()}
-              </div>
-            )}
-          </Container>
-          
-          
-        </Col>
+          </Col>
+
+          {/* Reference image section */}
+          <Col md={6}>
+            <Container className="text-center py-2">
+              <img
+                src={info.referenceImage}
+                alt="Reference"
+                style={{ 
+                  maxWidth: "55%", 
+                  height: "auto", 
+                  padding: "none",
+                  }}
+              />
+              {reviewMode && (
+                <div style={{ marginTop: "1rem", fontWeight: "bold", fontSize: "1.1rem" }}>
+                  {getStatus()}
+                </div>
+              )}
+            </Container>
+          </Col>
+        </Row>
+
+        
+
       </Row>
     </Container>
   );

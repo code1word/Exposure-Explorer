@@ -1,43 +1,46 @@
-import React, { useState, useContext, useEffect } from "react";
+//src/components/quiz/TableFillBlanksQuestion.jsx
+
+import React, { useState, useContext, useEffect, useMemo } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { QuizContext } from "../../context/QuizContextTable";
 
 const ItemType = "ANSWER";
 
 // Draggable item for the word bank
 function DraggableItem({ answer, onDrag }) {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemType,
-    item: { answer },
-    end: (item, monitor) => {
-      if (monitor.didDrop()) {
-        onDrag(item.answer); // Successful drop
-      } else {
-        onDrag(item.answer, false); // Return to word bank
-      }
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }));
-
-  return (
-    <div
-      ref={drag}
-      style={{
-        opacity: isDragging ? 0.5 : 1,
-        padding: "5px",
-        margin: "5px",
-        border: "1px solid #ccc",
-        borderRadius: "4px",
-        backgroundColor: "#f9f9f9",
-        cursor: "grab",
-      }}
-    >
-      {answer}
-    </div>
-  );
-}
+    const [{ isDragging }, drag, preview] = useDrag(() => ({
+      type: ItemType,
+      item: { answer },
+      end: (item, monitor) => {
+        if (monitor.didDrop()) {
+          onDrag(item.answer); // Successful drop
+        } else {
+          onDrag(item.answer, false); // Return to word bank
+        }
+      },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    }));
+  
+    return (
+      <div
+        ref={drag}
+        style={{
+          padding: "5px",
+          margin: "5px",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          backgroundColor: "#f9f9f9",
+          cursor: "grab",
+        }}
+      >
+        {answer}
+      </div>
+    );
+  }
+  
 
 // Droppable cell in the table
 function DroppableCell({
@@ -52,13 +55,9 @@ function DroppableCell({
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemType,
     drop: (item) => {
-        if (!reviewMode && currentValue === "") {
-          onDrop(item.answer, row, col);
-        }
-      },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
+        onDrop(item.answer, row, col); // No need for success here
+    },
+    canDrop: () => !reviewMode && currentValue === "", // Prevent dropping in review mode
   }));
 
   let displayValue = currentValue || "";
@@ -80,6 +79,9 @@ function DroppableCell({
     } else if (currentValue) {
       style.backgroundColor = "#f8d7da"; // Red for incorrect answer
       displayValue = `❌ ${currentValue}`;
+    } else{
+      style.backgroundColor = "#f8d7da"; // Red for incorrect answer
+      displayValue = `❌`;
     }
   }
 
@@ -95,8 +97,9 @@ function DroppableCell({
             padding: "2px 5px",
             cursor: "pointer",
             border: "none",
-            backgroundColor: "rgba(1,1,1,0)",
-            color: "black",
+            backgroundColor: "#f44336",
+            backgroundColor: "rgb(1,1,1,0)",
+            color: "white",
           }}
         >
           🗑️
@@ -107,20 +110,10 @@ function DroppableCell({
 }
 
 function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
-  const { 
-    selectedAnswers, 
-    recordAnswer, 
-    questionWordBanks, 
-    initializeWordBank, 
-    updateWordBank,
-    usedAnswersMap,
-    updateUsedAnswers
-  } = useContext(QuizContext);
-  
-  // Get the saved answers for this question or initialize empty
+  const { selectedAnswers, recordAnswer } = useContext(QuizContext);
   const initialAnswers = selectedAnswers[questionKey] || {};
 
-  // Track answers in the table
+  // Track answers persistently in the table
   const [answers, setAnswers] = useState(() => {
     const blankCells = {};
     info.rows.forEach((row) => {
@@ -131,167 +124,108 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
     });
     return blankCells;
   });
-  console.log("initial answers", answers);
 
-  // Initialize word bank from context or use the initial value
-  const [wordBank, setWordBank] = useState(() => {
-    return questionWordBanks[questionKey] || [...info.wordBank];
-  });
+  
 
-  // Initialize used answers from context or derive from existing answers
-  const [usedAnswers, setUsedAnswers] = useState(() => {
-    if (usedAnswersMap[questionKey]) {
-      return [...usedAnswersMap[questionKey]];
-    } else {
-      // If no used answers in context, derive from answers
-      return Object.values(initialAnswers).filter(Boolean);
-    }
-  });
+  // Store word bank and track used answers separately
+  const [wordBank, setWordBank] = useState(info.wordBank);
+  const [usedAnswers, setUsedAnswers] = useState([]); // Track used answers that have been placed in the table
+  const [pendingAnswers, setPendingAnswers] = useState(null); // Track answers that need to be recorded later
 
-  // Track if we've loaded from context to prevent recreation of initial state
-  const [loadedFromContext, setLoadedFromContext] = useState(false);
-
-  // Effect to initialize context when component mounts
   useEffect(() => {
-    // Only initialize once when the component mounts
-    if (!loadedFromContext) {
-      // Initialize word bank if not already in context
-      if (!questionWordBanks[questionKey]) {
-        // Calculate initial word bank by removing words already in answers
-        const usedWords = Object.values(initialAnswers).filter(Boolean);
-        const initialWordBank = info.wordBank.filter(word => !usedWords.includes(word));
-        initializeWordBank(questionKey, initialWordBank);
-        setWordBank(initialWordBank);
-      }
-
-      // Initialize used answers if not already in context
-      if (!usedAnswersMap[questionKey]) {
-        const usedWords = Object.values(initialAnswers).filter(Boolean);
-        updateUsedAnswers(questionKey, usedWords);
-        setUsedAnswers(usedWords);
-      }
-      
-      setLoadedFromContext(true);
+    const storedAnswers = selectedAnswers[questionKey];
+    if (storedAnswers) {
+      setAnswers(storedAnswers);
+  
+      const used = Object.values(storedAnswers).filter(Boolean);
+      setUsedAnswers(used);
+  
+      // Remove used words from the word bank
+      setWordBank(info.wordBank.filter((word) => !used.includes(word)));
     }
-  }, [
-    questionKey, 
-    info.wordBank, 
-    questionWordBanks, 
-    initializeWordBank, 
-    usedAnswersMap, 
-    updateUsedAnswers, 
-    initialAnswers, 
-    loadedFromContext
-  ]);
+  }, [selectedAnswers, questionKey, info.wordBank]);
 
-  // Effect to load data from context when context changes (e.g., navigation back to this component)
   useEffect(() => {
-    // Skip during initial mounting
-    if (loadedFromContext) {
-      // Load answers from context
-      const storedAnswers = selectedAnswers[questionKey] || {};
-      const currentAnswersJson = JSON.stringify(answers);
-      const storedAnswersJson = JSON.stringify(storedAnswers);
-      
-      if (storedAnswersJson !== currentAnswersJson) {
-        setAnswers(storedAnswers);
-      }
-      
-      // Load word bank from context
-      const storedWordBank = questionWordBanks[questionKey];
-      if (storedWordBank) {
-        setWordBank(storedWordBank);
-      }
-      
-      // Load used answers from context
-      const storedUsedAnswers = usedAnswersMap[questionKey];
-      if (storedUsedAnswers) {
-        setUsedAnswers(storedUsedAnswers);
-      }
+    // If there are pending answers, record them after render
+    if (pendingAnswers) {
+      recordAnswer(questionKey, pendingAnswers);
+      setPendingAnswers(null); // Reset pending answers after recording
     }
-  }, [selectedAnswers, questionWordBanks, usedAnswersMap, questionKey, loadedFromContext]);
+  }, [pendingAnswers, questionKey, recordAnswer]);
 
   const handleDrop = (answer, row, col) => {
     const cellKey = `${row}-${col}`;
-
-    console.log("answers in handleDrop", answers);
   
-    if (reviewMode || answers[cellKey] !== "") {
-      console.log("❌ Drop ignored - cell already filled or in review mode.");
-      return;
-    }
+    setAnswers((prevAnswers) => {
+      if (reviewMode || prevAnswers[cellKey] !== "") {
+        console.log("❌ Drop ignored - cell already filled or in review mode.");
+        return prevAnswers;
+      }
   
-    // 1. Update table answers
-    const updatedAnswers = { ...answers, [cellKey]: answer };
-    setAnswers(updatedAnswers);
-    recordAnswer(questionKey, { [cellKey]: answer }); // ✅ just update that cell
-    console.log("✅ Dropped answer:", answer);
-    console.log("🧩 updatedAnswers:", updatedAnswers);
+      const updated = { ...prevAnswers, [cellKey]: answer };
+      setPendingAnswers(updated);
   
-    // 2. Update used answers
-    const currentUsed = [...usedAnswers, answer];
-    const newUsed = Object.values(updatedAnswers).filter(Boolean);
-    setUsedAnswers(newUsed);
-    updateUsedAnswers(questionKey, newUsed);
-    console.log("🧠 updated usedAnswers:", newUsed);
+      // Only update wordBank and usedAnswers on successful drop
+      setUsedAnswers((prevUsed) => {
+        if (!prevUsed.includes(answer)) {
+          return [...prevUsed, answer];
+        }
+        return prevUsed;
+      });
   
-    // 3. Update word bank (remove the answer)
-    const newWordBank = wordBank.filter(word => word !== answer);
-    setWordBank(newWordBank);
-    updateWordBank(questionKey, newWordBank);
-    console.log("🧃 updated wordBank:", newWordBank);
+      setWordBank((prevWordBank) =>
+        prevWordBank.filter((item) => item !== answer)
+      );
+  
+      return updated;
+    });
   };
-  
 
-  const handleRemove = (row, col, word) => {
+    const handleRemove = (row, col, word) => {
     const cellKey = `${row}-${col}`;
 
     // Remove the word from the answers state
     const updatedAnswers = { ...answers };
     updatedAnswers[cellKey] = ""; // Clear the cell
     setAnswers(updatedAnswers);
-    
-    // Update context with the removed word
-    recordAnswer(questionKey, updatedAnswers);
 
-    // Check if the word is used elsewhere in the table
-    const isWordUsedElsewhere = Object.values(updatedAnswers).some(value => value === word);
-    
-    if (!isWordUsedElsewhere) {
-      // Remove word from the usedAnswers only if it's not used elsewhere
-      const updatedUsed = usedAnswers.filter(answer => answer !== word);
-      setUsedAnswers(updatedUsed);
-      updateUsedAnswers(questionKey, updatedUsed);
-      
-      // Add the word back to the word bank if it's not already there
-      if (!wordBank.includes(word)) {
-        const updatedWordBank = [...wordBank, word];
-        setWordBank(updatedWordBank);
-        updateWordBank(questionKey, updatedWordBank);
-      }
-    }
-  };
+    // Remove word from the usedAnswers
+    setUsedAnswers((prevUsed) => prevUsed.filter((answer) => answer !== word));
 
-  // Handle drag without drop (word returns to word bank)
-  const handleDragEnd = (answer, wasDropped = true) => {
-    if (!wasDropped) {
-      // Word was not dropped, nothing to do
-      console.log("Word returned to bank:", answer);
-    }
-  };
+    // Add the word back to the word bank
+    setWordBank((prevWordBank) => [...prevWordBank, word]);
+
+    // Ensure word is re-added to the word bank even if it was already there
+    setWordBank((prevWordBank) => {
+        if (!prevWordBank.includes(word)) {
+        return [...prevWordBank, word];
+        }
+        return prevWordBank;
+    });
+    };
+
+  // Filter available answers to show unused words in the word bank
+  const availableAnswers = useMemo(() => {
+    return wordBank.filter((word) => !usedAnswers.includes(word));
+  }, [usedAnswers, wordBank]);
 
   return (
     <div>
-      <p><strong>Word Bank:</strong></p>
-      <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "1rem" }}>
-        {wordBank.map((answer) => (
-          <DraggableItem
-            key={answer}
-            answer={answer}
-            onDrag={handleDragEnd}
-          />
-        ))}
-      </div>
+      <Row style={{ 
+        height: "100px", 
+        overflowY: "auto" }}>
+        <p><strong>Word Bank:</strong></p>
+        <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "1rem" }}>
+            {availableAnswers.map((answer) => (
+            <DraggableItem
+                key={answer}
+                answer={answer}
+                onDrag={() => {}}
+                />
+            ))}
+        </div>
+      </Row>
+      
 
       <table>
         <thead>
@@ -313,7 +247,7 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
                     <DroppableCell
                       row={row}
                       col={col}
-                      currentValue={answers[key]}
+                      currentValue={answers[key]} // Ensure the cell value is pulled from answers
                       onDrop={handleDrop}
                       reviewMode={reviewMode}
                       correctValue={info.correctAnswers[key]}
