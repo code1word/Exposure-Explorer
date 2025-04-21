@@ -12,7 +12,7 @@ import CheatSheet from "./components/CheatSheet";
 import CheatSheetDetail from "./components/cheatsheet/CheatSheetDetail";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import QuizQuestion from "./components/QuizQuestion";
+import QuizQuestion from "./components/quiz/QuizQuestion";
 import QuizResults from "./components/quiz/QuizResults";
 
 

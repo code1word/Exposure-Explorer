@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
-import { quizQuestionData } from "../data/quizQuestionData";
-import MultipleChoiceQuestion from "./quiz/MultipleChoiceQuestion";
-import TableFillBlanksQuestion from "./quiz/TableFillBlanksQuestion";
-import OrderImagesQuestion from "./quiz/OrderImagesQuestion";
-import MatchImageQuestion from "./quiz/MatchImageQuestion";
+import { quizQuestionData } from "../../data/quizQuestionData";
+import MultipleChoiceQuestion from "./MultipleChoiceQuestion";
+import TableFillBlanksQuestion from "./TableFillBlanksQuestion";
+import OrderImagesQuestion from "./OrderImagesQuestion";
+import MatchImageQuestion from "./MatchImageQuestion";
 
 const NavButton = ({ label, onClick, style = {} }) => (
   <button
