@@ -11,38 +11,37 @@ const ItemType = "ANSWER";
 
 // Draggable item for the word bank
 function DraggableItem({ answer, onDrag }) {
-    const [{ isDragging }, drag, preview] = useDrag(() => ({
-      type: ItemType,
-      item: { answer },
-      end: (item, monitor) => {
-        if (monitor.didDrop()) {
-          onDrag(item.answer); // Successful drop
-        } else {
-          onDrag(item.answer, false); // Return to word bank
-        }
-      },
-      collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-      }),
-    }));
-  
-    return (
-      <div
-        ref={drag}
-        style={{
-          padding: "5px",
-          margin: "5px",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-          backgroundColor: "#f9f9f9",
-          cursor: "grab",
-        }}
-      >
-        {answer}
-      </div>
-    );
-  }
-  
+  const [{ isDragging }, drag, preview] = useDrag(() => ({
+    type: ItemType,
+    item: { answer },
+    end: (item, monitor) => {
+      if (monitor.didDrop()) {
+        onDrag(item.answer); // Successful drop
+      } else {
+        onDrag(item.answer, false); // Return to word bank
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+
+  return (
+    <div
+      ref={drag}
+      style={{
+        padding: "5px",
+        margin: "5px",
+        border: "1px solid #ccc",
+        borderRadius: "4px",
+        backgroundColor: "#f9f9f9",
+        cursor: "grab",
+      }}
+    >
+      {answer}
+    </div>
+  );
+}
 
 // Droppable cell in the table
 function DroppableCell({
@@ -57,7 +56,7 @@ function DroppableCell({
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemType,
     drop: (item) => {
-        onDrop(item.answer, row, col); // No need for success here
+      onDrop(item.answer, row, col); // No need for success here
     },
     canDrop: () => !reviewMode && currentValue === "", // Prevent dropping in review mode
   }));
@@ -81,7 +80,7 @@ function DroppableCell({
     } else if (currentValue) {
       style.backgroundColor = "#f8d7da"; // Red for incorrect answer
       displayValue = `❌ ${currentValue}`;
-    } else{
+    } else {
       style.backgroundColor = "#f8d7da"; // Red for incorrect answer
       displayValue = `❌`;
     }
@@ -99,7 +98,7 @@ function DroppableCell({
             padding: "2px 5px",
             cursor: "pointer",
             border: "none",
-            backgroundColor: "#f44336",
+            // backgroundColor: "#f44336",
             backgroundColor: "rgb(1,1,1,0)",
             color: "white",
           }}
@@ -127,8 +126,6 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
     return blankCells;
   });
 
-  
-
   // Store word bank and track used answers separately
   const [wordBank, setWordBank] = useState(info.wordBank);
   const [usedAnswers, setUsedAnswers] = useState([]); // Track used answers that have been placed in the table
@@ -138,10 +135,10 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
     const storedAnswers = selectedAnswers[questionKey];
     if (storedAnswers) {
       setAnswers(storedAnswers);
-  
+
       const used = Object.values(storedAnswers).filter(Boolean);
       setUsedAnswers(used);
-  
+
       // Remove used words from the word bank
       setWordBank(info.wordBank.filter((word) => !used.includes(word)));
     }
@@ -157,16 +154,16 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
 
   const handleDrop = (answer, row, col) => {
     const cellKey = `${row}-${col}`;
-  
+
     setAnswers((prevAnswers) => {
       if (reviewMode || prevAnswers[cellKey] !== "") {
         console.log("❌ Drop ignored - cell already filled or in review mode.");
         return prevAnswers;
       }
-  
+
       const updated = { ...prevAnswers, [cellKey]: answer };
       setPendingAnswers(updated);
-  
+
       // Only update wordBank and usedAnswers on successful drop
       setUsedAnswers((prevUsed) => {
         if (!prevUsed.includes(answer)) {
@@ -174,11 +171,11 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
         }
         return prevUsed;
       });
-  
+
       setWordBank((prevWordBank) =>
         prevWordBank.filter((item) => item !== answer)
       );
-  
+
       return updated;
     });
   };
@@ -199,10 +196,10 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
 
     // Ensure word is re-added to the word bank even if it was already there
     setWordBank((prevWordBank) => {
-        if (!prevWordBank.includes(word)) {
+      if (!prevWordBank.includes(word)) {
         return [...prevWordBank, word];
-        }
-        return prevWordBank;
+      }
+      return prevWordBank;
     });
     recordAnswer(questionKey, updatedAnswers);
   };
@@ -214,42 +211,53 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
 
   return (
     <div>
-      <Row style={{ 
-        height: "100px", 
-        overflowY: "auto",
-        marginBottom: "30px" }}>
-        <p><strong>Word Bank:</strong></p>
-        <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "1rem" }}>
-            {availableAnswers.map((answer) => (
-            <DraggableItem
-                key={answer}
-                answer={answer}
-                onDrag={() => {}}
-                />
-            ))}
+      <Row
+        style={{
+          height: "100px",
+          overflowY: "auto",
+          marginBottom: "30px",
+        }}
+      >
+        <p>
+          <strong>Word Bank:</strong>
+        </p>
+        <div
+          style={{ display: "flex", flexWrap: "wrap", marginBottom: "1rem" }}
+        >
+          {availableAnswers.map((answer) => (
+            <DraggableItem key={answer} answer={answer} onDrag={() => {}} />
+          ))}
         </div>
       </Row>
-      
 
-      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
         <table>
-            <thead>
+          <thead>
             <tr>
-                <th></th>
-                {info.columns.map((col) => (
-                <th key={col} className="wide-column">{col}</th>
-                ))}
+              <th></th>
+              {info.columns.map((col) => (
+                <th key={col} className="wide-column">
+                  {col}
+                </th>
+              ))}
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             {info.rows.map((row) => (
-                <tr key={row}>
+              <tr key={row}>
                 <td>{row}</td>
                 {info.columns.map((col) => {
-                    const key = `${row}-${col}`;
-                    return (
+                  const key = `${row}-${col}`;
+                  return (
                     <td key={key} className="wide-column">
-                        <DroppableCell
+                      <DroppableCell
                         row={row}
                         col={col}
                         currentValue={answers[key]} // Ensure the cell value is pulled from answers
@@ -257,13 +265,13 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
                         reviewMode={reviewMode}
                         correctValue={info.correctAnswers[key]}
                         onRemove={handleRemove}
-                        />
+                      />
                     </td>
-                    );
+                  );
                 })}
-                </tr>
+              </tr>
             ))}
-            </tbody>
+          </tbody>
         </table>
       </div>
     </div>
