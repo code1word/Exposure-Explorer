@@ -148,7 +148,7 @@ function LearnSettings() {
                 fontWeight: "700",
               }}
             >
-              Settings Cheat Sheet
+              Cheat Sheet
             </a>{" "}
             to learn which setting combinations work best for portraits, night
             scenes, and more!
@@ -176,7 +176,7 @@ function LearnSettings() {
               style={{ fontSize: "3rem", marginBottom: "0.5rem" }}
             />
             <div style={{ fontWeight: "500", fontSize: "1.2rem" }}>
-              Settings Cheat Sheet
+              Cheat Sheet
             </div>
           </Link>
         </Col>

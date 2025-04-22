@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { cheatsheetInfo } from "../data/cheatsheetData";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faImage, faMoon, faRunning } from '@fortawesome/free-solid-svg-icons'
+import IconBox from "./reusable/IconBox";
+
 
 function CheatSheet() {
   return (
@@ -18,14 +22,22 @@ function CheatSheet() {
         }}
       >
         {Object.entries(cheatsheetInfo).map(([key, { title }]) => (
-          <Link key={key} to={`/learn/cheatsheet/${key}`}>
-            <div style={{ textAlign: "center" }}>
-              <img src={`/${key}-icon.png`} alt={title} width="80" />
-              <p>
-                <strong>{title.toUpperCase()}</strong>
-              </p>
-            </div>
-          </Link>
+          <IconBox
+            key={key}
+            label={title}
+            route={`/learn/${key}`}
+            icon={
+              key === "portrait"
+                ? faUser
+                : key === "landscape"
+                ? faImage
+                : key === "night"
+                ? faMoon
+                : faRunning
+            }
+            status="Completed"
+            ignoreStatus={true}
+          />
         ))}
       </div>
       <Link to="/learn">
