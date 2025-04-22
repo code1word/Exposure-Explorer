@@ -17,6 +17,7 @@ import { QuizContext as QuizContextMatchImage } from "../../context/QuizContextM
 
 function QuizResults() {
   const { selectedAnswers: selectedAnswersMC, resetQuiz: resetQuizMC } = useContext(QuizContextMultipleChoice);
+  const { selectedAnswers: selectedAnswersTable, resetQuiz: resetQuizTAB } = useContext(QuizContextTableFillBlanks);
   const { selectedOrder: selectedOrderImages, resetQuiz: resetQuizORD } = useContext(QuizContextOrderImages);
   const { selectedImages: selectedImageMatch1, resetQuiz: resetQuizMATCH1 } = useContext(QuizContextMatchImage);
 
@@ -40,6 +41,16 @@ function QuizResults() {
       if (question.format === "multiple_choice") {
         isCorrect = selectedAnswersMC[key] === question.answer;
       }
+      else if (question.format === "table_fill_blanks") {
+        const userAnswers = selectedAnswersTable[key] || {};
+        const correctAnswers = question.correctAnswers;
+        
+        const allMatch = Object.entries(correctAnswers).every(
+          ([cellKey, correctVal]) => userAnswers[cellKey] === correctVal
+        );
+      
+        isCorrect = allMatch;
+      }
       else if (question.format === "order_images") {
         const userOrder = selectedOrderImages[key];
         isCorrect =
@@ -48,6 +59,7 @@ function QuizResults() {
       else if (question.format === "match_image"){
         isCorrect = selectedImageMatch1[key] === question.referenceImage;
       }
+
   
       newCorrectness[questionNum] = isCorrect;
       if (isCorrect) calculatedScore++;
@@ -59,6 +71,7 @@ function QuizResults() {
 
   const handleStart = () => {
     resetQuizMC();
+    resetQuizTAB();
     resetQuizORD();
     resetQuizMATCH1();
     navigate(`/learn/practice/${questionKeys[0]}`);
