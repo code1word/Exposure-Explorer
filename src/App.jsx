@@ -10,12 +10,13 @@ import ShutterSpeed from "./components/ShutterSpeed";
 import ISO from "./components/ISO";
 import CheatSheet from "./components/CheatSheet";
 import CheatSheetDetail from "./components/cheatsheet/CheatSheetDetail";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import PortraitSettings from "./components/cheatsheet/PortraitSettings";
 
 import QuizQuestion from "./components/quiz/QuizQuestion";
 import QuizResults from "./components/quiz/QuizResults";
 
+import "./App.css";
 
 function App() {
   return (
@@ -34,7 +35,6 @@ function App() {
         <Route path="/learn/practice/:type" element={<QuizQuestion />} />
         <Route path="/learn/practice/results" element={<QuizResults />} />
         <Route path="/learn/portrait" element={<PortraitSettings />} />
-
       </Routes>
     </div>
   );
