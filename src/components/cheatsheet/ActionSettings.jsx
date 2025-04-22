@@ -9,20 +9,18 @@ import {
   Tooltip,
   Image,
 } from "react-bootstrap";
-import orderPortrait from "../../data/quiz_images/orderPortrait.png";
+import actionPhoto from "../../data/quiz_images/orderActionShot.png"; // Replace with your file
 
-function PortraitSettings() {
+function ActionSettings() {
   return (
     <Container className="py-4">
-      <h2>Portrait Photography Settings</h2>
+      <h2>Action Photography Settings</h2>
       <p>
-        Portraits are all about isolating your subject and capturing a flattering
-        expression. These are the most commonly recommended camera settings to
-        achieve beautiful portraits.
+        Action photography is all about freezing motion clearly. These settings help you
+        capture sharp images of fast-moving subjects.
       </p>
 
       <Row className="mt-4">
-        {/* Left Column: Settings */}
         <Col md={6}>
           {/* Aperture */}
           <div style={{ marginBottom: "2.5rem" }}>
@@ -30,8 +28,7 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A wide aperture (e.g., f/2.0) creates a shallow depth of field,
-                  making the subject sharp while beautifully blurring the background.
+                  A wide aperture like f/2.8 lets in more light, allowing for faster shutter speeds.
                 </Tooltip>
               }
             >
@@ -54,7 +51,6 @@ function PortraitSettings() {
                   }}
                   tipFormatter={(val) => `f/${val.toFixed(1)}`}
                 />
-
               </div>
             </OverlayTrigger>
           </div>
@@ -65,8 +61,7 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A fast shutter speed (like 1/250s) helps avoid motion blur from
-                  small subject movements or camera shake.
+                  Use a very fast shutter speed like 1/1000s or faster to freeze motion without blur.
                 </Tooltip>
               }
             >
@@ -78,7 +73,7 @@ function PortraitSettings() {
                   min={0.0005}
                   max={30}
                   step={0.0005}
-                  defaultValue={6}
+                  defaultValue={1}
                   marks={{
                     0: "1/2000",
                     2: "1/1000",
@@ -92,7 +87,6 @@ function PortraitSettings() {
                     val >= 1 ? `${val}s` : `1/${Math.round(1 / val)}s`
                   }
                 />
-
               </div>
             </OverlayTrigger>
           </div>
@@ -103,8 +97,7 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A low ISO (like 100–200) gives you clean, noise-free portraits
-                  with the most detail.
+                  Increase ISO as needed to compensate for fast shutter speeds in low light.
                 </Tooltip>
               }
             >
@@ -116,7 +109,7 @@ function PortraitSettings() {
                   min={50}
                   max={6400}
                   step={50}
-                  defaultValue={400}
+                  defaultValue={800}
                   marks={{
                     50: "50",
                     400: "100",
@@ -128,28 +121,19 @@ function PortraitSettings() {
                   }}
                   tipFormatter={(val) => `ISO ${val}`}
                 />
-
               </div>
             </OverlayTrigger>
           </div>
 
-          <p
-            style={{
-              marginTop: "2rem",
-              fontStyle: "italic",
-              color: "#666",
-              fontSize: "0.9rem",
-            }}
-          >
-            These are just some common settings to help anchor you, there are no rules so feel free to explore!
+          <p style={{ marginTop: "2rem", fontStyle: "italic", color: "#666", fontSize: "0.9rem" }}>
+            Continuous autofocus and burst mode are your best friends when tracking motion.
           </p>
         </Col>
 
-        {/* Right Column: Portrait Image */}
         <Col md={6} className="d-flex align-items-center justify-content-center">
           <Image
-            src={orderPortrait}
-            alt="Portrait example"
+            src={actionPhoto}
+            alt="Action shot"
             fluid
             rounded
             style={{ maxHeight: "400px", objectFit: "cover" }}
@@ -160,4 +144,4 @@ function PortraitSettings() {
   );
 }
 
-export default PortraitSettings;
+export default ActionSettings;

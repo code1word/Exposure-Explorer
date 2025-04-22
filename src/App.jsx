@@ -12,6 +12,9 @@ import CheatSheet from "./components/CheatSheet";
 import CheatSheetDetail from "./components/cheatsheet/CheatSheetDetail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PortraitSettings from "./components/cheatsheet/PortraitSettings";
+import LandscapeSettings from "./components/cheatsheet/LanscapeSettings";
+import NightSettings from "./components/cheatsheet/NightSettings";
+import ActionSettings from "./components/cheatsheet/ActionSettings";
 
 import QuizQuestion from "./components/quiz/QuizQuestion";
 import QuizResults from "./components/quiz/QuizResults";
@@ -35,6 +38,9 @@ function App() {
         <Route path="/learn/practice/:type" element={<QuizQuestion />} />
         <Route path="/learn/practice/results" element={<QuizResults />} />
         <Route path="/learn/portrait" element={<PortraitSettings />} />
+        <Route path="/learn/landscape" element={<LandscapeSettings />} />
+        <Route path="/learn/night" element={<NightSettings />} />
+        <Route path="/learn/action" element={<ActionSettings />} />
       </Routes>
     </div>
   );
