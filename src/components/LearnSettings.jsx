@@ -57,7 +57,7 @@ function LearnSettings() {
             textDecoration: "none",
             border: "2.5px solid #1d2a45",
             borderRadius: "20px",
-            padding: "1rem",
+            padding: "20px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -71,14 +71,14 @@ function LearnSettings() {
         >
           <FontAwesomeIcon
             icon={icon}
-            style={{ fontSize: "5rem", color: "#1d2a45" }}
+            style={{ fontSize: "90px", color: "#1d2a45" }}
           />
           <div
             style={{
-              marginTop: "0.65rem",
-              fontWeight: "600",
+              marginTop: "15px",
+              fontWeight: "700",
               color: "#1d2a45",
-              fontSize: "22px",
+              fontSize: "21px",
             }}
           >
             {label}
@@ -96,7 +96,7 @@ function LearnSettings() {
               borderRadius: "50%",
               width: "30px",
               height: "30px",
-              fontSize: "0.95rem",
+              fontSize: "16px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -120,14 +120,41 @@ function LearnSettings() {
 
   return (
     <Container className="py-4 text-center">
-      <h2 className="mb-3">
-        A camera’s <span className="fst-italic">aperture</span>,{" "}
-        <span className="fst-italic">shutter speed</span>, and{" "}
-        <span className="fst-italic">ISO</span> make up the{" "}
-        <span>exposure triangle</span>.
+      <h2
+        className="mb-3"
+        style={{
+          fontSize: "2.25rem",
+          fontWeight: 700,
+          letterSpacing: "-1px",
+          color: "#1d2a45",
+          textTransform: "none",
+        }}
+      >
+        Aperture. Shutter speed. ISO. Together, the{" "}
+        <span
+          style={{
+            background:
+              "linear-gradient(to bottom, #dbe3ee 0%,#1d2a45 75%, #1d2a45 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text", // for Firefox
+            color: "transparent", // ensures fallback
+            fontWeight: 700,
+          }}
+        >
+          exposure triangle
+        </span>
+        .
       </h2>
-      <p className="text-muted fst-italic" style={{ fontSize: "1.25rem" }}>
-        Click on each one to see how it impacts your photo
+      <p
+        className="text-muted fst-italic"
+        style={{
+          fontSize: "1.25rem",
+          color: "#6b7280",
+          marginTop: "0.5rem",
+        }}
+      >
+        Click each setting to explore how it shapes your image.
       </p>
 
       {/* Triangle layout with responsive collapse */}
@@ -160,7 +187,12 @@ function LearnSettings() {
       <Row className="align-items-center mt-5 pt-5 border-top">
         {/* Left column: text content */}
         <Col md={8} className="text-start text-center mt-4 mt-md-0">
-          <h2 className="mb-4">Want quick tips for real-world situations?</h2>
+          <h2
+            className="mb-4"
+            style={{ fontWeight: "600", letterSpacing: "-1px" }}
+          >
+            Want quick tips for real-world situations?
+          </h2>
           <p
             style={{
               marginBottom: "1rem",
@@ -191,8 +223,8 @@ function LearnSettings() {
             style={{
               textDecoration: "none",
               border: "2.5px solid #1d2a45",
-              borderRadius: "1rem",
-              padding: "1.25rem",
+              borderRadius: "20px",
+              padding: "20px",
               display: "inline-block",
               width: "200px",
               height: "auto",
@@ -212,17 +244,16 @@ function LearnSettings() {
             <FontAwesomeIcon
               icon={faGears}
               style={{
-                fontSize: "6rem",
-                paddingBottom: "0.5rem",
-                marginBottom: "0.5rem",
+                fontSize: "100px",
+                paddingBottom: "10px",
               }}
             />
             <div
               style={{
-                marginTop: "0.65rem",
+                marginTop: "10px",
                 fontWeight: "600",
                 color: "#1d2a45",
-                fontSize: "22px",
+                fontSize: "24px",
               }}
             >
               Cheat Sheet

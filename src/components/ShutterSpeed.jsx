@@ -47,7 +47,7 @@ function ShutterSpeed() {
 
   const sectionStyle = (visible) => ({
     opacity: visible ? 1 : 0,
-    maxHeight: visible ? "1000px" : "0px",
+    maxHeight: visible ? "fit-content" : "0px",
     transition: "opacity 1.5s ease, max-height 2s ease",
     marginTop: visible ? "2rem" : "0",
     overflow: "hidden",
@@ -87,13 +87,13 @@ function ShutterSpeed() {
         >
           <FontAwesomeIcon
             icon={faArrowDown}
-            style={{ fontSize: "1.25rem", color: "#1d2a45" }}
+            style={{ fontSize: "24px", color: "#1d2a45" }}
           />
         </div>
         <p
           style={{
             marginTop: "0.5rem",
-            fontSize: "0.85rem",
+            fontSize: "1rem",
             color: "#999",
             fontStyle: "italic",
           }}
@@ -105,7 +105,7 @@ function ShutterSpeed() {
   );
 
   return (
-    <Container className="py-4">
+    <Container className="py-4" style={{ fontSize: "1.25rem" }}>
       <ProgressBar
         className="mb-3"
         style={{
@@ -147,7 +147,7 @@ function ShutterSpeed() {
             gap: "0.5rem",
             cursor: "pointer",
             fontStyle: "italic",
-            fontSize: "1rem",
+            fontSize: "1.25rem",
             color: "#999",
             lineHeight: 1,
           }}
@@ -171,7 +171,7 @@ function ShutterSpeed() {
             <FontAwesomeIcon
               icon={faArrowLeft}
               style={{
-                fontSize: "1.25rem",
+                fontSize: "20px",
                 color: "#1d2a45",
                 display: "block",
                 lineHeight: "1",
@@ -182,7 +182,7 @@ function ShutterSpeed() {
         </div>
       </div>
 
-      <h2>Shutter Speed</h2>
+      <h2 style={{ fontWeight: "700" }}>Shutter Speed</h2>
       <p>
         <strong>Shutter speed</strong> controls how long the camera's sensor is
         exposed to the light of the scene, measured in fractions of a second. A
@@ -194,7 +194,7 @@ function ShutterSpeed() {
       </p>
       {step === 0 && renderDownArrow()}
       <div style={sectionStyle(step >= 1)}>
-        <h3>Exposure</h3>
+        <h3 style={{ fontWeight: "700" }}>Exposure</h3>
         <p>
           The <strong>exposure</strong> is the brightness of your photo.
         </p>
@@ -225,7 +225,7 @@ function ShutterSpeed() {
         {step === 1 && renderDownArrow()}
       </div>
       <div style={sectionStyle(step >= 2)}>
-        <h3>Motion Blur</h3>
+        <h3 style={{ fontWeight: "700" }}>Motion Blur</h3>
         <p>
           <strong>Motion blur</strong> refers to how movement appears in your
           photo.
@@ -260,7 +260,7 @@ function ShutterSpeed() {
             fontStyle: "italic",
             color: "#888",
             textAlign: "center",
-            fontSize: "0.9rem",
+            fontSize: "1rem",
           }}
         >
           You've reached the end of this section!

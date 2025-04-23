@@ -40,7 +40,7 @@ function PhotoSlider({
       <Row className="align-items-center">
         <Col xs={4} className="text-end pe-3">
           <div className="fw-bold">{leftLabel}</div>
-          <div style={{ fontSize: "0.85rem" }}>
+          <div style={{ fontSize: "1rem" }}>
             {leftDescriptions.map((line, i) => (
               <div key={i}>{line}</div>
             ))}
@@ -73,7 +73,7 @@ function PhotoSlider({
 
         <Col xs={4} className="text-start ps-3">
           <div className="fw-bold">{rightLabel}</div>
-          <div style={{ fontSize: "0.85rem" }}>
+          <div style={{ fontSize: "1rem" }}>
             {rightDescriptions.map((line, i) => (
               <div key={i}>{line}</div>
             ))}
