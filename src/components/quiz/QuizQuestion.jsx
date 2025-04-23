@@ -1,6 +1,6 @@
 //src/components/QuizQuestion.jsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { quizQuestionData } from "../../data/quizQuestionData";
@@ -8,6 +8,14 @@ import MultipleChoiceQuestion from "./MultipleChoiceQuestion";
 import TableFillBlanksQuestion from "./TableFillBlanksQuestion";
 import OrderImagesQuestion from "./OrderImagesQuestion";
 import MatchImageQuestion from "./MatchImageQuestion";
+import TwoSlidersQuestion from "./TwoSlidersQuestion";
+import { QuizContext as QuizContextMultipleChoice } from "../../context/QuizContextMultipleChoice";
+import { QuizContext as QuizContextTableFillBlanks } from "../../context/QuizContextTable";
+import { QuizContext as QuizContextOrderImages } from "../../context/QuizContextOrderImages";
+import { QuizContext as QuizContextMatchImage } from "../../context/QuizContextMatchImage";
+import { QuizContext as QuizContextTwoSliders } from "../../context/QuizContextTwoSliders";
+
+import axios from 'axios';
 
 const NavButton = ({ label, onClick, style = {} }) => (
   <button
@@ -42,6 +50,12 @@ function QuizQuestion() {
   const [showHint, setShowHint] = useState(false);
   const [modalContent, setModalContent] = useState("");
 
+  //User's quiz answer data
+  const { selectedAnswers: selectedAnswersMC } = useContext(QuizContextMultipleChoice);
+  const { selectedAnswers: selectedAnswersTable } = useContext(QuizContextTableFillBlanks);
+  const { selectedOrder: selectedOrderImages } = useContext(QuizContextOrderImages);
+  const { selectedImages: selectedImageMatch1 } = useContext(QuizContextMatchImage);
+
 
   // Effect to reset the selected answer when the question changes
   useEffect(() => {
@@ -59,8 +73,53 @@ function QuizQuestion() {
       navigate(`/learn/practice/${previousKey}${reviewMode ? "?reviewMode=true" : ""}`);
     }
   };
-  
+
   const handleFinish = () => {
+    navigate(`/learn/practice/results`);
+  };
+  
+  const submitQuiz = async () => {
+    const questionKeys = Object.keys(quizQuestionData);
+    let score = 0;
+  
+    questionKeys.forEach((key) => {
+      const question = quizQuestionData[key];
+      const format = question.format;
+      const correctAnswer = question.answer;
+      let isCorrect = false;
+  
+      if (format === "multiple_choice") {
+        isCorrect = selectedAnswersMC[key] === correctAnswer;
+      } else if (format === "table_fill_blanks") {
+        const userAnswers = selectedAnswersTable[key] || {};
+        const correctAnswers = question.correctAnswers;
+        isCorrect = Object.entries(correctAnswers).every(
+          ([cellKey, correctVal]) => userAnswers[cellKey] === correctVal
+        );
+      } else if (format === "order_images") {
+        isCorrect = JSON.stringify(selectedOrderImages[key]) === JSON.stringify(question.correctOrder);
+      } else if (format === "match_image") {
+        isCorrect = selectedImageMatch1[key] === question.referenceImage;
+      }
+  
+      if (isCorrect) score++;
+    });
+  
+    try {
+      await axios.post("http://localhost:5000/submit-quiz", {
+        score,
+        total: questionKeys.length,
+        answers: {
+          ...selectedAnswersMC,
+          ...selectedAnswersTable,
+          ...selectedOrderImages,
+          ...selectedImageMatch1
+        }
+      });
+    } catch (error) {
+      console.error("Error sending quiz data:", error);
+    }
+  
     navigate(`/learn/practice/results`);
   };
 
@@ -72,7 +131,11 @@ function QuizQuestion() {
       <NavButton label="← Previous" onClick={handlePrevious} />
     );
     const finishBtn = (
-      <NavButton label={reviewMode ? "See Results" : "Finish"} onClick={handleFinish} />
+      reviewMode ?
+        <NavButton label="See Results" onClick={handleFinish} />
+      :
+        <NavButton label={"Finish"} onClick={submitQuiz} />
+      
     );
   
     if (reviewMode) {
@@ -101,6 +164,8 @@ function QuizQuestion() {
         return <OrderImagesQuestion info={info} questionKey={type} reviewMode={reviewMode} />;
       case "match_image":
         return <MatchImageQuestion info={info} questionKey={type} reviewMode={reviewMode} />;
+      case "two_sliders":
+        return <TwoSlidersQuestion info={info} questionKey={type} reviewMode={reviewMode} />;
       
       default:
         return <p>Unsupported question format.</p>;

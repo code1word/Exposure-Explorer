@@ -38,8 +38,8 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   const [sliderValue, setSliderValue] = useState(initialValue);
   const imageIndex = Math.round(Math.max(0, Math.min(1, sliderValue)) * 10);
   const currentImage = portraitImageMap[imageIndex];
-  console.log("sliderValue", sliderValue);
-  console.log("currentImage", currentImage);
+  //console.log("sliderValue", sliderValue);
+  //console.log("currentImage", currentImage);
 
 
 
@@ -61,10 +61,10 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   
     if (isCorrect) {
       return (
-        <>
-        ✅ Correct!<br />
-        Image Matched.
-      </>
+        <div style={{ backgroundColor: "#d0f0c0", padding: "0.5rem", borderRadius: "0.5rem" }}>
+          ✅ Correct!<br />
+          Image Matched.
+        </div>
       );
     } else {
       // Find the correct slider value that maps to the reference image
@@ -79,10 +79,10 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
       }
   
       return (
-        <>
-        ❌ Incorrect Image<br />
-        The correct setting is: f/{correctValue}
-      </>
+        <div style={{ backgroundColor: "#f8d7da", padding: "0.5rem", borderRadius: "0.5rem" }}>
+          ❌ Incorrect Image<br />
+          The correct setting is: f/{correctValue}
+        </div>
       );
     }
   };

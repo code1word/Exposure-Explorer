@@ -90,6 +90,14 @@ export const quizQuestionData = {
       correctSetting: "f/0.40",
       hint: "Think about how aperture affects exposure and/or depth of field, and how changes in these properties are reflected in the photo.",
     },
+    q6: {
+      format: "two_sliders",
+      question_number: "6",
+      question: "Adjust the image using the slider until it matches the reference image.",
+      referenceImage: orderPortrait40,
+      correctSetting: "f/0.40",
+      hint: "Think about how aperture affects exposure and/or depth of field, and how changes in these properties are reflected in the photo.",
+    },
     
       
 

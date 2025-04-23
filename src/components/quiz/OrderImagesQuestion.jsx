@@ -38,8 +38,21 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
 
   const getStatus = () => {
     if (!reviewMode) return null;
+  
     const isCorrect = JSON.stringify(currentOrder) === JSON.stringify(info.correctOrder);
-    return isCorrect ? "✅ Correct Order!" : "❌ Incorrect Order";
+  
+    return (
+      <div
+        style={{
+          backgroundColor: isCorrect ? "#d0f0c0" : "#f8d7da",
+          padding: "1rem",
+          borderRadius: "0.5rem",
+          marginTop: "1rem",
+        }}
+      >
+        {isCorrect ? "✅ Correct Order!" : "❌ Incorrect Order"}
+      </div>
+    );
   };
 
   return (

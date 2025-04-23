@@ -5,14 +5,14 @@ import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, ProgressBar } from "react-bootstrap";
 import { quizQuestionData } from "../../data/quizQuestionData";
-import MultipleChoiceQuestion from "../quiz/MultipleChoiceQuestion";
-import TableFillBlanksQuestion from "../quiz/TableFillBlanksQuestion";
-import OrderImagesQuestion from "../quiz/OrderImagesQuestion";
 
 import { QuizContext as QuizContextMultipleChoice } from "../../context/QuizContextMultipleChoice";
 import { QuizContext as QuizContextTableFillBlanks } from "../../context/QuizContextTable";
 import { QuizContext as QuizContextOrderImages } from "../../context/QuizContextOrderImages";
 import { QuizContext as QuizContextMatchImage } from "../../context/QuizContextMatchImage";
+import { QuizContext as QuizContextTwoSliders } from "../../context/QuizContextTwoSliders";
+
+import axios from 'axios';
 
 
 function QuizResults() {
@@ -56,7 +56,7 @@ function QuizResults() {
         isCorrect =
           JSON.stringify(userOrder) === JSON.stringify(question.correctOrder);
       }
-      else if (question.format === "match_image"){
+      else if (question.format === "one_slider"){
         isCorrect = selectedImageMatch1[key] === question.referenceImage;
       }
 
@@ -67,7 +67,30 @@ function QuizResults() {
   
     setQuestionCorrectness(newCorrectness);
     setScore(calculatedScore);
-  }, [selectedAnswersMC, selectedOrderImages, questionKeys]);
+    
+
+    //Now send the results to backend
+    const sendResultsToBackend = async () => {
+      try {
+        await axios.post("http://localhost:5000/submit-quiz", {
+          score: calculatedScore, // using fresh value, not state
+          total: questionKeys.length,
+          answers: {
+            ...selectedAnswersMC,
+            ...selectedAnswersTable,
+            ...selectedOrderImages,
+            ...selectedImageMatch1
+          }
+        });
+      } catch (error) {
+        console.error("Error sending results:", error);
+      }
+    };
+  
+    //sendResultsToBackend();
+
+
+  }, [selectedAnswersMC, selectedAnswersTable, selectedOrderImages, selectedImageMatch1, questionKeys]);
 
   const handleStart = () => {
     resetQuizMC();
