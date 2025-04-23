@@ -8,3 +8,18 @@
 body {
   font-family: "Nunito", sans-serif;
 }
+
+.quiz-start-button {
+  background-color: #355db2;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.8rem 3rem;
+  transition: background-color 0.3s ease-in-out;
+}
+.quiz-start-button:hover {
+  background-color: #16203b; /* Slightly darker navy */
+  cursor: pointer;
+}
