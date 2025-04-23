@@ -1,17 +1,10 @@
-// src/components/PracticeMode.jsx
-
-import React, { useState, useContext, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { Container, ProgressBar } from "react-bootstrap";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Container, Button } from "react-bootstrap";
 import { quizQuestionData } from "../data/quizQuestionData";
-import { Button } from "react-bootstrap";
-import { QuizContext } from "../context/QuizContextMultipleChoice"; 
-
+import { QuizContext } from "../context/QuizContextMultipleChoice";
 
 function PracticeMode() {
-
   const navigate = useNavigate();
   const { resetQuiz } = useContext(QuizContext);
 
@@ -21,27 +14,46 @@ function PracticeMode() {
     navigate(`/learn/practice/${firstQuestionKey}`);
   };
 
-
   return (
-    <div style={{ padding: "2rem", textAlign: "center", marginLeft: "2rem", marginRight: "2rem" }}>
-      <h2>
+    <Container
+      style={{
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "linear-gradient(135deg, #dbe3ee, #ffffff)",
+        minHeight: "90vh"
+      }}
+    >
+      <h2
+        style={{
+          fontSize: "2.5rem",
+          color: "#1d2a45",
+        }}
+      >
         <em>Ready to test your knowledge of the exposure triangle?</em>
       </h2>
-      <h3>This short quiz will challenge what you’ve learned — from recognizing settings to applying them in real scenarios. Click Start to begin!</h3>
-      
-      <button
-        variant="primary"
+      <h3
+        style={{
+          fontSize: "1.2rem",
+          marginTop: "1rem",
+          color: "#35476b",
+          fontStyle: "italic",
+        }}
+      >
+        This short quiz will challenge what you’ve learned — from recognizing settings to applying them in real scenarios. Click Start to begin!
+      </h3>
+        <br></br>
+      <Button
         size="lg"
-        style={{ marginTop: "2rem" }}
+        className="quiz-start-button"
         onClick={handleStart}
       >
         Start Quiz
-      </button>
-
-    </div>
+      </Button>
+    </Container>
   );
 }
-
-
 
 export default PracticeMode;

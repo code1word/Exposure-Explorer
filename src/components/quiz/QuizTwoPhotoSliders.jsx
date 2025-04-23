@@ -1,60 +1,33 @@
-//src/components/quiz/QuizPhotoSlider.jsx
-import React, { useState } from "react";
+import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
-function QuizPhotoSlider({
+function QuizTwoPhotoSliders({
   title,
   description,
-  imageSrcFunction,
-  min,
-  max,
-  step,
-  unitPrefix = "",
-  unitSuffix = "",
-  initialValue,
-  leftLabel,
-  leftDescriptions = [],
-  rightLabel,
-  rightDescriptions = [],
-  onChange, // Accept the onChange function from the parent
+  staticImage,
+  slider1Config,
+  slider2Config,
 }) {
-  const [value, setValue] = useState(initialValue);
-
-  const handleChange = (e) => {
-    const newValue = parseFloat(e.target.value);
-    setValue(newValue);
-    
-    if (onChange) {
-      onChange(newValue); // Call the onChange function passed from the parent
-    }
-  };
-
-  return (
-    <Container className="text-center py-2">
-      {/* Title and Description */}
-      {description && <p className="text-muted fst-italic">{description}</p>}
-
-      {/* Image */}
-      {imageSrcFunction && (
-        <img
-          src={imageSrcFunction(value)}
-          alt={`${title} visual`}
-          style={{ 
-            maxWidth: "55%", 
-            height: "auto", 
-            marginBottom: "1rem" }}
-        />
-      )}
-
-      {/* Slider + Labels */}
-      <Row className="align-items-center">
+  const renderSlider = ({
+    value,
+    min,
+    max,
+    step,
+    onChange,
+    unitPrefix = "",
+    unitSuffix = "",
+    leftLabel,
+    rightLabel,
+    leftDescriptions = [],
+    rightDescriptions = [],
+  }) => {
+    return (
+      <Row className="align-items-center my-2">
         <Col xs={4} className="text-end pe-3">
           <div className="fw-bold">{leftLabel}</div>
-          <div style={{ fontSize: "0.85rem" }}>
-            {leftDescriptions.map((line, i) => (
-              <div key={i}>{line}</div>
-            ))}
-          </div>
+          {leftDescriptions.map((line, i) => (
+            <div key={i} style={{ fontSize: "0.85rem" }}>{line}</div>
+          ))}
         </Col>
 
         <Col xs={4}>
@@ -64,10 +37,10 @@ function QuizPhotoSlider({
             max={max}
             step={step}
             value={value}
-            onChange={handleChange}
+            onChange={(e) => onChange(parseFloat(e.target.value))}
             className="form-range"
             style={{
-              background: "#dbe3ee", // fallback background
+              background: "#dbe3ee",
               WebkitAppearance: "none",
               height: "6px",
               borderRadius: "4px",
@@ -75,21 +48,38 @@ function QuizPhotoSlider({
             }}
           />
           <div className="mt-1 fw-medium">
-            {unitPrefix}
-            {value.toFixed(2)}
-            {unitSuffix}
+            {unitPrefix}{value.toFixed(2)}{unitSuffix}
           </div>
         </Col>
 
         <Col xs={4} className="text-start ps-3">
           <div className="fw-bold">{rightLabel}</div>
-          <div style={{ fontSize: "0.85rem" }}>
-            {rightDescriptions.map((line, i) => (
-              <div key={i}>{line}</div>
-            ))}
-          </div>
+          {rightDescriptions.map((line, i) => (
+            <div key={i} style={{ fontSize: "0.85rem" }}>{line}</div>
+          ))}
         </Col>
       </Row>
+    );
+  };
+
+  return (
+    <Container className="text-center py-2">
+      {description && <p className="text-muted fst-italic">{description}</p>}
+
+      {staticImage && (
+        <img
+          src={staticImage}
+          alt="Preview"
+          style={{
+            maxWidth: "55%",
+            height: "auto",
+            marginBottom: "1rem",
+          }}
+        />
+      )}
+
+      {renderSlider(slider1Config)}
+      {renderSlider(slider2Config)}
 
       {/* Custom slider styling */}
       <style>{`
@@ -134,4 +124,4 @@ function QuizPhotoSlider({
   );
 }
 
-export default QuizPhotoSlider;
+export default QuizTwoPhotoSliders;

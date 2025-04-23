@@ -55,7 +55,7 @@ function QuizQuestion() {
   const { selectedAnswers: selectedAnswersTable } = useContext(QuizContextTableFillBlanks);
   const { selectedOrder: selectedOrderImages } = useContext(QuizContextOrderImages);
   const { selectedImages: selectedImageMatch1 } = useContext(QuizContextMatchImage);
-
+  const { selectedImages: selectedImageMatch2 } = useContext(QuizContextTwoSliders);
 
   // Effect to reset the selected answer when the question changes
   useEffect(() => {
@@ -90,16 +90,22 @@ function QuizQuestion() {
   
       if (format === "multiple_choice") {
         isCorrect = selectedAnswersMC[key] === correctAnswer;
-      } else if (format === "table_fill_blanks") {
+      } 
+      else if (format === "table_fill_blanks") {
         const userAnswers = selectedAnswersTable[key] || {};
         const correctAnswers = question.correctAnswers;
         isCorrect = Object.entries(correctAnswers).every(
           ([cellKey, correctVal]) => userAnswers[cellKey] === correctVal
         );
-      } else if (format === "order_images") {
+      } 
+      else if (format === "order_images") {
         isCorrect = JSON.stringify(selectedOrderImages[key]) === JSON.stringify(question.correctOrder);
-      } else if (format === "match_image") {
+      } 
+      else if (format === "match_image") {
         isCorrect = selectedImageMatch1[key] === question.referenceImage;
+      }
+      else if (format === "two_sliders") {
+        isCorrect = selectedImageMatch2[key] === question.referenceImage;
       }
   
       if (isCorrect) score++;
@@ -113,7 +119,8 @@ function QuizQuestion() {
           ...selectedAnswersMC,
           ...selectedAnswersTable,
           ...selectedOrderImages,
-          ...selectedImageMatch1
+          ...selectedImageMatch1,
+          ...selectedImageMatch2
         }
       });
     } catch (error) {

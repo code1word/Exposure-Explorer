@@ -20,6 +20,8 @@ function QuizResults() {
   const { selectedAnswers: selectedAnswersTable, resetQuiz: resetQuizTAB } = useContext(QuizContextTableFillBlanks);
   const { selectedOrder: selectedOrderImages, resetQuiz: resetQuizORD } = useContext(QuizContextOrderImages);
   const { selectedImages: selectedImageMatch1, resetQuiz: resetQuizMATCH1 } = useContext(QuizContextMatchImage);
+  const { selectedImages: selectedImageMatch2, resetQuiz: resetQuizMATCH2 } = useContext(QuizContextTwoSliders);
+
 
   
   const [score, setScore] = useState(0);
@@ -56,8 +58,11 @@ function QuizResults() {
         isCorrect =
           JSON.stringify(userOrder) === JSON.stringify(question.correctOrder);
       }
-      else if (question.format === "one_slider"){
+      else if (question.format === "match_image"){
         isCorrect = selectedImageMatch1[key] === question.referenceImage;
+      }
+      else if (question.format === "two_sliders") {
+        isCorrect = selectedImageMatch2[key] === question.referenceImage;
       }
 
   
@@ -67,36 +72,15 @@ function QuizResults() {
   
     setQuestionCorrectness(newCorrectness);
     setScore(calculatedScore);
-    
 
-    //Now send the results to backend
-    const sendResultsToBackend = async () => {
-      try {
-        await axios.post("http://localhost:5000/submit-quiz", {
-          score: calculatedScore, // using fresh value, not state
-          total: questionKeys.length,
-          answers: {
-            ...selectedAnswersMC,
-            ...selectedAnswersTable,
-            ...selectedOrderImages,
-            ...selectedImageMatch1
-          }
-        });
-      } catch (error) {
-        console.error("Error sending results:", error);
-      }
-    };
-  
-    //sendResultsToBackend();
-
-
-  }, [selectedAnswersMC, selectedAnswersTable, selectedOrderImages, selectedImageMatch1, questionKeys]);
+  }, [selectedAnswersMC, selectedAnswersTable, selectedOrderImages, selectedImageMatch1, selectedImageMatch2, questionKeys]);
 
   const handleStart = () => {
     resetQuizMC();
     resetQuizTAB();
     resetQuizORD();
     resetQuizMATCH1();
+    resetQuizMATCH2();
     navigate(`/learn/practice/${questionKeys[0]}`);
   };
 

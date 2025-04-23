@@ -1,5 +1,4 @@
-// src/context/QuizContextTwoSliders.jsx
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const QuizContext = createContext();
 
@@ -7,17 +6,17 @@ export const QuizProvider = ({ children }) => {
   const [sliderValues, setSliderValues] = useState({});
   const [selectedImages, setSelectedImages] = useState({});
 
-  const recordSliderValue = (questionKey, value) => {
-    setSliderValues(prev => ({ ...prev, [questionKey]: value }));
+  const recordSliderValue = (key, value) => {
+    setSliderValues(prev => ({ ...prev, [key]: value }));
   };
 
-  const recordSelectedImage = (questionKey, image) => {
-    setSelectedImages(prev => ({ ...prev, [questionKey]: image }));
+  const recordSelectedImage = (key, image) => {
+    setSelectedImages(prev => ({ ...prev, [key]: image }));
   };
 
   const resetQuiz = () => {
-    setSelectedImages({});
     setSliderValues({});
+    setSelectedImages({});
   };
 
   return (
@@ -27,7 +26,7 @@ export const QuizProvider = ({ children }) => {
         selectedImages,
         recordSliderValue,
         recordSelectedImage,
-        resetQuiz
+        resetQuiz,
       }}
     >
       {children}

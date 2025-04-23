@@ -6,6 +6,8 @@ import orderNightPhotography from "./quiz_images/orderNightPhotography.png";
 import orderPortrait from "./quiz_images/orderPortrait.png";
 
 import orderPortrait40 from "./quiz_images/orderActionShot.png";
+import img_02 from "./quiz_images/orderActionShot.png"; //The reference image
+
 
 
 /*
@@ -94,8 +96,8 @@ export const quizQuestionData = {
       format: "two_sliders",
       question_number: "6",
       question: "Adjust the image using the slider until it matches the reference image.",
-      referenceImage: orderPortrait40,
-      correctSetting: "f/0.40",
+      referenceImage: img_02,
+      correctSetting: "Aperture: f/0.30, Shutter: 0.90s",
       hint: "Think about how aperture affects exposure and/or depth of field, and how changes in these properties are reflected in the photo.",
     },
     
