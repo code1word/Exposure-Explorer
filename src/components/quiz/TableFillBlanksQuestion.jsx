@@ -15,10 +15,12 @@ function DraggableItem({ answer, onDrag }) {
       type: ItemType,
       item: { answer },
       end: (item, monitor) => {
-        if (monitor.didDrop()) {
-          onDrag(item.answer); // Successful drop
+        const result = monitor.getDropResult();
+        const wasAccepted = result?.dropped;
+        if (wasAccepted) {
+          onDrag(item.answer); // dropped into a valid cell
         } else {
-          onDrag(item.answer, false); // Return to word bank
+          onDrag(item.answer, false); // return to word bank
         }
       },
       collect: (monitor) => ({
@@ -56,9 +58,14 @@ function DroppableCell({
 }) {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemType,
-    drop: (item) => {
-        onDrop(item.answer, row, col); // No need for success here
-    },
+    drop: (item, monitor) => {
+        const canDrop = monitor.canDrop();
+        if (canDrop) {
+          onDrop(item.answer, row, col);
+          return { dropped: true }; // this tells the drag source it was accepted
+        }
+        return { dropped: false };
+      },
     canDrop: () => !reviewMode && currentValue === "", // Prevent dropping in review mode
   }));
 
