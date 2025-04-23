@@ -131,17 +131,7 @@ function LearnSettings() {
         }}
       >
         Aperture. Shutter speed. ISO. Together, the{" "}
-        <span
-          style={{
-            background:
-              "linear-gradient(to bottom, #dbe3ee 0%,#1d2a45 75%, #1d2a45 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text", // for Firefox
-            color: "transparent", // ensures fallback
-            fontWeight: 700,
-          }}
-        >
+        <span style={{ fontStyle: "italic", fontWeight: 700 }}>
           exposure triangle
         </span>
         .
