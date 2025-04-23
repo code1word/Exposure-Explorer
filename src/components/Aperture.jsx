@@ -242,20 +242,15 @@ function Aperture() {
           description="Use the slider to see how the aperture size affects depth of field"
           imageSrcFunction={(val) => {
             const fStops = [
-              1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 11.0, 13.0, 14.0, 15.0, 16.0,
+              1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 9.0, 10.0, 11.0, 13.0, 14.0, 16.0,
             ];
 
-            // Reverse the mapping: map 1.4 → 16.0, and 16.0 → 1.4
-            const reversedValue = 1.4 + (16.0 - val); // Flip the val in f-stop space
-
-            // Find the closest f-stop to the reversed value
+            // Find the closest f-stop to the current slider value
             const closest = fStops.reduce((prev, curr) =>
-              Math.abs(curr - reversedValue) < Math.abs(prev - reversedValue)
-                ? curr
-                : prev
+              Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev
             );
 
-            return `/aperture_dof/focus_1.00_f${closest.toFixed(1)}.png`;
+            return `/aperture_dof/squirrel_f${closest.toFixed(1)}.png`;
           }}
           min={1.4}
           max={16}
