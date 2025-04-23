@@ -12,6 +12,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "axios": "^1.8.4",
     "bootstrap": "^5.3.5",
     "rc-slider": "^11.1.8",
     "react": "^19.0.0",
