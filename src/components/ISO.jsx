@@ -208,14 +208,14 @@ function ISO() {
           title="ISO"
           description="Use the slider to see how ISO affects exposure"
           imageSrcFunction={(val) => {
-            const clamped = Math.max(0, Math.min(1, val)); // Clamp between 0–1
-            const stepped = (Math.round(clamped * 20) / 20).toFixed(2); // Snap to nearest 0.05
-            return `/dummy_stack/focus_${stepped}.png`;
+            const clamped = Math.max(100, Math.min(3200, val));
+            const stepped = Math.round(clamped / 100) * 100; // Snap to nearest 100
+            return `/iso_exposure/scene_iso${stepped.toFixed(0)}.png`;
           }}
-          min={0}
-          max={1}
-          step={0.01}
-          initialValue={0.4}
+          min={100}
+          max={3200}
+          step={100}
+          initialValue={100}
           unitPrefix=""
           leftLabel="Lower ISO"
           leftDescriptions={[
@@ -248,14 +248,14 @@ function ISO() {
           title="ISO"
           description="Use the slider to see how ISO introduces image noise"
           imageSrcFunction={(val) => {
-            const clamped = Math.max(0, Math.min(1, val)); // Clamp between 0–1
-            const stepped = (Math.round(clamped * 20) / 20).toFixed(2); // Snap to nearest 0.05
-            return `/dummy_stack/focus_${stepped}.png`;
+            const clamped = Math.max(100, Math.min(3200, val));
+            const stepped = Math.round(clamped / 100) * 100; // Snap to nearest 100
+            return `/iso_noise/scene_iso${stepped.toFixed(0)}.png`;
           }}
-          min={0}
-          max={1}
-          step={0.01}
-          initialValue={0.4}
+          min={100}
+          max={3200}
+          step={100}
+          initialValue={100}
           unitPrefix=""
           leftLabel="Lower ISO"
           leftDescriptions={["Less sensitivity", "Clean image", "Less noise"]}
