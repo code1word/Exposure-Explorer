@@ -78,19 +78,29 @@ function Home() {
       >
         {/* Hero Title */}
         <div className="mb-5" style={{ animation: "fadeInUp 1.2s ease-out" }}>
-          <h1
-            className="light-sweep mb-3"
-            style={{
-              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-              letterSpacing: "4px",
-              textTransform: "uppercase",
-              position: "relative",
-              overflow: "hidden",
-              fontWeight: 900,
-            }}
-          >
-            Exposure Explorer
-          </h1>
+          <div className="light-sweep-container justify-content-center align-items-center mb-3">
+            {/* Corner Brackets */}
+            <span className="reticle-corner reticle-tl"></span>
+            <span className="reticle-corner reticle-tr"></span>
+            <span className="reticle-corner reticle-bl"></span>
+            <span className="reticle-corner reticle-br"></span>
+
+            {/* Title with light sweep */}
+            <div className="light-sweep-area">
+              <h1
+                // className="mb-3"
+                style={{
+                  fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                  letterSpacing: "4px",
+                  textTransform: "uppercase",
+                  fontWeight: 900,
+                  color: "white",
+                }}
+              >
+                Exposure Explorer
+              </h1>
+            </div>
+          </div>
           <p
             className="fst-italic"
             style={{
@@ -117,7 +127,7 @@ function Home() {
               icon: faSliders,
               route: "/simulator",
             },
-            { label: "Practice Mode", icon: faCheckSquare, route: "/practice" },
+            { label: "Quiz Mode", icon: faCheckSquare, route: "/practice" },
           ].map((card, idx) => (
             <Col
               key={idx}
@@ -153,7 +163,20 @@ function Home() {
           }
         }
 
-        .light-sweep::before {
+        .light-sweep-container {
+          position: relative;
+          display: inline-block;
+          padding: 1rem 2rem; /* Adjusts corner spacing */
+          overflow: hidden;
+        }
+
+        .light-sweep-area {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Light Sweep Effect */
+        .light-sweep-container::before {
           content: "";
           position: absolute;
           top: 0;
@@ -163,13 +186,52 @@ function Home() {
           background: linear-gradient(
             120deg,
             rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.35) 50%,
+            rgba(255, 255, 255, 0.5) 50%,
             rgba(255, 255, 255, 0) 100%
           );
           transform: skewX(-20deg);
           opacity: 0;
           animation: sweepFade 2.4s ease-out 0.8s forwards;
           pointer-events: none;
+          z-index: 0;
+        }
+
+        /* Corner brackets */
+        .reticle-corner {
+          content: "";
+          position: absolute;
+          width: 28px;
+          height: 28px;
+          border: 4px solid white;
+          z-index: 2;
+        }
+
+        .reticle-tl {
+          top: 0;
+          left: 0;
+          border-right: none;
+          border-bottom: none;
+        }
+
+        .reticle-tr {
+          top: 0;
+          right: 0;
+          border-left: none;
+          border-bottom: none;
+        }
+
+        .reticle-bl {
+          bottom: 0;
+          left: 0;
+          border-right: none;
+          border-top: none;
+        }
+
+        .reticle-br {
+          bottom: 0;
+          right: 0;
+          border-left: none;
+          border-top: none;
         }
 
         @keyframes sweepFade {
