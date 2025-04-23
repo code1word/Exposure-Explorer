@@ -23,7 +23,7 @@ export const quizQuestionData = {
                   "   Aperture", 
                   "   None of the above"],
         answer: "   Aperture",
-        hint: "hint for q1"
+        hint: "Think about the property that controls the blurriness of the background, and the setting that affects it."
       },
     q2: {
       format: "multiple_choice",
@@ -34,7 +34,7 @@ export const quizQuestionData = {
                 "   Makes it brighter but adds noise", 
                 "   Changes the depth of field"],
       answer: "   Makes it brighter but adds noise",
-      hint: "hint for q2"
+      hint: "Think about the two key properties of the camera affected by ISO."
     },
     q3: {
       format: "table_fill_blanks",
@@ -62,7 +62,7 @@ export const quizQuestionData = {
         "Narrower Aperture-Depth of Field": "Deeper",
         "Narrower Aperture-F-stop": "Large f-stop",
       },
-      hint: "hint for q3"
+      hint: "A larger aperture increases exposure and focuses on a smaller part of the image. Think about what this suggests about the properties specified in the table."
     },
     q4: {
       format: "order_images",
@@ -80,7 +80,7 @@ export const quizQuestionData = {
         orderPortrait,
         orderActionShot   // highest shutter speed
       ],
-      hint: "hint for q4"
+      hint: "Categorize each of these images according to what you learned from the Settings Cheat Sheet, then recall the recommended shutter speed for each type of photo."
     },
     q5: {
       format: "match_image",
@@ -88,7 +88,7 @@ export const quizQuestionData = {
       question: "Adjust the image using the slider until it matches the reference image.",
       referenceImage: orderPortrait40,
       correctSetting: "f/0.40",
-      hint: "hint for q5",
+      hint: "Think about how aperture affects exposure and/or depth of field, and how changes in these properties are reflected in the photo.",
     },
     
       

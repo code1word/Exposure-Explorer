@@ -9,20 +9,19 @@ import {
   Tooltip,
   Image,
 } from "react-bootstrap";
-import orderPortrait from "../../data/quiz_images/orderPortrait.png";
+import nightPhoto from "../../data/quiz_images/orderNightPhotography.png"; // Replace with your file
 
-function PortraitSettings() {
+function NightSettings() {
   return (
     <Container className="py-4">
-      <h2>Portrait Photography Settings</h2>
+      <h2>Night Photography Settings</h2>
       <p>
-        Portraits are all about isolating your subject and capturing a flattering
-        expression. These are the most commonly recommended camera settings to
-        achieve beautiful portraits.
+        Night photography requires letting in as much light as possible while avoiding
+        excessive noise or blur. These settings are a great place to start for capturing
+        scenes after dark.
       </p>
 
       <Row className="mt-4">
-        {/* Left Column: Settings */}
         <Col md={6}>
           {/* Aperture */}
           <div style={{ marginBottom: "2.5rem" }}>
@@ -30,8 +29,7 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A wide aperture (e.g., f/2.0) creates a shallow depth of field,
-                  making the subject sharp while beautifully blurring the background.
+                  A wide aperture like f/2.0 helps gather more light in dark conditions.
                 </Tooltip>
               }
             >
@@ -43,7 +41,7 @@ function PortraitSettings() {
                   min={1.4}
                   max={22}
                   step={0.1}
-                  defaultValue={2.8}
+                  defaultValue={2.0}
                   marks={{
                     1.4: "f/1.4",
                     2.8: "f/2.8",
@@ -54,7 +52,6 @@ function PortraitSettings() {
                   }}
                   tipFormatter={(val) => `f/${val.toFixed(1)}`}
                 />
-
               </div>
             </OverlayTrigger>
           </div>
@@ -65,8 +62,7 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A fast shutter speed (like 1/250s) helps avoid motion blur from
-                  small subject movements or camera shake.
+                  Longer shutter speeds allow more light to hit the sensor—use a tripod to avoid blur.
                 </Tooltip>
               }
             >
@@ -78,7 +74,7 @@ function PortraitSettings() {
                   min={0.0005}
                   max={30}
                   step={0.0005}
-                  defaultValue={6}
+                  defaultValue={20}
                   marks={{
                     0: "1/2000",
                     2: "1/1000",
@@ -92,7 +88,6 @@ function PortraitSettings() {
                     val >= 1 ? `${val}s` : `1/${Math.round(1 / val)}s`
                   }
                 />
-
               </div>
             </OverlayTrigger>
           </div>
@@ -103,8 +98,7 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A low ISO (like 100–200) gives you clean, noise-free portraits
-                  with the most detail.
+                  Higher ISO values boost brightness but increase noise—try to find a balance.
                 </Tooltip>
               }
             >
@@ -116,7 +110,7 @@ function PortraitSettings() {
                   min={50}
                   max={6400}
                   step={50}
-                  defaultValue={400}
+                  defaultValue={1600}
                   marks={{
                     50: "50",
                     400: "100",
@@ -128,28 +122,19 @@ function PortraitSettings() {
                   }}
                   tipFormatter={(val) => `ISO ${val}`}
                 />
-
               </div>
             </OverlayTrigger>
           </div>
 
-          <p
-            style={{
-              marginTop: "2rem",
-              fontStyle: "italic",
-              color: "#666",
-              fontSize: "0.9rem",
-            }}
-          >
-            These are just some common settings to help anchor you, there are no rules so feel free to explore!
+          <p style={{ marginTop: "2rem", fontStyle: "italic", color: "#666", fontSize: "0.9rem" }}>
+            Use a tripod whenever possible and experiment with white balance for dramatic effects.
           </p>
         </Col>
 
-        {/* Right Column: Portrait Image */}
         <Col md={6} className="d-flex align-items-center justify-content-center">
           <Image
-            src={orderPortrait}
-            alt="Portrait example"
+            src={nightPhoto}
+            alt="Night scene"
             fluid
             rounded
             style={{ maxHeight: "400px", objectFit: "cover" }}
@@ -160,4 +145,4 @@ function PortraitSettings() {
   );
 }
 
-export default PortraitSettings;
+export default NightSettings;

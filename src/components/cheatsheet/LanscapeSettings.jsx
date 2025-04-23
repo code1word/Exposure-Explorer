@@ -9,16 +9,16 @@ import {
   Tooltip,
   Image,
 } from "react-bootstrap";
-import orderPortrait from "../../data/quiz_images/orderPortrait.png";
+import orderLandscape from "../../data/quiz_images/orderLandscape.png"; // Update with your actual file
 
-function PortraitSettings() {
+function LandscapeSettings() {
   return (
     <Container className="py-4">
-      <h2>Portrait Photography Settings</h2>
+      <h2>Landscape Photography Settings</h2>
       <p>
-        Portraits are all about isolating your subject and capturing a flattering
-        expression. These are the most commonly recommended camera settings to
-        achieve beautiful portraits.
+        Landscape photography is about capturing the grandeur of a scene with sharp
+        detail from front to back. These are the most commonly recommended camera
+        settings to create crisp, vivid landscape shots.
       </p>
 
       <Row className="mt-4">
@@ -30,8 +30,8 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A wide aperture (e.g., f/2.0) creates a shallow depth of field,
-                  making the subject sharp while beautifully blurring the background.
+                  A narrower aperture (e.g., f/8 or higher) increases depth of field,
+                  ensuring more of the scene is in focus.
                 </Tooltip>
               }
             >
@@ -43,7 +43,7 @@ function PortraitSettings() {
                   min={1.4}
                   max={22}
                   step={0.1}
-                  defaultValue={2.8}
+                  defaultValue={11}
                   marks={{
                     1.4: "f/1.4",
                     2.8: "f/2.8",
@@ -54,7 +54,6 @@ function PortraitSettings() {
                   }}
                   tipFormatter={(val) => `f/${val.toFixed(1)}`}
                 />
-
               </div>
             </OverlayTrigger>
           </div>
@@ -65,8 +64,8 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A fast shutter speed (like 1/250s) helps avoid motion blur from
-                  small subject movements or camera shake.
+                  Longer shutter speeds (e.g. 1/30s or slower) can help in low light
+                  and create artistic motion effects, but a tripod is recommended.
                 </Tooltip>
               }
             >
@@ -78,7 +77,7 @@ function PortraitSettings() {
                   min={0.0005}
                   max={30}
                   step={0.0005}
-                  defaultValue={6}
+                  defaultValue={8}
                   marks={{
                     0: "1/2000",
                     2: "1/1000",
@@ -92,7 +91,6 @@ function PortraitSettings() {
                     val >= 1 ? `${val}s` : `1/${Math.round(1 / val)}s`
                   }
                 />
-
               </div>
             </OverlayTrigger>
           </div>
@@ -103,8 +101,8 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A low ISO (like 100–200) gives you clean, noise-free portraits
-                  with the most detail.
+                  Use the lowest ISO possible to minimize noise and maximize detail,
+                  especially since you can use a tripod.
                 </Tooltip>
               }
             >
@@ -128,7 +126,6 @@ function PortraitSettings() {
                   }}
                   tipFormatter={(val) => `ISO ${val}`}
                 />
-
               </div>
             </OverlayTrigger>
           </div>
@@ -141,15 +138,15 @@ function PortraitSettings() {
               fontSize: "0.9rem",
             }}
           >
-            These are just some common settings to help anchor you, there are no rules so feel free to explore!
+            These are typical starting points—feel free to experiment to suit lighting and creative goals!
           </p>
         </Col>
 
-        {/* Right Column: Portrait Image */}
+        {/* Right Column: Landscape Image */}
         <Col md={6} className="d-flex align-items-center justify-content-center">
           <Image
-            src={orderPortrait}
-            alt="Portrait example"
+            src={orderLandscape}
+            alt="Landscape example"
             fluid
             rounded
             style={{ maxHeight: "400px", objectFit: "cover" }}
@@ -160,4 +157,4 @@ function PortraitSettings() {
   );
 }
 
-export default PortraitSettings;
+export default LandscapeSettings;
