@@ -241,26 +241,38 @@ function Aperture() {
           title="Aperture"
           description="Use the slider to see how the aperture size affects depth of field"
           imageSrcFunction={(val) => {
-            const clamped = Math.max(0, Math.min(1, val)); // Clamp between 0–1
-            const stepped = (Math.round(clamped * 20) / 20).toFixed(2); // Snap to nearest 0.05
-            return `/dummy_stack/focus_${stepped}.png`;
+            const fStops = [
+              1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 11.0, 13.0, 14.0, 15.0, 16.0,
+            ];
+
+            // Reverse the mapping: map 1.4 → 16.0, and 16.0 → 1.4
+            const reversedValue = 1.4 + (16.0 - val); // Flip the val in f-stop space
+
+            // Find the closest f-stop to the reversed value
+            const closest = fStops.reduce((prev, curr) =>
+              Math.abs(curr - reversedValue) < Math.abs(prev - reversedValue)
+                ? curr
+                : prev
+            );
+
+            return `/aperture_dof/focus_1.00_f${closest.toFixed(1)}.png`;
           }}
-          min={0}
-          max={1}
-          step={0.01}
-          initialValue={0.4}
+          min={1.4}
+          max={16}
+          step={0.1}
+          initialValue={1.4}
           unitPrefix="f/"
-          leftLabel="Small aperture"
+          leftLabel="Large aperture"
           leftDescriptions={[
-            "Deep DoF",
-            "Sharp background",
-            "Everything focused",
-          ]}
-          rightLabel="Large aperture"
-          rightDescriptions={[
             "Shallow DoF",
             "Blurry background",
             "Isolated subject",
+          ]}
+          rightLabel="Small aperture"
+          rightDescriptions={[
+            "Deep DoF",
+            "Sharp background",
+            "Everything focused",
           ]}
         />
 

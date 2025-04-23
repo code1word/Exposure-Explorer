@@ -32,7 +32,12 @@ function PhotoSlider({
         <img
           src={imageSrcFunction(value)}
           alt={`${title} visual`}
-          style={{ maxWidth: "30%", height: "auto", marginBottom: "1rem" }}
+          style={{
+            maxWidth: "60%",
+            height: "auto",
+            maxHeight: "500px",
+            marginBottom: "1rem",
+          }}
         />
       )}
 
