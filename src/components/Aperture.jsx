@@ -47,7 +47,7 @@ function Aperture() {
 
   const sectionStyle = (visible) => ({
     opacity: visible ? 1 : 0,
-    maxHeight: visible ? "1000px" : "0px",
+    maxHeight: visible ? "fit-content" : "0px",
     transition: "opacity 1.5s ease, max-height 2s ease",
     marginTop: visible ? "2rem" : "0",
     overflow: "hidden",
@@ -87,13 +87,13 @@ function Aperture() {
         >
           <FontAwesomeIcon
             icon={faArrowDown}
-            style={{ fontSize: "1.25rem", color: "#1d2a45" }}
+            style={{ fontSize: "24px", color: "#1d2a45" }}
           />
         </div>
         <p
           style={{
             marginTop: "0.5rem",
-            fontSize: "0.85rem",
+            fontSize: "1rem",
             color: "#999",
             fontStyle: "italic",
           }}
@@ -105,7 +105,7 @@ function Aperture() {
   );
 
   return (
-    <Container className="py-4">
+    <Container className="py-4" style={{ fontSize: "1.25rem" }}>
       <ProgressBar
         className="mb-3"
         style={{
@@ -147,7 +147,7 @@ function Aperture() {
             gap: "0.5rem",
             cursor: "pointer",
             fontStyle: "italic",
-            fontSize: "1rem",
+            fontSize: "1.25rem",
             color: "#999",
             lineHeight: 1,
           }}
@@ -171,7 +171,7 @@ function Aperture() {
             <FontAwesomeIcon
               icon={faArrowLeft}
               style={{
-                fontSize: "1.25rem",
+                fontSize: "20px",
                 color: "#1d2a45",
                 display: "block",
                 lineHeight: "1",
@@ -182,7 +182,7 @@ function Aperture() {
         </div>
       </div>
 
-      <h2>Aperture</h2>
+      <h2 style={{ fontWeight: "700" }}>Aperture</h2>
       <p>
         The <strong>aperture</strong> controls how wide the lens opens to let in
         light. It's measured in <strong>f-stops</strong>. A larger aperture
@@ -195,7 +195,7 @@ function Aperture() {
       </p>
       {step === 0 && renderDownArrow()}
       <div style={sectionStyle(step >= 1)}>
-        <h3>Exposure</h3>
+        <h3 style={{ fontWeight: "700" }}>Exposure</h3>
         <p>
           The <strong>exposure</strong> is the brightness of your photo.
         </p>
@@ -227,7 +227,7 @@ function Aperture() {
         {step === 1 && renderDownArrow()}
       </div>
       <div style={sectionStyle(step >= 2)}>
-        <h3>Depth of Field</h3>
+        <h3 style={{ fontWeight: "700" }}>Depth of Field</h3>
         <p>
           The <strong>depth of field (DoF)</strong> is the range of distance in
           a photo that appears sharp (not blurry).
@@ -270,7 +270,7 @@ function Aperture() {
             fontStyle: "italic",
             color: "#888",
             textAlign: "center",
-            fontSize: "0.9rem",
+            fontSize: "1rem",
           }}
         >
           You've reached the end of this section!

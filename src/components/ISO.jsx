@@ -47,7 +47,7 @@ function ISO() {
 
   const sectionStyle = (visible) => ({
     opacity: visible ? 1 : 0,
-    maxHeight: visible ? "1000px" : "0px",
+    maxHeight: visible ? "fit-content" : "0px",
     transition: "opacity 1.5s ease, max-height 2s ease",
     marginTop: visible ? "2rem" : "0",
     overflow: "hidden",
@@ -87,13 +87,13 @@ function ISO() {
         >
           <FontAwesomeIcon
             icon={faArrowDown}
-            style={{ fontSize: "1.25rem", color: "#1d2a45" }}
+            style={{ fontSize: "24px", color: "#1d2a45" }}
           />
         </div>
         <p
           style={{
             marginTop: "0.5rem",
-            fontSize: "0.85rem",
+            fontSize: "1rem",
             color: "#999",
             fontStyle: "italic",
           }}
@@ -105,7 +105,7 @@ function ISO() {
   );
 
   return (
-    <Container className="py-4">
+    <Container className="py-4" style={{ fontSize: "1.25rem" }}>
       <ProgressBar
         className="mb-3"
         style={{
@@ -147,7 +147,7 @@ function ISO() {
             gap: "0.5rem",
             cursor: "pointer",
             fontStyle: "italic",
-            fontSize: "1rem",
+            fontSize: "1.25rem",
             color: "#999",
             lineHeight: 1,
           }}
@@ -171,7 +171,7 @@ function ISO() {
             <FontAwesomeIcon
               icon={faArrowLeft}
               style={{
-                fontSize: "1.25rem",
+                fontSize: "20px",
                 color: "#1d2a45",
                 display: "block",
                 lineHeight: "1",
@@ -182,7 +182,7 @@ function ISO() {
         </div>
       </div>
 
-      <h2>ISO</h2>
+      <h2 style={{ fontWeight: "700" }}>ISO</h2>
       <p>
         <strong>ISO</strong> controls the camera’s sensitivity to light. It’s
         measured in values like 100, 400, 1600, etc. A larger ISO corresponds to
@@ -195,7 +195,7 @@ function ISO() {
       </p>
       {step === 0 && renderDownArrow()}
       <div style={sectionStyle(step >= 1)}>
-        <h3>Exposure</h3>
+        <h3 style={{ fontWeight: "700" }}>Exposure</h3>
         <p>
           The <strong>exposure</strong> is the brightness of your photo.
         </p>
@@ -234,7 +234,7 @@ function ISO() {
         {step === 1 && renderDownArrow()}
       </div>
       <div style={sectionStyle(step >= 2)}>
-        <h3>Image Noise</h3>
+        <h3 style={{ fontWeight: "700" }}>Image Noise</h3>
         <p>
           <strong>Noise</strong> is the graininess or speckling that can appear
           in your photo, especially in low light.
@@ -273,7 +273,7 @@ function ISO() {
             fontStyle: "italic",
             color: "#888",
             textAlign: "center",
-            fontSize: "0.9rem",
+            fontSize: "1rem",
           }}
         >
           You've reached the end of this section!
