@@ -14,6 +14,8 @@ import { QuizContext as QuizContextTableFillBlanks } from "../../context/QuizCon
 import { QuizContext as QuizContextOrderImages } from "../../context/QuizContextOrderImages";
 import { QuizContext as QuizContextMatchImage } from "../../context/QuizContextMatchImage";
 import { QuizContext as QuizContextTwoSliders } from "../../context/QuizContextTwoSliders";
+import { ProgressBar } from "react-bootstrap";
+
 
 import axios from 'axios';
 
@@ -155,7 +157,19 @@ function QuizQuestion() {
       );
     }
   
-    return nextKey ? nextBtn : finishBtn;
+    //return nextKey ? nextBtn : finishBtn;
+    return (
+      (nextKey) ?
+        <div>
+          {prevBtn}
+          {nextBtn}
+        </div>
+      :
+        <div>
+          {prevBtn}
+          {finishBtn}
+        </div>
+    );
   };
 
 
@@ -210,8 +224,22 @@ function QuizQuestion() {
   const handleClose = () => setShowHint(false);
 
 
+  //progress bar tracking
+  const totalQuestions = questionKeys.length;
+  const progress = reviewMode ? 100 : Math.round(((currentIndex + 1) / totalQuestions) * 100);
+
+
   return (
     <div style={{ padding: "2rem" }}>
+
+      <Container className="py-2">
+        <ProgressBar 
+          now={progress} 
+          variant="info" 
+          style={{ height: '20px', fontSize: '1rem' }} 
+        />
+      </Container>
+
       <Container className="py-4" style={{ 
         height: "120px", display: "flex", flexDirection: "column" }}>
           <div style={{ flex: "0 1 auto"}}>

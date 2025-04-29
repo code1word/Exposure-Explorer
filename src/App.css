@@ -16,3 +16,7 @@ body {
   background-color: #16203b; /* Slightly darker navy */
   cursor: pointer;
 }
+
+.progress-bar {
+  background-color: #ABE2FB !important;
+}

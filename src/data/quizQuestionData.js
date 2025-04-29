@@ -8,6 +8,9 @@ import orderPortrait from "./quiz_images/orderPortrait.png";
 import orderPortrait40 from "./quiz_images/orderActionShot.png";
 import img_02 from "./quiz_images/orderActionShot.png"; //The reference image
 
+import cat_f56 from "./quiz_images/q5_images/cat_f5.6.png"; // reference image
+
+
 
 
 /*
@@ -88,7 +91,7 @@ export const quizQuestionData = {
       format: "match_image",
       question_number: "5",
       question: "Adjust the image using the slider until it matches the reference image.",
-      referenceImage: orderPortrait40,
+      referenceImage: cat_f56,
       correctSetting: "f/0.40",
       hint: "Think about how aperture affects exposure and/or depth of field. Try to identify differences in these properties between the two images.",
     },
@@ -98,7 +101,7 @@ export const quizQuestionData = {
       question: "Adjust the image using the slider until it matches the reference image.",
       referenceImage: img_02,
       correctSetting: "Aperture: f/0.30, Shutter: 0.90s",
-      hint: "Think about how aperture affects exposure and/or depth of field, and how shutter speed affects exposure and/or motion blur. Try to identify differences in these properties between the two images.",
+      hint: "Recall that a wider aperture causes increased exposure and deeper depth of field. A faster shutter speed decreases exposure and captures motion freeze.",
     },
     
       

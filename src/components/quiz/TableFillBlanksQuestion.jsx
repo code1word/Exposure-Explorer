@@ -58,7 +58,10 @@ function DroppableCell({
     drop: (item) => {
       onDrop(item.answer, row, col); // No need for success here
     },
-    canDrop: () => !reviewMode && currentValue === "", // Prevent dropping in review mode
+    canDrop: () => {
+      //console.log(`Cell [${row},${col}] currentValue: "${currentValue}"`);
+      return !reviewMode  // Prevent dropping in review mode
+    }
   }));
 
   let displayValue = currentValue || "";
@@ -155,6 +158,9 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
   const handleDrop = (answer, row, col) => {
     const cellKey = `${row}-${col}`;
 
+    // Log before handling the drop
+    //console.log("Dropping word", answer, "into cell", cellKey);
+
     setAnswers((prevAnswers) => {
       if (reviewMode || prevAnswers[cellKey] !== "") {
         console.log("❌ Drop ignored - cell already filled or in review mode.");
@@ -183,6 +189,9 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
   const handleRemove = (row, col, word) => {
     const cellKey = `${row}-${col}`;
 
+    // Log before updating the state
+    //console.log("Removing word from cell", cellKey, word);
+
     // Remove the word from the answers state
     const updatedAnswers = { ...answers };
     updatedAnswers[cellKey] = ""; // Clear the cell
@@ -202,6 +211,9 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
       return prevWordBank;
     });
     recordAnswer(questionKey, updatedAnswers);
+
+    // Log after state update
+    //console.log("Updated answers after removal:", updatedAnswers);
   };
 
   // Filter available answers to show unused words in the word bank

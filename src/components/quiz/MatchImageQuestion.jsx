@@ -5,30 +5,42 @@ import QuizPhotoSlider from "./QuizPhotoSlider";
 import { QuizContext } from "../../context/QuizContextMatchImage";
 
 //manual labor
-import orderPortrait00 from "../../data/quiz_images/orderPortrait.png";
-import orderPortrait10 from "../../data/quiz_images/orderPortrait.png";
-import orderPortrait20 from "../../data/quiz_images/orderPortrait.png";
-import orderPortrait30 from "../../data/quiz_images/orderPortrait.png";
-import orderPortrait40 from "../../data/quiz_images/orderActionShot.png"; // reference image
-import orderPortrait50 from "../../data/quiz_images/orderPortrait.png";
-import orderPortrait60 from "../../data/quiz_images/orderPortrait.png";
-import orderPortrait70 from "../../data/quiz_images/orderPortrait.png";
-import orderPortrait80 from "../../data/quiz_images/orderPortrait.png";
-import orderPortrait90 from "../../data/quiz_images/orderPortrait.png";
-import orderPortrait100 from "../../data/quiz_images/orderPortrait.png";
+import cat_f14 from "../../data/quiz_images/q5_images/cat_f1.4.png";
+import cat_f20 from "../../data/quiz_images/q5_images/cat_f2.0.png";
+import cat_f28 from "../../data/quiz_images/q5_images/cat_f2.8.png";
+import cat_f40 from "../../data/quiz_images/q5_images/cat_f4.0.png";
+import cat_f56 from "../../data/quiz_images/q5_images/cat_f5.6.png"; // reference image
+import cat_f80 from "../../data/quiz_images/q5_images/cat_f8.0.png";
+import cat_f90 from "../../data/quiz_images/q5_images/cat_f9.0.png";
+import cat_f110 from "../../data/quiz_images/q5_images/cat_f11.0.png";
+import cat_f140 from "../../data/quiz_images/q5_images/cat_f14.0.png";
+import cat_f160 from "../../data/quiz_images/q5_images/cat_f16.0.png";
+
 
 const portraitImageMap = {
-  0: orderPortrait00,
-  1: orderPortrait10,
-  2: orderPortrait20,
-  3: orderPortrait30,
-  4: orderPortrait40,
-  5: orderPortrait50,
-  6: orderPortrait60,
-  7: orderPortrait70,
-  8: orderPortrait80,
-  9: orderPortrait90,
-  10: orderPortrait100,
+  0: cat_f14,
+  1: cat_f20,
+  2: cat_f28,
+  3: cat_f40,
+  4: cat_f56,
+  5: cat_f80,
+  6: cat_f90,
+  7: cat_f110,
+  8: cat_f140,
+  9: cat_f160,
+};
+
+const sliderValueMap = {
+  0.0: 1.4,
+  0.1: 2.0,
+  0.2: 2.8,
+  0.3: 4.0,
+  0.4: 5.6,
+  0.5: 8.0,
+  0.6: 9.0,
+  0.7: 11.0,
+  0.8: 14.0,
+  0.9: 16.0,
 };
 
 function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
@@ -115,9 +127,14 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
                 return portraitImageMap[imageIndex];
               }}
               min={0}
-              max={1}
+              max={0.9}
               step={0.1}
               initialValue={sliderValue}
+              displayValue={(val) => {
+                const rounded = Math.round(val * 10) / 10;
+                const aperture = sliderValueMap[rounded];
+                return aperture !== undefined ? aperture.toFixed(1) : "-";
+              }}
               onChange={handleSliderChange}
               unitPrefix="f/"
               leftLabel="Small aperture"
