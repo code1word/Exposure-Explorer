@@ -9,16 +9,86 @@ import {
   Tooltip,
   Image,
 } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import orderPortrait from "../../data/quiz_images/orderPortrait.png";
 
 function PortraitSettings() {
+  const navigate = useNavigate();
+
   return (
     <Container className="py-4">
-      <h2>Portrait Photography Settings</h2>
-      <p>
-        Portraits are all about isolating your subject and capturing a flattering
-        expression. These are the most commonly recommended camera settings to
-        achieve beautiful portraits.
+      {/* Back Button */}
+      <div className="mb-4" style={{ textAlign: "left" }}>
+        <div
+          onClick={() => navigate("/learn/cheatsheet")}
+          onMouseEnter={(e) => {
+            const circle = e.currentTarget.querySelector(".back-circle");
+            circle.style.backgroundColor = "#cdd6e0";
+            circle.style.transform = "scale(1.1)";
+          }}
+          onMouseLeave={(e) => {
+            const circle = e.currentTarget.querySelector(".back-circle");
+            circle.style.backgroundColor = "#dbe3ee";
+            circle.style.transform = "scale(1)";
+          }}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            cursor: "pointer",
+            fontStyle: "italic",
+            fontSize: "1.25rem",
+            color: "#999",
+            lineHeight: 1,
+          }}
+        >
+          <div
+            className="back-circle"
+            style={{
+              backgroundColor: "#dbe3ee",
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              display: "grid",
+              placeItems: "center",
+              transition: "all 0.2s ease",
+              transformOrigin: "center",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              style={{
+                fontSize: "20px",
+                color: "#1d2a45",
+                display: "block",
+                lineHeight: "1",
+              }}
+            />
+          </div>
+          <span style={{ display: "inline-block" }}>Back</span>
+        </div>
+      </div>
+
+      <h2
+        className="mb-3"
+        style={{
+          fontSize: "2.25rem",
+          fontWeight: 700,
+          letterSpacing: "-1px",
+          color: "#1d2a45",
+        }}
+      >
+        Portrait Photography Settings
+      </h2>
+      <p className="text-muted" style={{ fontSize: "1.15rem" }}>
+        Portraits are all about isolating your subject and capturing a
+        flattering expression. These are the most commonly recommended camera
+        settings to achieve beautiful portraits.
       </p>
 
       <Row className="mt-4">
@@ -30,8 +100,9 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A wide aperture (e.g., f/2.0) creates a shallow depth of field,
-                  making the subject sharp while beautifully blurring the background.
+                  A wide aperture (e.g., f/2.0) creates a shallow depth of
+                  field, making the subject sharp while beautifully blurring the
+                  background.
                 </Tooltip>
               }
             >
@@ -54,7 +125,6 @@ function PortraitSettings() {
                   }}
                   tipFormatter={(val) => `f/${val.toFixed(1)}`}
                 />
-
               </div>
             </OverlayTrigger>
           </div>
@@ -65,8 +135,8 @@ function PortraitSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A fast shutter speed (like 1/250s) helps avoid motion blur from
-                  small subject movements or camera shake.
+                  A fast shutter speed (like 1/250s) helps avoid motion blur
+                  from small subject movements or camera shake.
                 </Tooltip>
               }
             >
@@ -92,7 +162,6 @@ function PortraitSettings() {
                     val >= 1 ? `${val}s` : `1/${Math.round(1 / val)}s`
                   }
                 />
-
               </div>
             </OverlayTrigger>
           </div>
@@ -128,7 +197,6 @@ function PortraitSettings() {
                   }}
                   tipFormatter={(val) => `ISO ${val}`}
                 />
-
               </div>
             </OverlayTrigger>
           </div>
@@ -141,12 +209,16 @@ function PortraitSettings() {
               fontSize: "0.9rem",
             }}
           >
-            These are just some common settings to help anchor you, there are no rules so feel free to explore!
+            These are just some common settings to help anchor you — there are
+            no rules, so feel free to explore!
           </p>
         </Col>
 
         {/* Right Column: Portrait Image */}
-        <Col md={6} className="d-flex align-items-center justify-content-center">
+        <Col
+          md={6}
+          className="d-flex align-items-center justify-content-center"
+        >
           <Image
             src={orderPortrait}
             alt="Portrait example"
