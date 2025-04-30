@@ -35,18 +35,7 @@ function OurNavbar() {
             textTransform: "uppercase",
           }}
         >
-          <span
-            style={{
-              background:
-                "linear-gradient(to bottom, #dbe3ee 0%,#1d2a45 55%, #1d2a45 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              color: "transparent",
-            }}
-          >
-            Exposure Explorer
-          </span>
+          <span>Exposure Explorer</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
