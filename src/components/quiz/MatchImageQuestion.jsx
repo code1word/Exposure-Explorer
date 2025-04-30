@@ -4,31 +4,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import QuizPhotoSlider from "./QuizPhotoSlider"; 
 import { QuizContext } from "../../context/QuizContextMatchImage";
 
-//manual labor
-import cat_f14 from "../../data/quiz_images/q5_images/cat_f1.4.png";
-import cat_f20 from "../../data/quiz_images/q5_images/cat_f2.0.png";
-import cat_f28 from "../../data/quiz_images/q5_images/cat_f2.8.png";
-import cat_f40 from "../../data/quiz_images/q5_images/cat_f4.0.png";
-import cat_f56 from "../../data/quiz_images/q5_images/cat_f5.6.png"; // reference image
-import cat_f80 from "../../data/quiz_images/q5_images/cat_f8.0.png";
-import cat_f90 from "../../data/quiz_images/q5_images/cat_f9.0.png";
-import cat_f110 from "../../data/quiz_images/q5_images/cat_f11.0.png";
-import cat_f140 from "../../data/quiz_images/q5_images/cat_f14.0.png";
-import cat_f160 from "../../data/quiz_images/q5_images/cat_f16.0.png";
-
-
-const portraitImageMap = {
-  0: cat_f14,
-  1: cat_f20,
-  2: cat_f28,
-  3: cat_f40,
-  4: cat_f56,
-  5: cat_f80,
-  6: cat_f90,
-  7: cat_f110,
-  8: cat_f140,
-  9: cat_f160,
-};
 
 const sliderValueMap = {
   0.0: 1.4,
@@ -49,7 +24,9 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   const initialValue = sliderValues[questionKey] ?? 0.6;
   const [sliderValue, setSliderValue] = useState(initialValue);
   const imageIndex = Math.round(Math.max(0, Math.min(1, sliderValue)) * 10);
-  const currentImage = portraitImageMap[imageIndex];
+  //const currentImage = portraitImageMap[imageIndex];
+  const currentImage = info.imageMap[imageIndex.toString()];
+
   //console.log("sliderValue", sliderValue);
   //console.log("currentImage", currentImage);
 
@@ -61,7 +38,8 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
     if (!reviewMode) {
       recordSliderValue(questionKey, newValue);
       const clamped = Math.max(0, Math.min(1, newValue));
-      const newImage = portraitImageMap[Math.round(clamped * 10)];
+      //const newImage = portraitImageMap[Math.round(clamped * 10)];
+      const newImage = info.imageMap[Math.round(clamped * 10)];
       recordSelectedImage(questionKey, newImage);
     }
   };
@@ -79,21 +57,26 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
         </div>
       );
     } else {
-      // Find the correct slider value that maps to the reference image
-      const correctEntry = Object.entries(portraitImageMap).find(
-        ([_, image]) => image === info.referenceImage
-      );
+      // // Find the correct slider value that maps to the reference image
+      // const correctEntry = Object.entries(portraitImageMap).find(
+      //   ([_, image]) => image === info.referenceImage
+      // );
   
-      let correctValue = null;
-      if (correctEntry) {
-        const correctIndex = Number(correctEntry[0]);
-        correctValue = (correctIndex / 10).toFixed(2); // convert index back to 0.0–1.0 and format
-      }
+      // let correctValue = null;
+      // if (correctEntry) {
+      //   const correctIndex = Number(correctEntry[0]);
+      //   correctValue = (correctIndex / 10).toFixed(2); // convert index back to 0.0–1.0 and format
+      // }
+
+      const correctKey = Object.entries(info.imageMap).find(([_, img]) =>
+        img === info.referenceImage
+      )?.[0];
+      const correctValue = correctKey ? (parseInt(correctKey) / 10).toFixed(1) : "?";
   
       return (
         <div style={{ backgroundColor: "#f8d7da", padding: "0.5rem", borderRadius: "0.5rem" }}>
           ❌ Incorrect Image<br />
-          The correct setting is: f/{correctValue}
+          The correct setting is: f/{sliderValueMap[correctValue]}
         </div>
       );
     }
@@ -124,7 +107,8 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
               imageSrcFunction={(val) => {
                 const clamped = Math.max(0, Math.min(1, val));
                 const imageIndex = Math.round(clamped * 10);
-                return portraitImageMap[imageIndex];
+                //return portraitImageMap[imageIndex];
+                return info.imageMap[imageIndex];
               }}
               min={0}
               max={0.9}

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
-import { quizQuestionData } from "../../data/quizQuestionData";
+//import { quizQuestionData } from "../../data/quizQuestionData";
 import MultipleChoiceQuestion from "./MultipleChoiceQuestion";
 import TableFillBlanksQuestion from "./TableFillBlanksQuestion";
 import OrderImagesQuestion from "./OrderImagesQuestion";
@@ -34,7 +34,27 @@ const NavButton = ({ label, onClick, style = {} }) => (
 
 function QuizQuestion() {
   const { type } = useParams();
+  //const info = quizQuestionData[type];
+
+  const [quizQuestionData, setQuizQuestionData] = useState({});
+  //const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/get-quiz-questions");
+        setQuizQuestionData(res.data);
+        //setLoading(false);
+      } catch (error) {
+        console.error("Error fetching quiz questions:", error);
+      }
+    };
+    fetchQuestions();
+  }, []);
   const info = quizQuestionData[type];
+
+
+
   const navigate = useNavigate();
 
   const questionKeys = Object.keys(quizQuestionData);
@@ -134,7 +154,7 @@ function QuizQuestion() {
 
   const renderNavigationButtons = () => {
     const nextBtn = nextKey && (
-      <NavButton label="Next →" onClick={handleNext} />
+      <NavButton type="button" class="btn btn-primary" label="Next →" onClick={handleNext} />
     );
     const prevBtn = previousKey && (
       <NavButton label="← Previous" onClick={handlePrevious} />
@@ -206,7 +226,7 @@ function QuizQuestion() {
   }
 
   // In your component:
-  const [show, setShow] = useState(false);
+  //const [show, setShow] = useState(false);
   const handleShow = () => {
     if (hintsLeft > 0) {
       if (!usedHints.has(type)) {

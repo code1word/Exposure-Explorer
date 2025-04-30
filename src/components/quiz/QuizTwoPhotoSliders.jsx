@@ -18,6 +18,7 @@ function QuizTwoPhotoSliders({
     unitSuffix = "",
     leftLabel,
     rightLabel,
+    displayValue,
     leftDescriptions = [],
     rightDescriptions = [],
   }) => {
@@ -48,7 +49,7 @@ function QuizTwoPhotoSliders({
             }}
           />
           <div className="mt-1 fw-medium">
-            {unitPrefix}{value.toFixed(2)}{unitSuffix}
+            {unitPrefix}{displayValue ? displayValue(value) : value.toFixed(2)}{unitSuffix}
           </div>
         </Col>
 
