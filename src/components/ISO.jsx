@@ -240,6 +240,7 @@ function ISO() {
           step={100}
           initialValue={100}
           unitPrefix=""
+          getDisplayValue={(val) => `${Math.round(val)}`}
           leftLabel="Lower ISO"
           leftDescriptions={[
             "Less sensitivity",
@@ -280,6 +281,7 @@ function ISO() {
           step={100}
           initialValue={100}
           unitPrefix=""
+          getDisplayValue={(val) => `${Math.round(val)}`}
           leftLabel="Lower ISO"
           leftDescriptions={["Less sensitivity", "Clean image", "Less noise"]}
           rightLabel="Higher ISO"

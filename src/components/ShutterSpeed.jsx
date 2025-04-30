@@ -240,7 +240,7 @@ function ShutterSpeed() {
           step={1}
           initialValue={3} // Index for 10ms
           unitSuffix={`ms`}
-          // getDisplayValue={(index) => `${shutterValues[index]}ms`}
+          getDisplayValue={(index) => `${shutterValues[index]}ms`}
           leftLabel="Faster shutter"
           leftDescriptions={["Less Exposure", "Darker image"]}
           rightLabel="Slower shutter"

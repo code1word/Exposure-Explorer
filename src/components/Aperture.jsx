@@ -127,6 +127,10 @@ function Aperture() {
     </div>
   );
 
+  const fStops = [
+    1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 9.0, 10.0, 11.0, 13.0, 14.0, 16.0,
+  ];
+
   return (
     <Container className="py-4" style={{ fontSize: "1.25rem" }}>
       <ProgressBar
@@ -263,23 +267,20 @@ function Aperture() {
         <PhotoSlider
           title="Aperture"
           description="Use the slider to see how the aperture size affects depth of field"
-          imageSrcFunction={(val) => {
-            const fStops = [
-              1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 9.0, 10.0, 11.0, 13.0, 14.0, 16.0,
-            ];
-
-            // Find the closest f-stop to the current slider value
-            const closest = fStops.reduce((prev, curr) =>
-              Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev
-            );
-
-            return `/aperture_dof/squirrel_f${closest.toFixed(1)}.png`;
+          imageSrcFunction={(index) => {
+            const f = fStops[index];
+            return `/aperture_dof/squirrel_f${f.toFixed(1)}.png`;
           }}
-          min={1.4}
-          max={16}
-          step={0.1}
-          initialValue={1.4}
-          unitPrefix="f/"
+          min={0}
+          max={fStops.length - 1}
+          step={1}
+          initialValue={0}
+          getDisplayValue={(index) => {
+            const f = fStops[index];
+            return f < 10 ? `f/${f.toFixed(1)}` : `f/${Math.round(f)}`;
+          }}
+          unitPrefix=""
+          unitSuffix=""
           leftLabel="Large aperture"
           leftDescriptions={[
             "Shallow DoF",

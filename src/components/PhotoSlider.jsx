@@ -15,12 +15,18 @@ function PhotoSlider({
   leftDescriptions = [],
   rightLabel,
   rightDescriptions = [],
+  getDisplayValue, // ✅ NEW: optional function to customize displayed value
 }) {
   const [value, setValue] = useState(initialValue);
 
   const handleChange = (e) => {
     setValue(parseFloat(e.target.value));
   };
+
+  // ✅ Use getDisplayValue if provided, otherwise fall back to raw value
+  const displayedValue = getDisplayValue
+    ? getDisplayValue(value)
+    : `${unitPrefix}${value.toFixed(2)}${unitSuffix}`;
 
   return (
     <Container className="text-center py-4">
@@ -62,7 +68,7 @@ function PhotoSlider({
             onChange={handleChange}
             className="form-range"
             style={{
-              background: "#dbe3ee", // fallback background
+              background: "#dbe3ee",
               WebkitAppearance: "none",
               height: "6px",
               borderRadius: "4px",
@@ -70,9 +76,7 @@ function PhotoSlider({
             }}
           />
           <div className="mt-1 fw-medium">
-            {unitPrefix}
-            {value.toFixed(2)}
-            {unitSuffix}
+            {displayedValue} {/* ✅ Dynamically show label */}
           </div>
         </Col>
 
