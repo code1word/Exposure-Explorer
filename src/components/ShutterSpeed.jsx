@@ -263,16 +263,16 @@ function ShutterSpeed() {
         <PhotoSlider
           title="Shutter Speed"
           description="Use the slider to see how shutter speed affects motion blur"
-          imageSrcFunction={(val) => {
-            const clamped = Math.max(0, Math.min(1, val)); // Clamp between 0–1
-            const stepped = (Math.round(clamped * 20) / 20).toFixed(2); // Snap to nearest 0.05
-            return `/dummy_stack/focus_${stepped}.png`;
+          imageSrcFunction={(index) => {
+            const shutter = shutterValues[index];
+            return `/shutter_motion_blur/car_shutter${shutter}ms.jpg`;
           }}
           min={0}
-          max={1}
-          step={0.01}
-          initialValue={0.4}
-          unitPrefix=""
+          max={shutterValues.length - 1}
+          step={1}
+          initialValue={3} // Index for 10ms
+          unitSuffix={`ms`}
+          getDisplayValue={(index) => `${shutterValues[index]}ms`}
           leftLabel="Faster shutter"
           leftDescriptions={["Freezes motion", "Sharp image"]}
           rightLabel="Slower shutter"
