@@ -111,6 +111,7 @@ function PortraitSettings() {
                   Aperture (f-number)
                 </label>
                 <Slider
+                  disabled={true}
                   min={1.4}
                   max={22}
                   step={0.1}
@@ -149,6 +150,7 @@ function PortraitSettings() {
                   max={30}
                   step={0.0005}
                   defaultValue={6}
+                  disabled={true}
                   marks={{
                     0: "1/2000",
                     2: "1/1000",
@@ -185,6 +187,7 @@ function PortraitSettings() {
                   min={50}
                   max={6400}
                   step={50}
+                  disabled={true}
                   defaultValue={400}
                   marks={{
                     50: "50",
