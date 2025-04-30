@@ -1,9 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import time
+import datetime
 
 app = Flask(__name__)
 CORS(app, origins=["*"]) 
+
+# Initialize or clear log file when server starts
+LOG_FILE = "page_time_log.log"
+with open(LOG_FILE, "w") as f:
+    f.write("=== Exposure Explorer Log Initialized ===\n")
 
 quiz_results_storage = []
 
@@ -173,6 +179,34 @@ def submit_quiz():
 @app.route('/get-results', methods=['GET'])
 def get_results():
     return jsonify(quiz_results_storage)
+
+
+
+
+# Receive and store time logs
+@app.route("/api/log-time", methods=["POST"])
+def log_time():
+    data = request.get_json(force=True)
+
+    page = data.get("page")
+    start = data.get("startTime")
+    end = data.get("endTime")
+    duration = data.get("duration")
+
+    # Format log entry
+    log_entry = (
+        f"[TIME] Page: {page}\n"
+        f"  Start: {start}\n"
+        f"  End:   {end}\n"
+        f"  Duration: {duration} seconds\n\n"
+    )
+
+    # Append to log file
+    with open(LOG_FILE, "a") as f:
+        f.write(log_entry)
+
+    print(log_entry.strip())  # Optional: also log to terminal
+    return jsonify({"status": "logged"}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)

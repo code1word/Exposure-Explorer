@@ -4,8 +4,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Container, ProgressBar } from "react-bootstrap";
 import PhotoSlider from "./PhotoSlider";
+import axios from "axios";
 
 function ShutterSpeed() {
+  useEffect(() => {
+    const start = new Date(); // store full Date object
+
+    return () => {
+      const end = new Date();
+      const duration = Math.round((end - start) / 1000); // in seconds
+
+      if (duration > 1) {
+        axios
+          .post("http://localhost:5000/api/log-time", {
+            page: "learn/shutter",
+            startTime: start.toISOString(),
+            endTime: end.toISOString(),
+            duration,
+          })
+          .catch((err) => {
+            console.error("Logging failed:", err);
+          });
+      }
+    };
+  }, []);
+
   const [step, setStep] = useState(() => {
     const saved = parseInt(localStorage.getItem("shutter_step"), 10);
     return !isNaN(saved) ? saved : 0;
