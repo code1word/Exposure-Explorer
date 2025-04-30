@@ -28,7 +28,6 @@ function ActionSettings() {
   // Setting value=800 to point to the 'ISO 400' mark.
   const staticISO = 800;
 
-
   return (
     <Container className="py-4">
       {/* Back Button (Copied from Portrait/LandscapeSettings) */}
@@ -101,8 +100,8 @@ function ActionSettings() {
       </h2>
       {/* Paragraph with styles from Portrait/LandscapeSettings */}
       <p className="text-muted" style={{ fontSize: "1.15rem" }}>
-        Action photography is all about freezing motion clearly. These settings help you
-        capture sharp images of fast-moving subjects.
+        Action photography is all about freezing motion clearly. These settings
+        help you capture sharp images of fast-moving subjects.
       </p>
 
       <Row className="mt-4">
@@ -114,7 +113,8 @@ function ActionSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A wide aperture like f/2.8 lets in more light, allowing for faster shutter speeds. Recommended: f/2.8
+                  A wide aperture like f/2.8 lets in more light, allowing for
+                  faster shutter speeds. Recommended: f/2.8
                 </Tooltip>
               }
             >
@@ -148,7 +148,8 @@ function ActionSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  Use a very fast shutter speed like 1/1000s or faster to freeze motion without blur. Recommended: 1/1000s
+                  Use a very fast shutter speed like 1/1000s or faster to freeze
+                  motion without blur. Recommended: 1/1000s
                 </Tooltip>
               }
             >
@@ -157,7 +158,7 @@ function ActionSettings() {
                   Shutter Speed (seconds)
                 </label>
                 <Slider
-                  min={0.0005}
+                  min={0.0}
                   max={30}
                   step={0.0005}
                   value={staticShutterSpeed} // Use value for static display (points to 1/1000s mark)
@@ -173,8 +174,11 @@ function ActionSettings() {
                   }}
                   tipFormatter={(val) =>
                     // Find the mark label for the static value, or format directly
-                    val === 2 ? "1/1000s" : // Specific override for clarity
-                    val >= 1 ? `${val}s` : `1/${Math.round(1 / val)}s`
+                    val === 2
+                      ? "1/1000s" // Specific override for clarity
+                      : val >= 1
+                      ? `${val}s`
+                      : `1/${Math.round(1 / val)}s`
                   }
                 />
               </div>
@@ -187,7 +191,9 @@ function ActionSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  Increase ISO as needed (e.g., 400 or higher) to compensate for fast shutter speeds, especially if not in bright light. Recommended: ISO 400
+                  Increase ISO as needed (e.g., 400 or higher) to compensate for
+                  fast shutter speeds, especially if not in bright light.
+                  Recommended: ISO 400
                 </Tooltip>
               }
             >
@@ -210,10 +216,12 @@ function ActionSettings() {
                     3200: "3200",
                     6400: "6400",
                   }}
-                  tipFormatter={(val) =>
-                     // Find the mark label for the static value, or format directly
-                     val === 800 ? "ISO 400" : // Specific override for clarity
-                     `ISO ${val}` // Fallback
+                  tipFormatter={
+                    (val) =>
+                      // Find the mark label for the static value, or format directly
+                      val === 800
+                        ? "ISO 400" // Specific override for clarity
+                        : `ISO ${val}` // Fallback
                   }
                 />
               </div>
@@ -226,10 +234,11 @@ function ActionSettings() {
               marginTop: "2rem",
               fontStyle: "italic",
               color: "#666",
-              fontSize: "0.9rem",
+              fontSize: "1rem",
             }}
           >
-            Continuous autofocus (AF-C) and burst mode are your best friends when tracking motion.
+            Continuous autofocus (AF-C) and burst mode are your best friends
+            when tracking motion.
           </p>
         </Col>
 
@@ -238,13 +247,36 @@ function ActionSettings() {
           md={6}
           className="d-flex align-items-center justify-content-center"
         >
-          <Image
-            src={actionPhoto} // Keep the action image
-            alt="Action shot example"
-            fluid
-            rounded
-            style={{ maxHeight: "400px", objectFit: "cover" }} // Style copied from Portrait/LandscapeSettings
-          />
+          <div
+            style={{
+              padding: "6px", // Inner white frame
+              backgroundColor: "white",
+              borderRadius: "2rem", // Match to image
+              display: "inline-block",
+              boxShadow: "0 0 0 4px #ABE2FB", // Outer blue ring
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.02)";
+              e.currentTarget.style.boxShadow = "0 0 12px 4px #ABE2FB";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "0 0 0 4px #ABE2FB";
+            }}
+          >
+            <Image
+              src={actionPhoto}
+              alt="Action shot example"
+              fluid
+              style={{
+                maxHeight: "400px",
+                objectFit: "cover",
+                borderRadius: "inherit",
+                display: "block",
+              }}
+            />
+          </div>
         </Col>
       </Row>
     </Container>
