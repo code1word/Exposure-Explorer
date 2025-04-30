@@ -134,7 +134,7 @@ function ShutterSpeed() {
         style={{
           height: "10px",
           borderRadius: "999px",
-          backgroundColor: "#13275e",
+          backgroundColor: "#1d2a45",
           overflow: "hidden",
         }}
       >

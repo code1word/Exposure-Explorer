@@ -13,20 +13,20 @@ body {
   transition: background-color 0.3s ease-in-out;
 }
 .quiz-start-button:hover {
-  background-color: #13275e; /* Slightly darker navy */
+  background-color: #1d2a45; /* Slightly darker navy */
   cursor: pointer;
 }
 
-.navy{
-  color: #13275e;
+.navy {
+  color: #1d2a45;
 }
 
 .nav-button {
   margin-top: 1.5rem;
   font-size: 1.5rem;
   background-color: white;
-  color: #ABE2FB;
-  border: 2px solid #ABE2FB;
+  color: #abe2fb;
+  border: 2px solid #abe2fb;
   padding: 0.4rem 1rem;
   border-radius: 8px;
   font-weight: bold;
@@ -35,11 +35,10 @@ body {
 }
 
 .nav-button:hover {
-  background-color: #ABE2FB;
+  background-color: #abe2fb;
   transition: background-color all 0.1s ease;
   pointer-events: auto;
   color: white;
-
 }
 
 .nav-button:focus {
@@ -51,13 +50,13 @@ body {
 }
 
 .progress-bar {
-  background-color: #ABE2FB !important;
+  background-color: #abe2fb !important;
 }
 
-.hint-button{
+.hint-button {
   background-color: #fff; /* Custom background color */
-  border-color: #77d3fd;   /* Custom border color */
-  color: #77d3fd;      
+  border-color: #77d3fd; /* Custom border color */
+  color: #77d3fd;
   border: 2px solid #77d3fd;
   font-weight: bold;
   font-size: 1.2rem;
