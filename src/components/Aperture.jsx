@@ -7,7 +7,7 @@ import PhotoSlider from "./PhotoSlider";
 
 function Aperture() {
   const [step, setStep] = useState(() => {
-    const saved = parseInt(sessionStorage.getItem("aperture_step"), 10);
+    const saved = parseInt(localStorage.getItem("aperture_step"), 10);
     return !isNaN(saved) ? saved : 0;
   });
   const navigate = useNavigate();
@@ -28,20 +28,20 @@ function Aperture() {
   }, [step]);
 
   useEffect(() => {
-    const savedStep = parseInt(sessionStorage.getItem("aperture_step"), 10);
+    const savedStep = parseInt(localStorage.getItem("aperture_step"), 10);
     if (!isNaN(savedStep)) {
       setStep(savedStep);
     }
   }, []);
 
   useEffect(() => {
-    sessionStorage.setItem("aperture_step", step);
+    localStorage.setItem("aperture_step", step);
 
     // Also update progress state
     if (step === 2) {
-      sessionStorage.setItem("progress_aperture", "Completed");
+      localStorage.setItem("progress_aperture", "Completed");
     } else if (step >= 0) {
-      sessionStorage.setItem("progress_aperture", "In Progress");
+      localStorage.setItem("progress_aperture", "In Progress");
     }
   }, [step]);
 

@@ -7,7 +7,7 @@ import PhotoSlider from "./PhotoSlider";
 
 function ISO() {
   const [step, setStep] = useState(() => {
-    const saved = parseInt(sessionStorage.getItem("iso_step"), 10);
+    const saved = parseInt(localStorage.getItem("iso_step"), 10);
     return !isNaN(saved) ? saved : 0;
   });
   const navigate = useNavigate();
@@ -28,20 +28,20 @@ function ISO() {
   }, [step]);
 
   useEffect(() => {
-    const savedStep = parseInt(sessionStorage.getItem("iso_step"), 10);
+    const savedStep = parseInt(localStorage.getItem("iso_step"), 10);
     if (!isNaN(savedStep)) {
       setStep(savedStep);
     }
   }, []);
 
   useEffect(() => {
-    sessionStorage.setItem("iso_step", step);
+    localStorage.setItem("iso_step", step);
 
     // Also update progress state
     if (step === 2) {
-      sessionStorage.setItem("progress_iso", "Completed");
+      localStorage.setItem("progress_iso", "Completed");
     } else if (step >= 0) {
-      sessionStorage.setItem("progress_iso", "In Progress");
+      localStorage.setItem("progress_iso", "In Progress");
     }
   }, [step]);
 

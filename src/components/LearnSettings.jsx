@@ -18,10 +18,9 @@ function LearnSettings() {
   });
 
   useEffect(() => {
-    const aperture =
-      sessionStorage.getItem("progress_aperture") || "Not started";
-    const shutter = sessionStorage.getItem("progress_shutter") || "Not started";
-    const iso = sessionStorage.getItem("progress_iso") || "Not started";
+    const aperture = localStorage.getItem("progress_aperture") || "Not started";
+    const shutter = localStorage.getItem("progress_shutter") || "Not started";
+    const iso = localStorage.getItem("progress_iso") || "Not started";
     setProgress({ aperture, shutter, iso });
   }, []);
 

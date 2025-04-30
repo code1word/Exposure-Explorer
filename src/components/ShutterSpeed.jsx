@@ -7,7 +7,7 @@ import PhotoSlider from "./PhotoSlider";
 
 function ShutterSpeed() {
   const [step, setStep] = useState(() => {
-    const saved = parseInt(sessionStorage.getItem("shutter_step"), 10);
+    const saved = parseInt(localStorage.getItem("shutter_step"), 10);
     return !isNaN(saved) ? saved : 0;
   });
   const navigate = useNavigate();
@@ -28,20 +28,20 @@ function ShutterSpeed() {
   }, [step]);
 
   useEffect(() => {
-    const savedStep = parseInt(sessionStorage.getItem("shutter_step"), 10);
+    const savedStep = parseInt(localStorage.getItem("shutter_step"), 10);
     if (!isNaN(savedStep)) {
       setStep(savedStep);
     }
   }, []);
 
   useEffect(() => {
-    sessionStorage.setItem("shutter_step", step);
+    localStorage.setItem("shutter_step", step);
 
     // Also update progress state
     if (step === 2) {
-      sessionStorage.setItem("progress_shutter", "Completed");
+      localStorage.setItem("progress_shutter", "Completed");
     } else if (step >= 0) {
-      sessionStorage.setItem("progress_shutter", "In Progress");
+      localStorage.setItem("progress_shutter", "In Progress");
     }
   }, [step]);
 
