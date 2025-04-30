@@ -13,8 +13,41 @@ body {
   transition: background-color 0.3s ease-in-out;
 }
 .quiz-start-button:hover {
-  background-color: #16203b; /* Slightly darker navy */
+  background-color: #13275e; /* Slightly darker navy */
   cursor: pointer;
+}
+
+.navy{
+  color: #13275e;
+}
+
+.nav-button {
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  background-color: white;
+  color: #ABE2FB;
+  border: 2px solid #ABE2FB;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color all 0.1s ease;
+  pointer-events: auto;
+}
+
+.nav-button:hover {
+  background-color: #ABE2FB;
+  transition: background-color all 0.1s ease;
+  pointer-events: auto;
+  color: white;
+
+}
+
+.nav-button:focus {
+  pointer-events: none; /* Prevent interaction during focus */
+}
+
+.nav-button:active {
+  pointer-events: auto; /* Re-enable interaction */
 }
 
 .progress-bar {

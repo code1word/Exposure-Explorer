@@ -111,6 +111,7 @@ function QuizResults() {
       <br />
       <div>
         <h4>Review your answers:</h4>
+        <br />
 
         {questionKeys.map((key, index) => {
           const question = quizQuestionData[key];

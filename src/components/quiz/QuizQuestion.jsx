@@ -19,15 +19,13 @@ import { ProgressBar } from "react-bootstrap";
 
 import axios from 'axios';
 
-const NavButton = ({ label, onClick, style = {} }) => (
+const NavButton = ({ label, onClick }) => (
   <button
-    onClick={onClick}
-    className="btn hint-button"
-    style={{
-      marginTop: "1.5rem",
-      fontSize: "1.5rem",
-      ...style,
+    onClick={(e) => {
+      e.currentTarget.blur(); // <-- Remove persistent focus
+      onClick();
     }}
+    className="nav-button"
   >
     {label}
   </button>
@@ -256,7 +254,11 @@ function QuizQuestion() {
         <ProgressBar 
           now={progress} 
           variant="info" 
-          style={{ height: '20px', fontSize: '1rem' }} 
+          style={{ 
+            height: '20px', 
+            fontSize: '1rem', 
+            backgroundColor: "#13275e",
+            borderRadius: "999px" }} 
         />
       </Container>
 
@@ -269,7 +271,7 @@ function QuizQuestion() {
           }}>
           <Col md={1}></Col>
           <Col md={9}>
-            <h2>Question {currentIndex+1}: {info.question}</h2>
+            <h2 className="navy">Question {currentIndex+1}: {info.question}</h2>
           </Col>
           <Col md={1}>
             {!reviewMode && (
@@ -304,14 +306,14 @@ function QuizQuestion() {
         
       </Container>
 
-      <Container className="py-4">
+      <Container className="py-4 navy">
         <div style={{ flex: "1 1 auto" }}>
 
           <Row>
 
           <Col md={1}></Col>
 
-          <Col md={10}>
+          <Col md={10} className="navy">
             {renderQuestionContent(info)}
           </Col>
 

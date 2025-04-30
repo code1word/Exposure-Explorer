@@ -111,7 +111,7 @@ function ISO() {
         style={{
           height: "10px",
           borderRadius: "999px",
-          backgroundColor: "#dbe3ee",
+          backgroundColor: "#13275e",
           overflow: "hidden",
         }}
       >
