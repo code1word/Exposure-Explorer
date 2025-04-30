@@ -27,7 +27,6 @@ function NightSettings() {
   // Note: Original defaultValue=1600 maps to the '1600' ISO mark. Keep value={1600}.
   const staticISO = 1600;
 
-
   return (
     <Container className="py-4">
       {/* Back Button (Copied from previous examples) */}
@@ -100,9 +99,9 @@ function NightSettings() {
       </h2>
       {/* Paragraph with styles from previous examples */}
       <p className="text-muted" style={{ fontSize: "1.15rem" }}>
-        Night photography requires letting in as much light as possible while avoiding
-        excessive noise or blur. These settings are a great place to start for capturing
-        scenes after dark.
+        Night photography requires letting in as much light as possible while
+        avoiding excessive noise or blur. These settings are a great place to
+        start for capturing scenes after dark.
       </p>
 
       <Row className="mt-4">
@@ -114,7 +113,8 @@ function NightSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A wide aperture like f/2.0 helps gather more light in dark conditions. Recommended: f/2.0
+                  A wide aperture like f/2.0 helps gather more light in dark
+                  conditions. Recommended: f/2.0
                 </Tooltip>
               }
             >
@@ -148,7 +148,8 @@ function NightSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  Longer shutter speeds (e.g., 15s) allow more light to hit the sensor—use a tripod! Recommended: 15s
+                  Longer shutter speeds (e.g., 15s) allow more light to hit the
+                  sensor—use a tripod! Recommended: 15s
                 </Tooltip>
               }
             >
@@ -157,7 +158,7 @@ function NightSettings() {
                   Shutter Speed (seconds)
                 </label>
                 <Slider
-                  min={0.0005}
+                  min={0.0}
                   max={30}
                   step={0.0005}
                   value={staticShutterSpeed} // Use value for static display (points to 15s mark)
@@ -173,8 +174,11 @@ function NightSettings() {
                   }}
                   tipFormatter={(val) =>
                     // Find the mark label for the static value, or format directly
-                    val === 20 ? "15s" : // Specific override for clarity
-                    val >= 1 ? `${val}s` : `1/${Math.round(1 / val)}s`
+                    val === 20
+                      ? "15s" // Specific override for clarity
+                      : val >= 1
+                      ? `${val}s`
+                      : `1/${Math.round(1 / val)}s`
                   }
                 />
               </div>
@@ -187,7 +191,8 @@ function NightSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  Higher ISO values (e.g., 1600) boost brightness but increase noise—find a balance. Recommended: ISO 1600
+                  Higher ISO values (e.g., 1600) boost brightness but increase
+                  noise—find a balance. Recommended: ISO 1600
                 </Tooltip>
               }
             >
@@ -210,10 +215,12 @@ function NightSettings() {
                     3200: "3200",
                     6400: "6400",
                   }}
-                  tipFormatter={(val) =>
-                     // Find the mark label for the static value, or format directly
-                     val === 1600 ? "ISO 1600" : // Specific override for clarity
-                     `ISO ${val}` // Fallback
+                  tipFormatter={
+                    (val) =>
+                      // Find the mark label for the static value, or format directly
+                      val === 1600
+                        ? "ISO 1600" // Specific override for clarity
+                        : `ISO ${val}` // Fallback
                   }
                 />
               </div>
@@ -226,10 +233,12 @@ function NightSettings() {
               marginTop: "2rem",
               fontStyle: "italic",
               color: "#666",
-              fontSize: "0.9rem",
+              fontSize: "1rem",
             }}
           >
-            Use a tripod whenever possible and experiment with white balance for dramatic effects. A remote shutter or timer can also prevent camera shake.
+            Use a tripod whenever possible and experiment with white balance for
+            dramatic effects. A remote shutter or timer can also prevent camera
+            shake.
           </p>
         </Col>
 
@@ -238,13 +247,36 @@ function NightSettings() {
           md={6}
           className="d-flex align-items-center justify-content-center"
         >
-          <Image
-            src={nightPhoto} // Keep the night image
-            alt="Night scene example"
-            fluid
-            rounded
-            style={{ maxHeight: "400px", objectFit: "cover" }} // Style copied from previous examples
-          />
+          <div
+            style={{
+              padding: "6px", // Inner white frame
+              backgroundColor: "white",
+              borderRadius: "2rem", // Match to image
+              display: "inline-block",
+              boxShadow: "0 0 0 4px #ABE2FB", // Outer blue ring
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.02)";
+              e.currentTarget.style.boxShadow = "0 0 12px 4px #ABE2FB";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "0 0 0 4px #ABE2FB";
+            }}
+          >
+            <Image
+              src={nightPhoto}
+              alt="Night scene example"
+              fluid
+              style={{
+                maxHeight: "400px",
+                objectFit: "cover",
+                borderRadius: "inherit",
+                display: "block",
+              }}
+            />
+          </div>
         </Col>
       </Row>
     </Container>

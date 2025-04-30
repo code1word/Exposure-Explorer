@@ -1,8 +1,17 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { useLocation } from "react-router-dom";
 
 function OurNavbar() {
+  const location = useLocation();
+
+  const navItems = [
+    { label: "Learn Settings", href: "/learn" },
+    { label: "Interactive Simulator", href: "/simulator" },
+    { label: "Quiz Mode", href: "/practice" },
+  ];
+
   return (
     <Navbar
       collapseOnSelect
@@ -32,8 +41,8 @@ function OurNavbar() {
                 "linear-gradient(to bottom, #dbe3ee 0%,#1d2a45 55%, #1d2a45 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              backgroundClip: "text", // for Firefox
-              color: "transparent", // ensures fallback
+              backgroundClip: "text",
+              color: "transparent",
             }}
           >
             Exposure Explorer
@@ -42,21 +51,25 @@ function OurNavbar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto" style={{ gap: "1.25rem" }}>
-            <div className="nav-link-wrapper">
-              <Nav.Link href="/learn" className="nav-link-underline">
-                Learn Settings
-              </Nav.Link>
-            </div>
-            <div className="nav-link-wrapper">
-              <Nav.Link href="/simulator" className="nav-link-underline">
-                Interactive Simulator
-              </Nav.Link>
-            </div>
-            <div className="nav-link-wrapper">
-              <Nav.Link href="/practice" className="nav-link-underline">
-                Quiz Mode
-              </Nav.Link>
-            </div>
+            {navItems.map((item, idx) => {
+              const isActive = location.pathname.startsWith(item.href);
+              return (
+                <div
+                  key={idx}
+                  className={`nav-link-wrapper ${isActive ? "active" : ""}`}
+                >
+                  <Nav.Link href={item.href} className="nav-link-clean">
+                    <span className="nav-link-text">
+                      {item.label}
+                      <span className="nav-corner nav-tl" />
+                      <span className="nav-corner nav-tr" />
+                      <span className="nav-corner nav-bl" />
+                      <span className="nav-corner nav-br" />
+                    </span>
+                  </Nav.Link>
+                </div>
+              );
+            })}
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -64,35 +77,91 @@ function OurNavbar() {
       <style>{`
         .nav-link-wrapper {
           display: inline-block;
+          margin: 0 0.6rem;
         }
 
-        .nav-link-underline {
-          position: relative;
-          display: inline-block !important;
-          padding: 0.5rem 0;
-          color: #1d2a45 !important;
+        .nav-link-clean {
           font-size: 1.1rem;
-          text-decoration: none;
           font-weight: 700;
-          border-radius: 90px;
+          color: #1d2a45 !important;
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          display: inline-block;
         }
 
-        .nav-link-underline::after {
-          content: '';
+        .nav-link-text {
+          position: relative;
+          display: inline-block;
+          padding: 0.25rem 0.4rem;
+          transition: background-color 0.3s ease;
+          border-radius: 6px;
+        }
+
+        .nav-link-wrapper.active .nav-link-text {
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Corners */
+        .nav-corner {
           position: absolute;
-          left: 0;
-          bottom: 0px;
-          width: 0%;
-          height: 2px;
-          background-color: #1d2a45;
-          transition: width 0.4s ease-in-out;
-          border-radius: 90px;
+          width: 8px;
+          height: 8px;
+          border: 2px solid #1d2a45;
+          opacity: 0;
+          transition: opacity 0.2s ease, border-color 0.5s ease;
+          pointer-events: none;
+          z-index: 1;
         }
 
-        .nav-link-underline:hover::after {
-          width: 100%;
-          border-radius: 90px;
+        /* Hover: corners white */
+        .nav-link-wrapper:hover .nav-corner {
+          opacity: 1;
+          border-color: white;
         }
+
+        /* Active: corners white */
+        .nav-link-wrapper.active .nav-corner {
+          opacity: 1;
+          border-color: white;
+        }
+
+        /* Corner positions */
+        .nav-tl {
+          top: 0;
+          left: 0;
+          border-right: none;
+          border-bottom: none;
+        }
+
+        .nav-tr {
+          top: 0;
+          right: 0;
+          border-left: none;
+          border-bottom: none;
+        }
+
+        .nav-bl {
+          bottom: 0;
+          left: 0;
+          border-right: none;
+          border-top: none;
+        }
+
+        .nav-br {
+          bottom: 0;
+          right: 0;
+          border-left: none;
+          border-top: none;
+        }
+
+        .nav-link-wrapper:hover .nav-link-clean {
+          color: rgba(29, 42, 69, 0.6) !important;
+        }
+
+        .nav-link-wrapper.active .nav-link-clean {
+          color: rgba(29, 42, 69, 0.6) !important;
+        }
+
       `}</style>
     </Navbar>
   );

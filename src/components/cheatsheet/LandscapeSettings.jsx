@@ -26,7 +26,6 @@ function LandscapeSettings() {
   // Note: Original defaultValue=400 maps to '100' ISO mark. Keep value={400}.
   const staticISO = 400;
 
-
   return (
     <Container className="py-4">
       {/* Back Button (Copied from PortraitSettings) */}
@@ -99,9 +98,9 @@ function LandscapeSettings() {
       </h2>
       {/* Paragraph with styles from PortraitSettings */}
       <p className="text-muted" style={{ fontSize: "1.15rem" }}>
-        Landscape photography is about capturing the grandeur of a scene with sharp
-        detail from front to back. These are the most commonly recommended camera
-        settings to create crisp, vivid landscape shots.
+        Landscape photography is about capturing the grandeur of a scene with
+        sharp detail from front to back. These are the most commonly recommended
+        camera settings to create crisp, vivid landscape shots.
       </p>
 
       <Row className="mt-4">
@@ -113,8 +112,9 @@ function LandscapeSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  A narrower aperture (e.g., f/8 or higher) increases depth of field,
-                  ensuring more of the scene is in focus. Recommended: f/11
+                  A narrower aperture (e.g., f/8 or higher) increases depth of
+                  field, ensuring more of the scene is in focus. Recommended:
+                  f/11
                 </Tooltip>
               }
             >
@@ -148,8 +148,9 @@ function LandscapeSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  Longer shutter speeds (e.g. 1/30s or slower) can help in low light
-                  and create artistic motion effects, but a tripod is recommended. Recommended: 1/30s
+                  Longer shutter speeds (e.g. 1/30s or slower) can help in low
+                  light and create artistic motion effects, but a tripod is
+                  recommended. Recommended: 1/30s
                 </Tooltip>
               }
             >
@@ -158,7 +159,7 @@ function LandscapeSettings() {
                   Shutter Speed (seconds)
                 </label>
                 <Slider
-                  min={0.0005}
+                  min={0.0}
                   max={30}
                   step={0.0005}
                   value={staticShutterSpeed} // Use value for static display
@@ -174,8 +175,11 @@ function LandscapeSettings() {
                   }}
                   tipFormatter={(val) =>
                     // Find the mark label for the static value, or format directly
-                    val === 8 ? "1/30s" : // Specific override for clarity
-                    val >= 1 ? `${val}s` : `1/${Math.round(1 / val)}s`
+                    val === 8
+                      ? "1/30s" // Specific override for clarity
+                      : val >= 1
+                      ? `${val}s`
+                      : `1/${Math.round(1 / val)}s`
                   }
                 />
               </div>
@@ -188,8 +192,9 @@ function LandscapeSettings() {
               placement="top"
               overlay={
                 <Tooltip>
-                  Use the lowest ISO possible (like 100) to minimize noise and maximize detail,
-                  especially since you can use a tripod. Recommended: ISO 100
+                  Use the lowest ISO possible (like 100) to minimize noise and
+                  maximize detail, especially since you can use a tripod.
+                  Recommended: ISO 100
                 </Tooltip>
               }
             >
@@ -212,10 +217,12 @@ function LandscapeSettings() {
                     3200: "3200",
                     6400: "6400",
                   }}
-                  tipFormatter={(val) =>
-                     // Find the mark label for the static value, or format directly
-                     val === 400 ? "ISO 100" : // Specific override for clarity
-                     `ISO ${val}` // Fallback
+                  tipFormatter={
+                    (val) =>
+                      // Find the mark label for the static value, or format directly
+                      val === 400
+                        ? "ISO 100" // Specific override for clarity
+                        : `ISO ${val}` // Fallback
                   }
                 />
               </div>
@@ -228,10 +235,11 @@ function LandscapeSettings() {
               marginTop: "2rem",
               fontStyle: "italic",
               color: "#666",
-              fontSize: "0.9rem",
+              fontSize: "1rem",
             }}
           >
-            These are typical starting points—feel free to experiment to suit lighting and creative goals!
+            These are typical starting points—feel free to experiment to suit
+            lighting and creative goals!
           </p>
         </Col>
 
@@ -240,13 +248,36 @@ function LandscapeSettings() {
           md={6}
           className="d-flex align-items-center justify-content-center"
         >
-          <Image
-            src={orderLandscape} // Keep the landscape image
-            alt="Landscape example"
-            fluid
-            rounded
-            style={{ maxHeight: "400px", objectFit: "cover" }} // Style copied from PortraitSettings
-          />
+          <div
+            style={{
+              padding: "6px", // Inner white frame
+              backgroundColor: "white",
+              borderRadius: "2rem", // Match to image
+              display: "inline-block",
+              boxShadow: "0 0 0 4px #ABE2FB", // Outer blue ring
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.02)";
+              e.currentTarget.style.boxShadow = "0 0 12px 4px #ABE2FB";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "0 0 0 4px #ABE2FB";
+            }}
+          >
+            <Image
+              src={orderLandscape}
+              alt="Landscape example"
+              fluid
+              style={{
+                maxHeight: "400px",
+                objectFit: "cover",
+                borderRadius: "inherit",
+                display: "block",
+              }}
+            />
+          </div>
         </Col>
       </Row>
     </Container>

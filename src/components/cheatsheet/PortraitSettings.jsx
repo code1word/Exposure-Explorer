@@ -146,7 +146,7 @@ function PortraitSettings() {
                   Shutter Speed (seconds)
                 </label>
                 <Slider
-                  min={0.0005}
+                  min={0.0}
                   max={30}
                   step={0.0005}
                   defaultValue={6}
@@ -209,7 +209,7 @@ function PortraitSettings() {
               marginTop: "2rem",
               fontStyle: "italic",
               color: "#666",
-              fontSize: "0.9rem",
+              fontSize: "1rem",
             }}
           >
             These are just some common settings to help anchor you — there are
@@ -222,13 +222,36 @@ function PortraitSettings() {
           md={6}
           className="d-flex align-items-center justify-content-center"
         >
-          <Image
-            src={orderPortrait}
-            alt="Portrait example"
-            fluid
-            rounded
-            style={{ maxHeight: "400px", objectFit: "cover" }}
-          />
+          <div
+            style={{
+              padding: "6px", // Inner white frame
+              backgroundColor: "white",
+              borderRadius: "2rem", // Match to image
+              display: "inline-block",
+              boxShadow: "0 0 0 4px #ABE2FB", // Outer blue ring
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.02)";
+              e.currentTarget.style.boxShadow = "0 0 12px 4px #ABE2FB";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "0 0 0 4px #ABE2FB";
+            }}
+          >
+            <Image
+              src={orderPortrait}
+              alt="Portrait example"
+              fluid
+              style={{
+                maxHeight: "400px",
+                objectFit: "cover",
+                borderRadius: "inherit",
+                display: "block",
+              }}
+            />
+          </div>
         </Col>
       </Row>
     </Container>

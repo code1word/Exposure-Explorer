@@ -12,7 +12,7 @@ import CheatSheet from "./components/CheatSheet";
 import CheatSheetDetail from "./components/cheatsheet/CheatSheetDetail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PortraitSettings from "./components/cheatsheet/PortraitSettings";
-import LandscapeSettings from "./components/cheatsheet/LanscapeSettings";
+import LandscapeSettings from "./components/cheatsheet/LandscapeSettings";
 import NightSettings from "./components/cheatsheet/NightSettings";
 import ActionSettings from "./components/cheatsheet/ActionSettings";
 
