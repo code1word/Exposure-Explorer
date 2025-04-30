@@ -1,17 +1,50 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Button } from "react-bootstrap";
-import { quizQuestionData } from "../data/quizQuestionData";
-import { QuizContext } from "../context/QuizContextMultipleChoice";
+//import { quizQuestionData } from "../data/quizQuestionData";
+import axios from 'axios';
+
+import { QuizContext as QuizContextMultipleChoice } from "../context/QuizContextMultipleChoice";
+import { QuizContext as QuizContextTableFillBlanks } from "../context/QuizContextTable";
+import { QuizContext as QuizContextOrderImages } from "../context/QuizContextOrderImages";
+import { QuizContext as QuizContextMatchImage } from "../context/QuizContextMatchImage";
+import { QuizContext as QuizContextTwoSliders } from "../context/QuizContextTwoSliders";
+
 
 function PracticeMode() {
   const navigate = useNavigate();
-  const { resetQuiz } = useContext(QuizContext);
+  const [quizQuestionData, setQuizQuestionData] = useState({});
+  //const [loading, setLoading] = useState(true);
+
+  const { resetQuiz: resetQuizMC } = useContext(QuizContextMultipleChoice);
+  const { resetQuiz: resetQuizTAB } = useContext(QuizContextTableFillBlanks);
+  const { resetQuiz: resetQuizORD } = useContext(QuizContextOrderImages);
+  const { resetQuiz: resetQuizMATCH1 } = useContext(QuizContextMatchImage);
+  const { resetQuiz: resetQuizMATCH2 } = useContext(QuizContextTwoSliders);
+
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/get-quiz-questions");
+        setQuizQuestionData(res.data);
+        //setLoading(false);
+      } catch (error) {
+        console.error("Error fetching quiz questions:", error);
+      }
+    };
+    fetchQuestions();
+  }, []);
 
   const handleStart = () => {
-    resetQuiz();
+    resetQuizMC();
+    resetQuizTAB();
+    resetQuizORD();
+    resetQuizMATCH1();
+    resetQuizMATCH2();
     const firstQuestionKey = Object.keys(quizQuestionData)[0];
-    navigate(`/learn/practice/${firstQuestionKey}`);
+    //console.log("firstQuestionKey", firstQuestionKey);
+    navigate(`/learn/quiz/${firstQuestionKey}`);
   };
 
   return (
@@ -22,7 +55,7 @@ function PracticeMode() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #dbe3ee, #ffffff)",
+        background: "linear-gradient(135deg, #ABE2FB, #ffffff)",
         minHeight: "90vh"
       }}
     >

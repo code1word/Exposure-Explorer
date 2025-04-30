@@ -31,12 +31,12 @@ function App() {
         <Route path="/learn/aperture" element={<Aperture />} />
         <Route path="/learn/shutter" element={<ShutterSpeed />} />
         <Route path="/learn/iso" element={<ISO />} />
-        <Route path="/practice" element={<PracticeMode />} />
+        <Route path="/quiz" element={<PracticeMode />} />
         <Route path="/simulator" element={<InteractiveSim />} />
         <Route path="/learn/cheatsheet" element={<CheatSheet />} />
         <Route path="/learn/cheatsheet/:type" element={<CheatSheetDetail />} />
-        <Route path="/learn/practice/:type" element={<QuizQuestion />} />
-        <Route path="/learn/practice/results" element={<QuizResults />} />
+        <Route path="/learn/quiz/:type" element={<QuizQuestion />} />
+        <Route path="/learn/quiz/results" element={<QuizResults />} />
         <Route path="/learn/portrait" element={<PortraitSettings />} />
         <Route path="/learn/landscape" element={<LandscapeSettings />} />
         <Route path="/learn/night" element={<NightSettings />} />

@@ -8,7 +8,7 @@ CORS(app, origins=["*"])
 quiz_results_storage = []
 
 quiz_questions = {
-    "q1": {
+    "1": {
         "format": "multiple_choice",
         "question_number": "1",
         "question": "Which setting controls how much of the scene is in focus?",
@@ -19,7 +19,7 @@ quiz_questions = {
         "answer": "   Aperture",
         "hint": "Think about the property that controls the blurriness of the background, and the setting that affects it."
       },
-    "q2": {
+    "2": {
       "format": "multiple_choice",
       "question_number": "2",
       "question": "What does increasing ISO do to a photo?",
@@ -30,7 +30,7 @@ quiz_questions = {
       "answer": "   Makes it brighter but adds noise",
       "hint": "Think about the two key properties of the camera affected by ISO."
     },
-    "q3": {
+    "3": {
       "format": "table_fill_blanks",
       "question_number": "3",
       "question": "Fill in the table for aperture below using the word bank.",
@@ -58,7 +58,7 @@ quiz_questions = {
       },
       "hint": "A larger aperture increases exposure and focuses on a smaller part of the image. Think about what this suggests about the properties specified in the table."
     },
-    "q4": {
+    "4": {
       "format": "order_images",
       "question_number": "4",
       "question": "Different types of pictures require different settings. Drag and drop the following types of pictures to order them from lowest to highest shutter speed.",
@@ -76,7 +76,7 @@ quiz_questions = {
       ],
       "hint": "Categorize each of these images according to what you learned from the Settings Cheat Sheet, then recall the recommended shutter speed for each type of photo."
     },
-    "q5": {
+    "5": {
       "format": "match_image",
       "question_number": "5",
       "question": "Adjust the image using the slider until it matches the reference image.",
@@ -96,7 +96,7 @@ quiz_questions = {
       },
       "hint": "Think about how aperture affects exposure and/or depth of field. Try to identify differences in these properties between the two images.",
     },
-    "q6": {
+    "6": {
       "format": "two_sliders",
       "question_number": "6",
       "question": "Adjust the image using the slider until it matches the reference image.",

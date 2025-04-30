@@ -9,7 +9,7 @@ function OurNavbar() {
   const navItems = [
     { label: "Learn Settings", href: "/learn" },
     { label: "Interactive Simulator", href: "/simulator" },
-    { label: "Quiz Mode", href: "/practice" },
+    { label: "Quiz Mode", href: "/quiz" },
   ];
 
   return (

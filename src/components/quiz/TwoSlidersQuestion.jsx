@@ -122,17 +122,12 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
 
   return (
     <Container>
-      <Row className="text-center pt-3">
-        <Col md={6} className="text-muted fst-italic">
-          Adjust aperture and ISO to match the reference image.
-        </Col>
-        <Col md={6} className="text-muted fst-italic">
-          Reference Image
-        </Col>
-      </Row>
 
       <Row className="align-items-start">
         <Col md={6}>
+          <div className="text-muted fst-italic text-center pt-3">
+            Adjust aperture and ISO.
+          </div>
           <QuizTwoPhotoSliders
             staticImage={currentImage}
             description=""
@@ -161,6 +156,9 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
         </Col>
 
         <Col md={6} >
+          <div className="text-muted fst-italic text-center pt-3">
+            Reference image
+          </div>
           <Container className="text-center py-2">
             <img
               src={referenceImage}

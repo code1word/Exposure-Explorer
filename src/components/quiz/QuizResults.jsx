@@ -4,7 +4,7 @@ import React, { useState, useContext, useEffect, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, ProgressBar } from "react-bootstrap";
-import { quizQuestionData } from "../../data/quizQuestionData";
+//import { quizQuestionData } from "../../data/quizQuestionData";
 
 import { QuizContext as QuizContextMultipleChoice } from "../../context/QuizContextMultipleChoice";
 import { QuizContext as QuizContextTableFillBlanks } from "../../context/QuizContextTable";
@@ -23,12 +23,26 @@ function QuizResults() {
   const { selectedImages: selectedImageMatch2, resetQuiz: resetQuizMATCH2 } = useContext(QuizContextTwoSliders);
 
 
-  
+  const [quizQuestionData, setQuizQuestionData] = useState({});
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
-  const questionKeys = useMemo(() => Object.keys(quizQuestionData), []);
   const [questionCorrectness, setQuestionCorrectness] = useState({});
 
+  useEffect(() => {
+    const fetchQuizData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/get-quiz-questions");
+        setQuizQuestionData(response.data); // Update state with fetched data
+        //setLoading(false); // Set loading to false after data is fetched
+      } catch (error) {
+        console.error("Error fetching quiz questions:", error);
+      }
+    };
+
+    fetchQuizData();
+  }, []);
+
+  const questionKeys = useMemo(() => Object.keys(quizQuestionData), [quizQuestionData]);
 
   useEffect(() => {
     let calculatedScore = 0;
@@ -81,7 +95,7 @@ function QuizResults() {
     resetQuizORD();
     resetQuizMATCH1();
     resetQuizMATCH2();
-    navigate(`/learn/practice/${questionKeys[0]}`);
+    navigate(`/learn/quiz/${questionKeys[0]}`);
   };
 
   return (
@@ -105,8 +119,8 @@ function QuizResults() {
 
           return (
             <div key={key}>
-              <Link to={`/learn/practice/${key}?reviewMode=true`}>
-                <button style={{ margin: "0.5rem" }}>
+              <Link to={`/learn/quiz/${key}?reviewMode=true`}>
+                <button className="hint-button btn" style={{ margin: "0.5rem" }}>
                   {isCorrect ? "✅" : "❌"} Question {index + 1}
                 </button>
               </Link>
@@ -115,7 +129,7 @@ function QuizResults() {
         })}
 
       </div>
-      <button onClick={handleStart} style={{ marginTop: "2rem" }}>
+      <button onClick={handleStart} className="btn hint-button" style={{ marginTop: "2rem" }}>
         Try Again
       </button>
     </div>

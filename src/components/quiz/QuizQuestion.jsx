@@ -22,6 +22,7 @@ import axios from 'axios';
 const NavButton = ({ label, onClick, style = {} }) => (
   <button
     onClick={onClick}
+    className="btn hint-button"
     style={{
       marginTop: "1.5rem",
       fontSize: "1.5rem",
@@ -86,18 +87,18 @@ function QuizQuestion() {
 
   const handleNext = () => {
     if (nextKey) {
-      navigate(`/learn/practice/${nextKey}${reviewMode ? "?reviewMode=true" : ""}`);
+      navigate(`/learn/quiz/${nextKey}${reviewMode ? "?reviewMode=true" : ""}`);
     }
   };
   
   const handlePrevious = () => {
     if (previousKey) {
-      navigate(`/learn/practice/${previousKey}${reviewMode ? "?reviewMode=true" : ""}`);
+      navigate(`/learn/quiz/${previousKey}${reviewMode ? "?reviewMode=true" : ""}`);
     }
   };
 
   const handleFinish = () => {
-    navigate(`/learn/practice/results`);
+    navigate(`/learn/quiz/results`);
   };
   
   const submitQuiz = async () => {
@@ -149,15 +150,15 @@ function QuizQuestion() {
       console.error("Error sending quiz data:", error);
     }
   
-    navigate(`/learn/practice/results`);
+    navigate(`/learn/quiz/results`);
   };
 
   const renderNavigationButtons = () => {
     const nextBtn = nextKey && (
-      <NavButton type="button" class="btn btn-primary" label="Next →" onClick={handleNext} />
+      <NavButton label="→" onClick={handleNext} />
     );
     const prevBtn = previousKey && (
-      <NavButton label="← Previous" onClick={handlePrevious} />
+      <NavButton label="←" onClick={handlePrevious} />
     );
     const finishBtn = (
       reviewMode ?
@@ -170,10 +171,11 @@ function QuizQuestion() {
     if (reviewMode) {
       return (
         <div>
-          {prevBtn}
-          {nextBtn}
+          {prevBtn} <span style={{ margin: "0 7px" }}></span> {nextBtn}
+          <br />
           {finishBtn}
         </div>
+
       );
     }
   
@@ -181,13 +183,11 @@ function QuizQuestion() {
     return (
       (nextKey) ?
         <div>
-          {prevBtn}
-          {nextBtn}
+          {prevBtn} <span style={{ margin: "0 10px" }}></span> {nextBtn}
         </div>
       :
         <div>
-          {prevBtn}
-          {finishBtn}
+          {prevBtn} <span style={{ margin: "0 10px" }}></span> {finishBtn}
         </div>
     );
   };
@@ -218,7 +218,7 @@ function QuizQuestion() {
       <div style={{ padding: "2rem" }}>
         <h2>Not Found</h2>
         <p>This quiz question doesn't exist.</p>
-        <Link to="/practice">
+        <Link to="/quiz">
           <button>← Back</button>
         </Link>
       </div>
@@ -274,12 +274,12 @@ function QuizQuestion() {
           <Col md={1}>
             {!reviewMode && (
               <Button 
+                className = "hint-button"
                 variant="secondary" 
                 size="md" 
                 onClick={handleShow}>
                   
-                Hint <br />
-                ({hintsLeft} left)
+                Hint ({hintsLeft})
               </Button>
             )}
             

@@ -3,7 +3,7 @@ body {
 }
 
 .quiz-start-button {
-  background-color: #355db2;
+  background-color: #1fb8ff;
   color: #fff;
   border: none;
   border-radius: 25px;
@@ -19,4 +19,20 @@ body {
 
 .progress-bar {
   background-color: #ABE2FB !important;
+}
+
+.hint-button{
+  background-color: #fff; /* Custom background color */
+  border-color: #77d3fd;   /* Custom border color */
+  color: #77d3fd;      
+  border: 2px solid #77d3fd;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.hint-button:hover {
+  background-color: #77d3fd; /* Change background color on hover */
+  color: #fff;
+  border-color: #77d3fd;
+  font-weight: bold;
+  font-size: 1.2rem;
 }

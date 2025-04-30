@@ -127,7 +127,7 @@ function Home() {
               icon: faSliders,
               route: "/simulator",
             },
-            { label: "Quiz Mode", icon: faCheckSquare, route: "/practice" },
+            { label: "Quiz Mode", icon: faCheckSquare, route: "/quiz" },
           ].map((card, idx) => (
             <Col
               key={idx}

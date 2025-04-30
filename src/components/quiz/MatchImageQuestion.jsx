@@ -85,22 +85,13 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   return (
     <Container className="">
       <Row className="d-flex align-items-center">
-
-        <Row className="text-center pt-3">
-          {/* Setting Description and Reference image title*/}
-          <Col md={6} className="text-muted fst-italic" >
-            Use the slider to see how the aperture size affects exposure
-          </Col>
-
-          <Col className="text-muted fst-italic" md={6} >
-            Reference Image
-          </Col>
-
-        </Row>
         
         <Row className="align-items-start">
           {/* Slider section */}
           <Col md={6}>
+            <div className="text-muted fst-italic text-center pt-3" >
+              Change the image using the slider.
+            </div>
             <QuizPhotoSlider
               title="Aperture"
               description=""
@@ -130,6 +121,9 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
 
           {/* Reference image section */}
           <Col md={6}>
+            <div className="text-muted fst-italic text-center pt-3" >
+              Reference image
+            </div>
             <Container className="text-center py-2">
               <img
                 src={info.referenceImage}
