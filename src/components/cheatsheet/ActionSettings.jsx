@@ -120,7 +120,7 @@ function ActionSettings() {
             >
               <div>
                 <label style={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-                  Aperture (f-number)
+                  Aperture (f-stop)
                 </label>
                 <Slider
                   min={1.4}
