@@ -16,7 +16,7 @@ function Aperture() {
 
       if (duration > 1) {
         axios
-          .post("http://localhost:5000/api/log-time", {
+          .post("http://localhost:3000/api/log-time", {
             page: "learn/aperture",
             startTime: start.toISOString(),
             endTime: end.toISOString(),

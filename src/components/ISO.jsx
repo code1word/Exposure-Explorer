@@ -16,7 +16,7 @@ function ISO() {
 
       if (duration > 1) {
         axios
-          .post("http://localhost:5000/api/log-time", {
+          .post("http://localhost:3000/api/log-time", {
             page: "learn/iso",
             startTime: start.toISOString(),
             endTime: end.toISOString(),

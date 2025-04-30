@@ -4,8 +4,7 @@ import time
 import datetime
 
 app = Flask(__name__)
-CORS(app, origins=["*"]) 
-
+CORS(app, resources={r"/*": {"origins": ["http://localhost:5173", "http://127.0.0.1:5173"]}})
 # Initialize or clear log file when server starts
 LOG_FILE = "page_time_log.log"
 with open(LOG_FILE, "w") as f:
@@ -69,16 +68,16 @@ quiz_questions = {
       "question_number": "4",
       "question": "Different types of pictures require different settings. Drag and drop the following types of pictures to order them from lowest to highest shutter speed.",
       "images": [
-        "http://localhost:5000/static/images_q4/orderLandscape.png",
-        "http://localhost:5000/static/images_q4/orderActionShot.png",
-        "http://localhost:5000/static/images_q4/orderNightPhotography.png",
-        "http://localhost:5000/static/images_q4/orderPortrait.png"
+        "http://localhost:3000/static/images_q4/orderLandscape.png",
+        "http://localhost:3000/static/images_q4/orderActionShot.png",
+        "http://localhost:3000/static/images_q4/orderNightPhotography.png",
+        "http://localhost:3000/static/images_q4/orderPortrait.png"
       ],
       "correctOrder": [
-        "http://localhost:5000/static/images_q4/orderNightPhotography.png",
-        "http://localhost:5000/static/images_q4/orderLandscape.png",
-        "http://localhost:5000/static/images_q4/orderPortrait.png",
-        "http://localhost:5000/static/images_q4/orderActionShot.png"
+        "http://localhost:3000/static/images_q4/orderNightPhotography.png",
+        "http://localhost:3000/static/images_q4/orderLandscape.png",
+        "http://localhost:3000/static/images_q4/orderPortrait.png",
+        "http://localhost:3000/static/images_q4/orderActionShot.png"
       ],
       "hint": "Categorize each of these images according to what you learned from the Settings Cheat Sheet, then recall the recommended shutter speed for each type of photo."
     },
@@ -86,19 +85,19 @@ quiz_questions = {
       "format": "match_image",
       "question_number": "5",
       "question": "Adjust the image using the slider until it matches the reference image.",
-      "referenceImage": "http://localhost:5000/static/images_q5/cat_f2.8.png",
+      "referenceImage": "http://localhost:3000/static/images_q5/cat_f2.8.png",
       "correctSetting": "f/5.6",
       "imageMap": {
-        "0": "http://localhost:5000/static/images_q5/cat_f1.4.png",
-        "1": "http://localhost:5000/static/images_q5/cat_f2.0.png",
-        "2": "http://localhost:5000/static/images_q5/cat_f2.8.png",
-        "3": "http://localhost:5000/static/images_q5/cat_f4.0.png",
-        "4": "http://localhost:5000/static/images_q5/cat_f5.6.png",
-        "5": "http://localhost:5000/static/images_q5/cat_f8.0.png",
-        "6": "http://localhost:5000/static/images_q5/cat_f9.0.png",
-        "7": "http://localhost:5000/static/images_q5/cat_f11.0.png",
-        "8": "http://localhost:5000/static/images_q5/cat_f14.0.png",
-        "9": "http://localhost:5000/static/images_q5/cat_f16.0.png",
+        "0": "http://localhost:3000/static/images_q5/cat_f1.4.png",
+        "1": "http://localhost:3000/static/images_q5/cat_f2.0.png",
+        "2": "http://localhost:3000/static/images_q5/cat_f2.8.png",
+        "3": "http://localhost:3000/static/images_q5/cat_f4.0.png",
+        "4": "http://localhost:3000/static/images_q5/cat_f5.6.png",
+        "5": "http://localhost:3000/static/images_q5/cat_f8.0.png",
+        "6": "http://localhost:3000/static/images_q5/cat_f9.0.png",
+        "7": "http://localhost:3000/static/images_q5/cat_f11.0.png",
+        "8": "http://localhost:3000/static/images_q5/cat_f14.0.png",
+        "9": "http://localhost:3000/static/images_q5/cat_f16.0.png",
       },
       "hint": "Think about how aperture affects exposure and/or depth of field. Try to identify differences in these properties between the two images.",
     },
@@ -106,51 +105,51 @@ quiz_questions = {
       "format": "two_sliders",
       "question_number": "6",
       "question": "Adjust the image using the slider until it matches the reference image.",
-      "referenceImage": "http://localhost:5000/static/images_q6/Aperture0.0_ISO150.jpg",
+      "referenceImage": "http://localhost:3000/static/images_q6/Aperture0.0_ISO150.jpg",
       "correctSetting": "Aperture: f/0.30, ISO: 250",
       "imageGrid": [
-        ["http://localhost:5000/static/images_q6/Aperture1.0_ISO50.jpg",
-        "http://localhost:5000/static/images_q6/Aperture1.0_ISO100.jpg",
-        "http://localhost:5000/static/images_q6/Aperture1.0_ISO150.jpg",
-        "http://localhost:5000/static/images_q6/Aperture1.0_ISO200.jpg",
-        "http://localhost:5000/static/images_q6/Aperture1.0_ISO250.jpg",
-        "http://localhost:5000/static/images_q6/Aperture1.0_ISO300.jpg"],
-        ["http://localhost:5000/static/images_q6/Aperture0.8_ISO50.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.8_ISO100.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.8_ISO150.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.8_ISO200.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.8_ISO250.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.8_ISO300.jpg"],
-        ["http://localhost:5000/static/images_q6/Aperture0.6_ISO50.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.6_ISO100.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.6_ISO150.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.6_ISO200.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.6_ISO250.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.6_ISO300.jpg"],
-        ["http://localhost:5000/static/images_q6/Aperture0.4_ISO50.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.4_ISO100.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.4_ISO150.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.4_ISO200.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.4_ISO250.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.4_ISO300.jpg"],
-        ["http://localhost:5000/static/images_q6/Aperture0.2_ISO50.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.2_ISO100.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.2_ISO150.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.2_ISO200.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.2_ISO250.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.2_ISO300.jpg"],
-        ["http://localhost:5000/static/images_q6/Aperture0.0_ISO50.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.0_ISO100.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.0_ISO150.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.0_ISO200.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.0_ISO250.jpg",
-        "http://localhost:5000/static/images_q6/Aperture0.0_ISO300.jpg"]
+        ["http://localhost:3000/static/images_q6/Aperture1.0_ISO50.jpg",
+        "http://localhost:3000/static/images_q6/Aperture1.0_ISO100.jpg",
+        "http://localhost:3000/static/images_q6/Aperture1.0_ISO150.jpg",
+        "http://localhost:3000/static/images_q6/Aperture1.0_ISO200.jpg",
+        "http://localhost:3000/static/images_q6/Aperture1.0_ISO250.jpg",
+        "http://localhost:3000/static/images_q6/Aperture1.0_ISO300.jpg"],
+        ["http://localhost:3000/static/images_q6/Aperture0.8_ISO50.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.8_ISO100.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.8_ISO150.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.8_ISO200.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.8_ISO250.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.8_ISO300.jpg"],
+        ["http://localhost:3000/static/images_q6/Aperture0.6_ISO50.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.6_ISO100.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.6_ISO150.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.6_ISO200.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.6_ISO250.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.6_ISO300.jpg"],
+        ["http://localhost:3000/static/images_q6/Aperture0.4_ISO50.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.4_ISO100.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.4_ISO150.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.4_ISO200.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.4_ISO250.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.4_ISO300.jpg"],
+        ["http://localhost:3000/static/images_q6/Aperture0.2_ISO50.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.2_ISO100.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.2_ISO150.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.2_ISO200.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.2_ISO250.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.2_ISO300.jpg"],
+        ["http://localhost:3000/static/images_q6/Aperture0.0_ISO50.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.0_ISO100.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.0_ISO150.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.0_ISO200.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.0_ISO250.jpg",
+        "http://localhost:3000/static/images_q6/Aperture0.0_ISO300.jpg"]
       ],
       "hint": "Recall that a wider aperture causes increased exposure and deeper depth of field. A faster shutter speed decreases exposure and captures motion freeze.",
     },
 }
 
-@app.route('/get-quiz-questions', methods=['GET'])
+@app.route('/get-quiz-questions', methods=['GET', 'OPTIONS'])
 def get_quiz_questions():
     return jsonify(quiz_questions)
 
@@ -209,4 +208,4 @@ def log_time():
     return jsonify({"status": "logged"}), 200
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='localhost', port=3000)

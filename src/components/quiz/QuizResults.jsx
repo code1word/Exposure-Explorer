@@ -31,7 +31,7 @@ function QuizResults() {
   useEffect(() => {
     const fetchQuizData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/get-quiz-questions");
+        const response = await axios.get("http://localhost:3000/get-quiz-questions");
         setQuizQuestionData(response.data); // Update state with fetched data
         //setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
