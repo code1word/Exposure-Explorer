@@ -9,24 +9,60 @@ function InteractiveSim() {
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
       <Container className="py-4">
-        <h2>Interactive Simulator</h2>
-
-        <Row className="mt-4">
-          {/* Image on the Left */}
-          <Col md={6} className="d-flex align-items-center justify-content-center">
-            <Image
-              src={flowerPhoto}
-              alt="Flower with blur"
-              fluid
-              rounded
-              style={{ maxHeight: "450px", objectFit: "cover" }}
-            />
+        <h2
+            className="mb-3"
+            style={{
+              fontSize: "2.25rem",
+              fontWeight: 700,
+              letterSpacing: "-1px",
+              color: "#1d2a45",
+              alignSelf: "flex-start",
+            }}
+          >
+            Interactive Simulator
+          </h2>
+        <Row>
+          {/* Left Column: Title + Image */}
+          <Col md={6} className="d-flex flex-column align-items-center justify-content-start">
+            <div
+              style={{
+                padding: "6px",
+                backgroundColor: "white",
+                borderRadius: "2rem",
+                display: "inline-block",
+                boxShadow: "0 0 0 4px #ABE2FB",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.02)";
+                e.currentTarget.style.boxShadow = "0 0 12px 4px #ABE2FB";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                e.currentTarget.style.boxShadow = "0 0 0 4px #ABE2FB";
+              }}
+            >
+              <Image
+                src={flowerPhoto}
+                alt="Flower with blur"
+                fluid
+                style={{
+                  maxHeight: "450px",
+                  objectFit: "cover",
+                  borderRadius: "inherit",
+                  display: "block",
+                }}
+              />
+            </div>
           </Col>
 
-          {/* Sliders and Dial Icon on the Right */}
+          {/* Right Column: Sliders and Icon */}
           <Col md={6} className="d-flex flex-column justify-content-between">
             <div>
-              <p style={{ textAlign: "center" }}>
+              <p
+                className="text-muted"
+                style={{ fontSize: "1.15rem" }}
+              >
                 Adjust the different settings to see how each changes the look and
                 exposure of this photo in real time.
               </p>
@@ -34,8 +70,8 @@ function InteractiveSim() {
               {/* Aperture Slider */}
               <div style={{ marginBottom: "2.5rem" }}>
                 <div className="d-flex justify-content-between">
-                  <div>Small Aperture</div>
-                  <div style={{ textAlign: "right" }}>Large Aperture</div>
+                  <div style={{ fontWeight: "bold", fontSize: "1.1rem" }}>Small Aperture</div>
+                  <div style={{ fontWeight: "bold", fontSize: "1.1rem", textAlign: "right" }}>Large Aperture</div>
                 </div>
                 <Slider
                   min={1.4}
@@ -57,8 +93,8 @@ function InteractiveSim() {
               {/* Shutter Speed Slider */}
               <div style={{ marginBottom: "2.5rem" }}>
                 <div className="d-flex justify-content-between">
-                  <div>Slow Shutter</div>
-                  <div style={{ textAlign: "right" }}>Fast Shutter</div>
+                  <div style={{ fontWeight: "bold", fontSize: "1.1rem" }}>Slow Shutter</div>
+                  <div style={{ fontWeight: "bold", fontSize: "1.1rem", textAlign: "right" }}>Fast Shutter</div>
                 </div>
                 <Slider
                   min={0}
@@ -83,8 +119,8 @@ function InteractiveSim() {
               {/* ISO Slider */}
               <div style={{ marginBottom: "2.5rem" }}>
                 <div className="d-flex justify-content-between">
-                  <div>Low ISO</div>
-                  <div style={{ textAlign: "right" }}>High ISO</div>
+                  <div style={{ fontWeight: "bold", fontSize: "1.1rem" }}>Low ISO</div>
+                  <div style={{ fontWeight: "bold", fontSize: "1.1rem", textAlign: "right" }}>High ISO</div>
                 </div>
                 <Slider
                   min={50}
@@ -105,13 +141,12 @@ function InteractiveSim() {
               </div>
             </div>
 
-            {/* Manual Mode Icon & Tooltip */}
+            {/* Dial Icon & Tooltip */}
             <div
               className="d-flex justify-content-end align-items-end"
               style={{ height: "100px", position: "relative" }}
             >
               <div style={{ position: "relative", display: "inline-block" }}>
-                {/* Speech Bubble Tooltip */}
                 <div
                   className="manual-tooltip"
                   style={{
@@ -130,10 +165,8 @@ function InteractiveSim() {
                   }}
                 >
                   In <strong>Manual Mode</strong>, you have full control over these settings!
-                  {/* Tooltip arrow */}
                   <div
                     style={{
-                      content: "''",
                       position: "absolute",
                       top: "50%",
                       right: "-10px",
@@ -147,7 +180,6 @@ function InteractiveSim() {
                   />
                   <div
                     style={{
-                      content: "''",
                       position: "absolute",
                       top: "50%",
                       right: "-9px",
@@ -161,7 +193,6 @@ function InteractiveSim() {
                   />
                 </div>
 
-                {/* Dial Icon */}
                 <Image
                   src={dialIcon}
                   alt="Manual Mode Dial"
