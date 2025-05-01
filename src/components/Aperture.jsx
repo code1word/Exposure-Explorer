@@ -231,24 +231,24 @@ function Aperture() {
         <PhotoSlider
           title="Aperture"
           description="Use the slider to see how the aperture size affects exposure"
-          imageSrcFunction={(val) => {
-            const clamped = Math.max(0, Math.min(1, val)); // Clamp between 0–1
-            const stepped = (Math.round(clamped * 20) / 20).toFixed(2); // Snap to nearest 0.05
-            return `/dummy_stack/focus_${stepped}.png`;
+          imageSrcFunction={(index) => {
+            const f = fStops[index];
+            return `/aperture_exposure/snowman_f${f.toFixed(1)}.png`;
           }}
           min={0}
-          max={1}
-          step={0.01}
-          initialValue={0.4}
-          unitPrefix="f/"
-          leftLabel="Small aperture"
-          leftDescriptions={["Large f-stop", "Less Exposure", "Dimmer image"]}
-          rightLabel="Large aperture"
-          rightDescriptions={[
-            "Small f-stop",
-            "More exposure",
-            "Brighter image",
-          ]}
+          max={fStops.length - 1}
+          step={1}
+          initialValue={0}
+          getDisplayValue={(index) => {
+            const f = fStops[index];
+            return f < 10 ? `f/${f.toFixed(1)}` : `f/${Math.round(f)}`;
+          }}
+          unitPrefix=""
+          unitSuffix=""
+          leftLabel="Large aperture"
+          leftDescriptions={["Small f-stop", "More exposure", "Brighter image"]}
+          rightLabel="Small aperture"
+          rightDescriptions={["Large f-stop", "Less exposure", "Dimmer image"]}
         />
 
         {step === 1 && renderDownArrow()}
