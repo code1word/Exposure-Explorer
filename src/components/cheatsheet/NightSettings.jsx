@@ -75,7 +75,7 @@ function NightSettings() {
               icon={faArrowLeft}
               style={{
                 fontSize: "20px",
-                color: "#1d2a45",
+                color: "#13275e",
                 display: "block",
                 lineHeight: "1",
               }}
@@ -92,7 +92,7 @@ function NightSettings() {
           fontSize: "2.25rem",
           fontWeight: 700,
           letterSpacing: "-1px",
-          color: "#1d2a45",
+          color: "#13275e",
         }}
       >
         Night Photography Settings

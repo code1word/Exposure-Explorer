@@ -18,7 +18,7 @@ function OurNavbar() {
       expand="lg"
       style={{
         backgroundColor: "#ABE2FB",
-        borderBottom: "2px solid #1d2a45",
+        borderBottom: "2px solid #13275e",
         padding: "0.75rem 1rem",
         fontFamily: "Nunito, sans-serif",
         fontWeight: 600,
@@ -28,7 +28,7 @@ function OurNavbar() {
         <Navbar.Brand
           href="/"
           style={{
-            color: "#1d2a45",
+            color: "#13275e",
             fontSize: "1.5rem",
             fontWeight: 800,
             letterSpacing: "-1px",
@@ -72,7 +72,7 @@ function OurNavbar() {
         .nav-link-clean {
           font-size: 1.1rem;
           font-weight: 700;
-          color: #1d2a45 !important;
+          color: #13275e !important;
           text-decoration: none;
           padding: 0.5rem 1rem;
           display: inline-block;
@@ -95,7 +95,7 @@ function OurNavbar() {
           position: absolute;
           width: 8px;
           height: 8px;
-          border: 2px solid #1d2a45;
+          border: 2px solid #13275e;
           opacity: 0;
           transition: opacity 0.2s ease, border-color 0.5s ease;
           pointer-events: none;

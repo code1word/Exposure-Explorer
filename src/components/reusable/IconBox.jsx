@@ -15,7 +15,7 @@ const IconBox = ({ label, route, icon, status, ignoreStatus = false }) => {
     marginTop: "0.5rem",
     fontSize: "0.9rem",
     fontWeight: "500",
-    color: "#1d2a45",
+    color: "#13275e",
   };
 
   return (
@@ -24,7 +24,7 @@ const IconBox = ({ label, route, icon, status, ignoreStatus = false }) => {
         to={route}
         style={{
           textDecoration: "none",
-          border: "2.5px solid #1d2a45",
+          border: "2.5px solid #13275e",
           borderRadius: "20px",
           padding: "1rem",
           display: "inline-block",
@@ -35,13 +35,13 @@ const IconBox = ({ label, route, icon, status, ignoreStatus = false }) => {
       >
         <FontAwesomeIcon
           icon={icon}
-          style={{ fontSize: "3rem", color: "#1d2a45" }}
+          style={{ fontSize: "3rem", color: "#13275e" }}
         />
         <div
           style={{
             marginTop: "0.5rem",
             fontWeight: "600",
-            color: "#1d2a45",
+            color: "#13275e",
             fontSize: "1.2rem",
           }}
         >
@@ -55,7 +55,7 @@ const IconBox = ({ label, route, icon, status, ignoreStatus = false }) => {
             position: "absolute",
             top: -6,
             left: -6,
-            background: "#1d2a45",
+            background: "#13275e",
             color: "white",
             borderRadius: "50%",
             width: "22px",

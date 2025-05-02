@@ -110,7 +110,7 @@ function ISO() {
         >
           <FontAwesomeIcon
             icon={faArrowDown}
-            style={{ fontSize: "24px", color: "#1d2a45" }}
+            style={{ fontSize: "24px", color: "#13275e" }}
           />
         </div>
         <p
@@ -134,7 +134,7 @@ function ISO() {
         style={{
           height: "10px",
           borderRadius: "999px",
-          backgroundColor: "#1d2a45",
+          backgroundColor: "#13275e",
           overflow: "hidden",
         }}
       >
@@ -142,7 +142,7 @@ function ISO() {
           className="progress-bar"
           style={{
             width: `${progressWidth}%`,
-            backgroundColor: "#1d2a45",
+            backgroundColor: "#13275e",
             borderRadius: "999px",
             height: "100%",
             transition: "width 0.4s ease",
@@ -195,7 +195,7 @@ function ISO() {
               icon={faArrowLeft}
               style={{
                 fontSize: "20px",
-                color: "#1d2a45",
+                color: "#13275e",
                 display: "block",
                 lineHeight: "1",
               }}

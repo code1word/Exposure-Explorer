@@ -13,12 +13,12 @@ body {
   transition: background-color 0.3s ease-in-out;
 }
 .quiz-start-button:hover {
-  background-color: #1d2a45; /* Slightly darker navy */
+  background-color: #13275e; /* Slightly darker navy */
   cursor: pointer;
 }
 
 .navy {
-  color: #1d2a45;
+  color: #13275e;
 }
 
 .nav-button {
