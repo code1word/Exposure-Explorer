@@ -17,13 +17,14 @@ function InteractiveSim() {
     <div style={{ position: "relative", minHeight: "100vh" }}>
       <Container className="py-4">
         <h2
-          className="mb-3"
+          className="mb-4"
           style={{
             fontSize: "2.25rem",
             fontWeight: 700,
             letterSpacing: "-1px",
             color: "#13275e",
             alignSelf: "flex-start",
+            textAlign: "center",
           }}
         >
           Interactive Simulator
@@ -68,9 +69,19 @@ function InteractiveSim() {
           </Col>
 
           {/* Right Column: Sliders and Icon */}
-          <Col md={6} className="d-flex flex-column justify-content-between">
+          <Col
+            md={6}
+            className="d-flex flex-column justify-content-between px-3"
+          >
             <div>
-              <p className="text-muted" style={{ fontSize: "1.15rem", textAlign: "center" }}>
+              <p
+                className="text-muted"
+                style={{
+                  fontSize: "1.25rem",
+                  textAlign: "center",
+                  marginTop: "1rem",
+                }}
+              >
                 Adjust the different settings to see how each changes the look
                 and exposure of this photo in real time.
               </p>
@@ -187,8 +198,16 @@ function InteractiveSim() {
               <OverlayTrigger
                 placement="left"
                 overlay={
-                  <Tooltip id="manual-tooltip" style={{ fontSize: "0.9rem", fontStyle: "italic", fontFamily: "'Nunito', sans-serif" }}>
-                    In <strong>Manual Mode</strong>, you have full control over these settings!
+                  <Tooltip
+                    id="manual-tooltip"
+                    style={{
+                      fontSize: "0.9rem",
+                      fontStyle: "italic",
+                      fontFamily: "'Nunito', sans-serif",
+                    }}
+                  >
+                    In <strong>Manual Mode</strong>, you have full control over
+                    these settings!
                   </Tooltip>
                 }
               >
