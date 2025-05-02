@@ -233,7 +233,7 @@ function ISO() {
           imageSrcFunction={(val) => {
             const clamped = Math.max(100, Math.min(3200, val));
             const stepped = Math.round(clamped / 100) * 100; // Snap to nearest 100
-            return `/iso_exposure/scene_iso${stepped.toFixed(0)}.png`;
+            return `/iso_exposure/scene_iso${stepped.toFixed(0)}.jpg`;
           }}
           min={100}
           max={3200}
@@ -274,7 +274,7 @@ function ISO() {
           imageSrcFunction={(val) => {
             const clamped = Math.max(100, Math.min(3200, val));
             const stepped = Math.round(clamped / 100) * 100; // Snap to nearest 100
-            return `/iso_noise/scene_iso${stepped.toFixed(0)}.png`;
+            return `/iso_noise/scene_iso${stepped.toFixed(0)}.jpg`;
           }}
           min={100}
           max={3200}

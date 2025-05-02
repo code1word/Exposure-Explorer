@@ -233,7 +233,7 @@ function Aperture() {
           description="Use the slider to see how the aperture size affects exposure"
           imageSrcFunction={(index) => {
             const f = fStops[index];
-            return `/aperture_exposure/snowman_f${f.toFixed(1)}.png`;
+            return `/aperture_exposure/snowman_f${f.toFixed(1)}.jpg`;
           }}
           min={0}
           max={fStops.length - 1}
@@ -269,7 +269,7 @@ function Aperture() {
           description="Use the slider to see how the aperture size affects depth of field"
           imageSrcFunction={(index) => {
             const f = fStops[index];
-            return `/aperture_dof/squirrel_f${f.toFixed(1)}.png`;
+            return `/aperture_dof/squirrel_f${f.toFixed(1)}.jpg`;
           }}
           min={0}
           max={fStops.length - 1}

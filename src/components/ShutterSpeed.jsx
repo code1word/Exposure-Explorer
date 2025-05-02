@@ -233,7 +233,7 @@ function ShutterSpeed() {
           description="Use the slider to see how shutter speed affects exposure"
           imageSrcFunction={(index) => {
             const shutter = shutterValues[index];
-            return `/shutter_exposure/scene_shutter${shutter}ms.png`;
+            return `/shutter_exposure/scene_shutter${shutter}ms.jpg`;
           }}
           min={0}
           max={shutterValues.length - 1}
