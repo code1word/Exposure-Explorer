@@ -111,7 +111,7 @@ function LandscapeSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A narrower aperture (e.g., f/8 or higher) increases depth of
                   field, ensuring more of the scene is in focus. Recommended:
                   f/11
@@ -147,7 +147,7 @@ function LandscapeSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Longer shutter speeds (e.g. 1/30s or slower) can help in low
                   light and create artistic motion effects, but a tripod is
                   recommended. Recommended: 1/30s
@@ -191,7 +191,7 @@ function LandscapeSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Use the lowest ISO possible (like 100) to minimize noise and
                   maximize detail, especially since you can use a tripod.
                   Recommended: ISO 100

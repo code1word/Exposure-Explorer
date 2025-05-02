@@ -1,7 +1,14 @@
 import React from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Image,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import flowerPhoto from "../assets/flower.jpg";
 import dialIcon from "../assets/manual_mode.PNG";
 
@@ -21,6 +28,7 @@ function InteractiveSim() {
         >
           Interactive Simulator
         </h2>
+
         <Row>
           {/* Left Column: Title + Image */}
           <Col
@@ -37,7 +45,7 @@ function InteractiveSim() {
                 transition: "transform 0.3s ease, box-shadow 0.3s ease",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.02)";
+                e.currentTarget.style.transform = "scale(1.01)";
                 e.currentTarget.style.boxShadow = "0 0 12px 4px #ABE2FB";
               }}
               onMouseLeave={(e) => {
@@ -62,7 +70,7 @@ function InteractiveSim() {
           {/* Right Column: Sliders and Icon */}
           <Col md={6} className="d-flex flex-column justify-content-between">
             <div>
-              <p className="text-muted" style={{ fontSize: "1.15rem" }}>
+              <p className="text-muted" style={{ fontSize: "1.15rem", textAlign: "center" }}>
                 Adjust the different settings to see how each changes the look
                 and exposure of this photo in real time.
               </p>
@@ -171,74 +179,26 @@ function InteractiveSim() {
               </div>
             </div>
 
-            {/* Dial Icon & Tooltip */}
+            {/* Dial Icon with Tooltip */}
             <div
               className="d-flex justify-content-end align-items-end"
-              style={{ height: "100px", position: "relative" }}
+              style={{ height: "100px" }}
             >
-              <div style={{ position: "relative", display: "inline-block" }}>
-                <div
-                  className="manual-tooltip"
-                  style={{
-                    position: "absolute",
-                    right: "115px",
-                    bottom: "25px",
-                    backgroundColor: "#fff",
-                    border: "1px solid #ccc",
-                    borderRadius: "1rem",
-                    padding: "0.8rem 1rem",
-                    fontSize: "0.9rem",
-                    fontStyle: "italic",
-                    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                    whiteSpace: "nowrap",
-                    display: "none",
-                  }}
-                >
-                  In <strong>Manual Mode</strong>, you have full control over
-                  these settings!
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      right: "-10px",
-                      marginTop: "-8px",
-                      width: "0",
-                      height: "0",
-                      borderTop: "8px solid transparent",
-                      borderBottom: "8px solid transparent",
-                      borderLeft: "10px solid #ccc",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      right: "-9px",
-                      marginTop: "-7px",
-                      width: "0",
-                      height: "0",
-                      borderTop: "7px solid transparent",
-                      borderBottom: "7px solid transparent",
-                      borderLeft: "9px solid #fff",
-                    }}
-                  />
-                </div>
-
+              <OverlayTrigger
+                placement="left"
+                overlay={
+                  <Tooltip id="manual-tooltip" style={{ fontSize: "0.9rem", fontStyle: "italic", fontFamily: "'Nunito', sans-serif" }}>
+                    In <strong>Manual Mode</strong>, you have full control over these settings!
+                  </Tooltip>
+                }
+              >
                 <Image
                   src={dialIcon}
                   alt="Manual Mode Dial"
                   style={{ height: "100px", cursor: "pointer" }}
-                  onMouseEnter={() => {
-                    const tooltip = document.querySelector(".manual-tooltip");
-                    if (tooltip) tooltip.style.display = "block";
-                  }}
-                  onMouseLeave={() => {
-                    const tooltip = document.querySelector(".manual-tooltip");
-                    if (tooltip) tooltip.style.display = "none";
-                  }}
                   rounded
                 />
-              </div>
+              </OverlayTrigger>
             </div>
           </Col>
         </Row>

@@ -112,7 +112,7 @@ function ActionSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A wide aperture like f/2.8 lets in more light, allowing for
                   faster shutter speeds. Recommended: f/2.8
                 </Tooltip>
@@ -147,7 +147,7 @@ function ActionSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Use a very fast shutter speed like 1/1000s or faster to freeze
                   motion without blur. Recommended: 1/1000s
                 </Tooltip>
@@ -190,7 +190,7 @@ function ActionSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Increase ISO as needed (e.g., 400 or higher) to compensate for
                   fast shutter speeds, especially if not in bright light.
                   Recommended: ISO 400

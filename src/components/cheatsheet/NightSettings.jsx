@@ -112,7 +112,7 @@ function NightSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A wide aperture like f/2.0 helps gather more light in dark
                   conditions. Recommended: f/2.0
                 </Tooltip>
@@ -147,7 +147,7 @@ function NightSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Longer shutter speeds (e.g., 15s) allow more light to hit the
                   sensor—use a tripod! Recommended: 15s
                 </Tooltip>
@@ -190,7 +190,7 @@ function NightSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Higher ISO values (e.g., 1600) boost brightness but increase
                   noise—find a balance. Recommended: ISO 1600
                 </Tooltip>

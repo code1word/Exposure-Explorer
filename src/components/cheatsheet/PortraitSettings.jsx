@@ -99,7 +99,7 @@ function PortraitSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A wide aperture (e.g., f/2.0) creates a shallow depth of
                   field, making the subject sharp while beautifully blurring the
                   background.
@@ -135,7 +135,7 @@ function PortraitSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A fast shutter speed (like 1/250s) helps avoid motion blur
                   from small subject movements or camera shake.
                 </Tooltip>
@@ -173,7 +173,7 @@ function PortraitSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A low ISO (like 100–200) gives you clean, noise-free portraits
                   with the most detail.
                 </Tooltip>
