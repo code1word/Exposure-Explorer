@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import {
@@ -13,6 +13,7 @@ import flowerPhoto from "../assets/flower.jpg";
 import dialIcon from "../assets/manual_mode.PNG";
 
 function InteractiveSim() {
+  const [showHoverHint, setShowHoverHint] = useState(true);
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
       <Container className="py-4">
@@ -193,7 +194,7 @@ function InteractiveSim() {
             {/* Dial Icon with Tooltip */}
             <div
               className="d-flex justify-content-end align-items-end"
-              style={{ height: "100px" }}
+              style={{ height: "100px", position: "relative" }}
             >
               <OverlayTrigger
                 placement="left"
@@ -211,12 +212,67 @@ function InteractiveSim() {
                   </Tooltip>
                 }
               >
-                <Image
-                  src={dialIcon}
-                  alt="Manual Mode Dial"
-                  style={{ height: "100px", cursor: "pointer" }}
-                  rounded
-                />
+                <div
+                  id="mode-dial"
+                  className="scale-pulse"
+                  onMouseEnter={() => setShowHoverHint(false)}
+                  onMouseLeave={() => setShowHoverHint(true)}
+                  style={{ position: "relative" }}
+                >
+                  {/* The mode dial image */}
+                  <Image
+                    src={dialIcon}
+                    alt="Manual Mode Dial"
+                    style={{
+                      height: "100px",
+                      cursor: "pointer",
+                      borderRadius: "50%",
+                    }}
+                    rounded
+                  />
+
+                  {/* Arrow and label */}
+                  {showHoverHint && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "-115px",
+                        transform: "translateY(-50%)",
+                        display: "flex",
+                        alignItems: "center",
+                        fontSize: "0.9rem",
+                        fontStyle: "italic",
+                        color: "#aaa",
+                        opacity: 0.6,
+                        fontFamily: "'Nunito', sans-serif",
+                        fontWeight: 700,
+                      }}
+                    >
+                      Hover for tip
+                      <span style={{ display: "flex", marginLeft: "0.3rem" }}>
+                        <i
+                          className="fas fa-chevron-right"
+                          style={{ fontSize: "0.85rem" }}
+                        ></i>
+                        <i
+                          className="fas fa-chevron-right"
+                          style={{
+                            fontSize: "0.85rem",
+                            marginLeft: "-0.15rem",
+                          }}
+                        ></i>
+                        <i
+                          className="fas fa-chevron-right"
+                          style={{
+                            fontSize: "0.85rem",
+                            marginLeft: "-0.15rem",
+                          }}
+                        ></i>
+                      </span>
+                    </div>
+                  )}
+                </div>
               </OverlayTrigger>
             </div>
           </Col>

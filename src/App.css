@@ -68,3 +68,25 @@ body {
   font-weight: bold;
   font-size: 1.2rem;
 }
+
+@keyframes scalePulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scale-pulse {
+  animation: scalePulse 1s ease-in-out infinite;
+  display: inline-block;
+}
+
+.hover-hint {
+  animation: pulse 2.2s infinite;
+  border-radius: 50%;
+}

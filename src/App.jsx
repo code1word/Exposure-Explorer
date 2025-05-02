@@ -19,6 +19,7 @@ import ActionSettings from "./components/cheatsheet/ActionSettings";
 import QuizQuestion from "./components/quiz/QuizQuestion";
 import QuizResults from "./components/quiz/QuizResults";
 
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 
 function App() {
