@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useLocation } from "react-router-dom";
+import logo from "/exposure_explorer.png";
 
 function OurNavbar() {
   const location = useLocation();
@@ -33,8 +34,22 @@ function OurNavbar() {
             fontWeight: 800,
             letterSpacing: "-1px",
             textTransform: "uppercase",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
           }}
         >
+          <img
+            src={logo}
+            alt="Exposure Explorer Logo"
+            style={{
+              width: "36px",
+              height: "36px",
+              objectFit: "contain",
+              borderRadius: "6px",
+              marginRight: "0.3rem",
+            }}
+          />
           <span>Exposure Explorer</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -150,7 +165,6 @@ function OurNavbar() {
         .nav-link-wrapper.active .nav-link-clean {
           color: rgba(29, 42, 69, 0.6) !important;
         }
-
       `}</style>
     </Navbar>
   );
