@@ -2,9 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { Container, ProgressBar } from "react-bootstrap";
+import {
+  Container,
+  ProgressBar,
+  OverlayTrigger,
+  Tooltip,
+  Image,
+} from "react-bootstrap";
 import PhotoSlider from "./PhotoSlider";
 import axios from "axios";
+import dialIcon from "../assets/program_mode.png";
 
 function ISO() {
   useEffect(() => {
@@ -127,6 +134,8 @@ function ISO() {
     </div>
   );
 
+  const [isDialHovered, setIsDialHovered] = useState(false);
+
   return (
     <Container className="py-4" style={{ fontSize: "1.25rem" }}>
       <ProgressBar
@@ -209,8 +218,84 @@ function ISO() {
       <p>
         <strong>ISO</strong> controls the camera’s sensitivity to light. It’s
         measured in values like 100, 400, 1600, etc. A larger ISO corresponds to
-        higher light sensitivity.
+        higher light sensitivity. Many cameras will have a dial like the one
+        below that lets you adjust the ISO.
       </p>
+
+      <div
+        className="d-flex justify-content-end justify-content-md-center align-items-center"
+        style={{
+          height: "100px",
+          position: "relative",
+          marginTop: "0.75rem",
+          marginBottom: "0.75rem",
+        }}
+      >
+        <OverlayTrigger
+          placement="left"
+          overlay={
+            <Tooltip
+              id="manual-tooltip"
+              style={{
+                fontSize: "0.9rem",
+                fontStyle: "italic",
+                fontFamily: "'Nunito', sans-serif",
+              }}
+            >
+              In <strong>Program Mode</strong>, you control settings like ISO,
+              exposure compensation, and white balance, while the camera
+              automatically adjusts shutter speed and aperture for proper
+              exposure.
+            </Tooltip>
+          }
+        >
+          <div
+            id="mode-dial"
+            onMouseEnter={() => setIsDialHovered(true)}
+            onMouseLeave={() => setIsDialHovered(false)}
+            style={{ position: "relative" }}
+          >
+            <Image
+              src={dialIcon}
+              alt="Manual Mode Dial"
+              style={{
+                height: "100px",
+                cursor: "pointer",
+                borderRadius: "50%",
+              }}
+              rounded
+            />
+
+            <div
+              className="text-muted"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "-139px",
+                transform: "translateY(-50%)",
+                display: "flex",
+                alignItems: "center",
+                fontFamily: "'Nunito', sans-serif",
+                fontWeight: 500,
+                fontSize: "1.15rem",
+                fontStyle: "italic",
+                pointerEvents: "none",
+                opacity: isDialHovered ? 0 : 0.8,
+                transition: "opacity 0.5s ease",
+              }}
+            >
+              Program Mode
+              <span style={{ marginLeft: "7px" }}>
+                <i
+                  className="fas fa-caret-right"
+                  style={{ fontSize: "1.15rem" }}
+                ></i>
+              </span>
+            </div>
+          </div>
+        </OverlayTrigger>
+      </div>
+
       <p>
         ISO affects two key properties of the camera: the{" "}
         <strong>exposure</strong> and the amount of <strong>image noise</strong>

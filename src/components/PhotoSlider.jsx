@@ -15,7 +15,7 @@ function PhotoSlider({
   leftDescriptions = [],
   rightLabel,
   rightDescriptions = [],
-  getDisplayValue, // ✅ NEW: optional function to customize displayed value
+  getDisplayValue,
 }) {
   const [value, setValue] = useState(initialValue);
 
@@ -23,7 +23,7 @@ function PhotoSlider({
     setValue(parseFloat(e.target.value));
   };
 
-  // ✅ Use getDisplayValue if provided, otherwise fall back to raw value
+  // Use getDisplayValue if provided, otherwise fall back to raw value
   const displayedValue = getDisplayValue
     ? getDisplayValue(value)
     : `${unitPrefix}${value.toFixed(2)}${unitSuffix}`;
@@ -76,7 +76,7 @@ function PhotoSlider({
             }}
           />
           <div className="mt-1 fw-medium">
-            {displayedValue} {/* ✅ Dynamically show label */}
+            {displayedValue} {/* Dynamically show label */}
           </div>
         </Col>
 

@@ -10,10 +10,11 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import flowerPhoto from "../assets/flower.jpg";
-import dialIcon from "../assets/manual_mode.PNG";
+import dialIcon from "../assets/manual_mode.png";
 
 function InteractiveSim() {
   const [showHoverHint, setShowHoverHint] = useState(true);
+  const [hasHovered, setHasHovered] = useState(false);
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
       <Container className="py-4">
@@ -207,19 +208,23 @@ function InteractiveSim() {
                       fontFamily: "'Nunito', sans-serif",
                     }}
                   >
-                    In <strong>Manual Mode</strong>, you have full control over
-                    these settings!
+                    This is <strong>Manual Mode</strong>. Here, you have full
+                    control over the aperture, shutter speed, and ISO, giving
+                    you complete control over how your photo is exposed.
                   </Tooltip>
                 }
               >
                 <div
                   id="mode-dial"
-                  className="scale-pulse"
-                  onMouseEnter={() => setShowHoverHint(false)}
-                  onMouseLeave={() => setShowHoverHint(true)}
+                  onMouseEnter={() => {
+                    setShowHoverHint(false);
+                    setHasHovered(true);
+                  }}
+                  onMouseLeave={() => {
+                    if (!hasHovered) setShowHoverHint(true);
+                  }}
                   style={{ position: "relative" }}
                 >
-                  {/* The mode dial image */}
                   <Image
                     src={dialIcon}
                     alt="Manual Mode Dial"
@@ -231,13 +236,12 @@ function InteractiveSim() {
                     rounded
                   />
 
-                  {/* Arrow and label */}
-                  {showHoverHint && (
+                  {!hasHovered && showHoverHint && (
                     <div
                       style={{
                         position: "absolute",
                         top: "50%",
-                        left: "-115px",
+                        left: "-120px",
                         transform: "translateY(-50%)",
                         display: "flex",
                         alignItems: "center",
@@ -247,28 +251,34 @@ function InteractiveSim() {
                         opacity: 0.6,
                         fontFamily: "'Nunito', sans-serif",
                         fontWeight: 700,
+                        pointerEvents: "none",
                       }}
                     >
-                      Hover for tip
-                      <span style={{ display: "flex", marginLeft: "0.3rem" }}>
-                        <i
-                          className="fas fa-chevron-right"
-                          style={{ fontSize: "0.85rem" }}
-                        ></i>
-                        <i
-                          className="fas fa-chevron-right"
-                          style={{
-                            fontSize: "0.85rem",
-                            marginLeft: "-0.15rem",
-                          }}
-                        ></i>
-                        <i
-                          className="fas fa-chevron-right"
-                          style={{
-                            fontSize: "0.85rem",
-                            marginLeft: "-0.15rem",
-                          }}
-                        ></i>
+                      <span
+                        className="pulse-once"
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        Hover for tip
+                        <span style={{ display: "flex", marginLeft: "0.3rem" }}>
+                          <i
+                            className="fas fa-chevron-right"
+                            style={{ fontSize: "0.85rem" }}
+                          ></i>
+                          <i
+                            className="fas fa-chevron-right"
+                            style={{
+                              fontSize: "0.85rem",
+                              marginLeft: "-0.15rem",
+                            }}
+                          ></i>
+                          <i
+                            className="fas fa-chevron-right"
+                            style={{
+                              fontSize: "0.85rem",
+                              marginLeft: "-0.15rem",
+                            }}
+                          ></i>
+                        </span>
                       </span>
                     </div>
                   )}

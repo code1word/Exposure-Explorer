@@ -2,9 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { Container, ProgressBar } from "react-bootstrap";
+import {
+  Container,
+  ProgressBar,
+  OverlayTrigger,
+  Tooltip,
+  Image,
+} from "react-bootstrap";
 import PhotoSlider from "./PhotoSlider";
 import axios from "axios";
+import dialIcon from "../assets/shutter_mode.png";
 
 function ShutterSpeed() {
   useEffect(() => {
@@ -128,6 +135,7 @@ function ShutterSpeed() {
   );
 
   const shutterValues = [1, 2, 5, 10, 20, 50, 100, 250, 500, 1000];
+  const [isDialHovered, setIsDialHovered] = useState(false);
 
   return (
     <Container className="py-4" style={{ fontSize: "1.25rem" }}>
@@ -211,8 +219,84 @@ function ShutterSpeed() {
       <p>
         <strong>Shutter speed</strong> controls how long the camera's sensor is
         exposed to the light of the scene, measured in fractions of a second. A
-        slower shutter speed means the shutter is open for longer.
+        slower shutter speed means the shutter is open for longer. Modern
+        cameras typically have a dial like the one below that lets you adjust
+        the shutter speed directly.
       </p>
+
+      {/* Manual Mode Dial (centered) */}
+      <div
+        className="d-flex justify-content-end justify-content-md-center align-items-center"
+        style={{
+          height: "100px",
+          position: "relative",
+          marginTop: "0.75rem",
+          marginBottom: "0.75rem",
+        }}
+      >
+        <OverlayTrigger
+          placement="left"
+          overlay={
+            <Tooltip
+              id="manual-tooltip"
+              style={{
+                fontSize: "0.9rem",
+                fontStyle: "italic",
+                fontFamily: "'Nunito', sans-serif",
+              }}
+            >
+              In <strong>Shutter Priority Mode</strong>, you control the shutter
+              speed, and the camera dynamically adjusts the aperture to maintain
+              proper exposure.
+            </Tooltip>
+          }
+        >
+          <div
+            id="mode-dial"
+            onMouseEnter={() => setIsDialHovered(true)}
+            onMouseLeave={() => setIsDialHovered(false)}
+            style={{ position: "relative" }}
+          >
+            <Image
+              src={dialIcon}
+              alt="Manual Mode Dial"
+              style={{
+                height: "100px",
+                cursor: "pointer",
+                borderRadius: "50%",
+              }}
+              rounded
+            />
+
+            <div
+              className="text-muted"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "-193px",
+                transform: "translateY(-50%)",
+                display: "flex",
+                alignItems: "center",
+                fontFamily: "'Nunito', sans-serif",
+                fontWeight: 500,
+                fontSize: "1.15rem",
+                fontStyle: "italic",
+                pointerEvents: "none",
+                opacity: isDialHovered ? 0 : 0.8,
+                transition: "opacity 0.5s ease",
+              }}
+            >
+              Shutter Priority Mode
+              <span style={{ marginLeft: "7px" }}>
+                <i
+                  className="fas fa-caret-right"
+                  style={{ fontSize: "1.15rem" }}
+                ></i>
+              </span>
+            </div>
+          </div>
+        </OverlayTrigger>
+      </div>
       <p>
         Shutter speed affects two key properties of the camera: the{" "}
         <strong>exposure</strong> and <strong>motion blur</strong>.

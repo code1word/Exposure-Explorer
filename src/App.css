@@ -74,19 +74,14 @@ body {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.1);
   }
   100% {
     transform: scale(1);
   }
 }
 
-.scale-pulse {
-  animation: scalePulse 1s ease-in-out infinite;
-  display: inline-block;
-}
-
-.hover-hint {
-  animation: pulse 2.2s infinite;
-  border-radius: 50%;
+.pulse-once {
+  animation: scalePulse 1.2s ease-in-out infinite;
+  /* transform-origin: center left; */
 }
