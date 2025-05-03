@@ -83,5 +83,4 @@ body {
 
 .pulse-once {
   animation: scalePulse 1.2s ease-in-out infinite;
-  /* transform-origin: center left; */
 }

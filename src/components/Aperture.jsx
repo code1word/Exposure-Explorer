@@ -147,7 +147,7 @@ function Aperture() {
         style={{
           height: "10px",
           borderRadius: "999px",
-          backgroundColor: "#13275e",
+          backgroundColor: "transparent",
           overflow: "hidden",
         }}
       >
@@ -159,6 +159,7 @@ function Aperture() {
             borderRadius: "999px",
             height: "100%",
             transition: "width 0.4s ease",
+            boxShadow: "none",
           }}
         />
       </ProgressBar>
