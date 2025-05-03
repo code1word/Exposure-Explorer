@@ -41,13 +41,19 @@ function InteractiveSim() {
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
       <Container className="py-4">
-        <h2 className="mb-4 text-center" style={{ fontSize: "2.25rem", fontWeight: 700, color: "#13275e" }}>
+        <h2
+          className="mb-4 text-center"
+          style={{ fontSize: "2.25rem", fontWeight: 700, color: "#13275e" }}
+        >
           Interactive Simulator
         </h2>
 
         <Row>
           {/* Image preview */}
-          <Col md={6} className="d-flex flex-column align-items-center justify-content-start">
+          <Col
+            md={6}
+            className="d-flex flex-column align-items-center justify-content-start"
+          >
             <div
               style={{
                 padding: "6px",
@@ -80,9 +86,20 @@ function InteractiveSim() {
           </Col>
 
           {/* Sliders */}
-          <Col md={6} className="d-flex flex-column justify-content-between px-3">
-            <p className="text-muted text-center" style={{ fontSize: "1.25rem", marginTop: "1rem" }}>
-              Adjust the settings to change the simulated photo.
+          <Col
+            md={6}
+            className="d-flex flex-column justify-content-between px-3"
+          >
+            <p
+              className="text-muted"
+              style={{
+                fontSize: "1.25rem",
+                textAlign: "center",
+                marginTop: "1rem",
+              }}
+            >
+              Adjust the different settings to see how each changes the look and
+              exposure of this photo in real time.
             </p>
 
             {/* Aperture */}
@@ -92,12 +109,12 @@ function InteractiveSim() {
                 <strong>Large Aperture</strong>
               </div>
               <Slider
-                min={1}
+                min={2}
                 max={6}
                 step={1}
                 value={aperture}
                 onChange={setAperture}
-                marks={{ 1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6" }}
+                marks={{ 2: "f/5", 3: "f/4", 4: "f/3", 5: "f/2", 6: "f/1" }}
                 tipFormatter={(val) => `Step ${val}`}
               />
             </div>
@@ -105,8 +122,8 @@ function InteractiveSim() {
             {/* Shutter Speed */}
             <div style={{ marginBottom: "2rem" }}>
               <div className="d-flex justify-content-between">
-                <strong>Slow Shutter</strong>
                 <strong>Fast Shutter</strong>
+                <strong>Slow Shutter</strong>
               </div>
               <Slider
                 min={0.25}
@@ -151,12 +168,24 @@ function InteractiveSim() {
             </div>
 
             {/* Dial Tooltip */}
-            <div className="d-flex justify-content-end align-items-end" style={{ height: "100px" }}>
+            <div
+              className="d-flex justify-content-end align-items-end"
+              style={{ height: "100px", position: "relative" }}
+            >
               <OverlayTrigger
                 placement="left"
                 overlay={
-                  <Tooltip id="manual-tooltip" style={{ fontSize: "0.9rem", fontStyle: "italic" }}>
-                    Manual Mode: control aperture, shutter, and ISO to simulate exposure.
+                  <Tooltip
+                    id="manual-tooltip"
+                    style={{
+                      fontSize: "0.9rem",
+                      fontStyle: "italic",
+                      fontFamily: "'Nunito', sans-serif",
+                    }}
+                  >
+                    This is <strong>Manual Mode</strong>. Here, you have full
+                    control over the aperture, shutter speed, and ISO, giving
+                    you complete control over how your photo is exposed.
                   </Tooltip>
                 }
               >
@@ -174,9 +203,14 @@ function InteractiveSim() {
                   <Image
                     src={dialIcon}
                     alt="Manual Mode Dial"
-                    style={{ height: "100px", cursor: "pointer", borderRadius: "50%" }}
+                    style={{
+                      height: "100px",
+                      cursor: "pointer",
+                      borderRadius: "50%",
+                    }}
                     rounded
                   />
+
                   {!hasHovered && showHoverHint && (
                     <div
                       style={{
@@ -184,13 +218,43 @@ function InteractiveSim() {
                         top: "50%",
                         left: "-120px",
                         transform: "translateY(-50%)",
+                        display: "flex",
+                        alignItems: "center",
                         fontSize: "0.9rem",
                         fontStyle: "italic",
                         color: "#aaa",
                         opacity: 0.6,
+                        fontFamily: "'Nunito', sans-serif",
+                        fontWeight: 700,
+                        pointerEvents: "none",
                       }}
                     >
-                      Hover for tip →
+                      <span
+                        className="pulse-once"
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        Hover for tip
+                        <span style={{ display: "flex", marginLeft: "0.3rem" }}>
+                          <i
+                            className="fas fa-chevron-right"
+                            style={{ fontSize: "0.85rem" }}
+                          ></i>
+                          <i
+                            className="fas fa-chevron-right"
+                            style={{
+                              fontSize: "0.85rem",
+                              marginLeft: "-0.15rem",
+                            }}
+                          ></i>
+                          <i
+                            className="fas fa-chevron-right"
+                            style={{
+                              fontSize: "0.85rem",
+                              marginLeft: "-0.15rem",
+                            }}
+                          ></i>
+                        </span>
+                      </span>
                     </div>
                   )}
                 </div>
