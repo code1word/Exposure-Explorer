@@ -158,18 +158,17 @@ function NightSettings() {
                   Shutter Speed (seconds)
                 </label>
                 <Slider
-                  min={0.0}
+                  min={2}
                   max={30}
                   step={0.0005}
                   value={staticShutterSpeed} // Use value for static display (points to 15s mark)
                   disabled={true} // Disable slider interaction
                   marks={{
-                    0: "1/2000",
-                    2: "1/1000",
-                    6: "1/250",
-                    8: "1/30",
+                    2: "1/500s",
+                    5: "1/250s",
+                    8: "1/30s",
                     12: "1s",
-                    20: "15s", // Value 20 points here
+                    20: "15s",
                     30: "30s",
                   }}
                   tipFormatter={(val) =>
