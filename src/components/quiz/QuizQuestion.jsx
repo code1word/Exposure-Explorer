@@ -276,7 +276,7 @@ function QuizQuestion() {
           {!nextKey && !reviewMode && makeButton("Finish", faArrowRight, submitQuiz, true)}
           </Col>
         </Row>
-        <br/><br/>
+        <br/>
         <Row>
           <Col className="text-end">
             {nextKey && reviewMode && makeButton("See Results", faArrowRight, handleFinish, true)}
