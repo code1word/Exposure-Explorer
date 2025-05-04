@@ -26,7 +26,7 @@ function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
       <Row>
         <Col md={1}></Col>
 
-        <Col md={6}>
+        <Col md={12}>
           {info.options.map((option, i) => (
             <div key={i}>
               <label style={{

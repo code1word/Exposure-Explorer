@@ -57,42 +57,56 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
 
   return (
     <div>
-      <div style={{ marginTop: "70px", display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
+        Lowest Shutter Speed
+        <div
+        className="order-images-container"
+        style={{
+          marginTop: "70px",
+          display: "grid",
+          gap: "1rem",
+          justifyItems: "center",
+        }}
+      >
         {currentOrder.map((imgSrc, index) => (
           <div
             key={imgSrc}
+            className="col-12 col-sm-6 col-xl-3 col-md-12" // Bootstrap classes for responsiveness
             draggable={!reviewMode}
             onDragStart={(e) => {
-                if (reviewMode) {
-                  e.preventDefault();
-                  return;
-                }
-                handleDragStart(index);
-              }}
-              onDragOver={(e) => {
-                if (!reviewMode) e.preventDefault();
-              }}
-              onDrop={(e) => {
-                if (!reviewMode) handleDrop(index);
-              }}
-            style={{
-              border: "2px solid #ccc",
-              borderRadius: "8px",
-              padding: "0.5rem",
-              backgroundColor: reviewMode ? "#f9f9f9" : "#fff",
-              cursor: reviewMode ? "default" : "grab",
-              textAlign: "center",
-              transition: "transform 0.2s",
+              if (reviewMode) {
+                e.preventDefault();
+                return;
+              }
+              handleDragStart(index);
             }}
+            onDragOver={(e) => {
+              if (!reviewMode) e.preventDefault();
+            }}
+            onDrop={(e) => {
+              if (!reviewMode) handleDrop(index);
+            }}
+            style={{
+                border: "2px solid #ccc",
+                borderRadius: "8px",
+                padding: "0.5rem",
+                backgroundColor: reviewMode ? "#f9f9f9" : "#fff",
+                cursor: reviewMode ? "default" : "grab",
+                textAlign: "center",
+                transition: "transform 0.2s",
+              }}
           >
             <img
               src={imgSrc}
               alt={`ordered-img-${index}`}
-              style={{ width: "150px", height: "auto", borderRadius: "6px" }}
+              style={{ 
+                width: "150px", 
+                height: "auto", 
+                borderRadius: "6px" }}
             />
           </div>
         ))}
       </div>
+      Highest Shutter Speed
 
       {reviewMode && (
         <div style={{ marginTop: "1rem", textAlign: "center", fontWeight: "bold" }}>

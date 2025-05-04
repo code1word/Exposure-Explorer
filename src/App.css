@@ -3,7 +3,7 @@ body {
 }
 
 .quiz-start-button {
-  background-color: #1fb8ff;
+  background-color: #13275e;
   color: #fff;
   border: none;
   border-radius: 25px;
@@ -13,13 +13,18 @@ body {
   transition: background-color 0.3s ease-in-out;
 }
 .quiz-start-button:hover {
-  background-color: #1d2a45; /* Slightly darker navy */
+  background-color: #abe2fb; 
   cursor: pointer;
 }
 
 .navy {
   color: #1d2a45;
 }
+
+.slightly-lighter-navy {
+  color: #13275e;
+}
+
 
 .nav-button {
   margin-top: 1.5rem;
@@ -67,4 +72,19 @@ body {
   border-color: #77d3fd;
   font-weight: bold;
   font-size: 1.2rem;
+}
+
+/* Default grid: 4 items per row */
+.order-images-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  margin-top: 70px;
+}
+
+@media (max-width: 768px) {
+  .order-images-container {
+    grid-template-columns: 1fr; /* 1 item per row on small screens */
+  }
 }

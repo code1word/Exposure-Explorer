@@ -72,7 +72,7 @@ function QuizTwoPhotoSliders({
           src={staticImage}
           alt="Preview"
           style={{
-            maxWidth: "55%",
+            maxWidth: "80%",
             height: "auto",
             marginBottom: "1rem",
           }}

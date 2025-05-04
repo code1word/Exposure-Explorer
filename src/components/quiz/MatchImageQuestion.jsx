@@ -8,20 +8,19 @@ import { QuizContext } from "../../context/QuizContextMatchImage";
 const sliderValueMap = {
   0.0: 1.4,
   0.1: 2.0,
-  0.2: 2.8,
-  0.3: 4.0,
-  0.4: 5.6,
-  0.5: 8.0,
-  0.6: 9.0,
-  0.7: 11.0,
-  0.8: 14.0,
-  0.9: 16.0,
+  0.2: 4.0,
+  0.3: 5.6,
+  0.4: 8.0,
+  0.5: 9.0,
+  0.6: 11.0,
+  0.7: 14.0,
+  0.8: 16.0,
 };
 
 function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   const { sliderValues, recordSliderValue, selectedImages, recordSelectedImage } = useContext(QuizContext);
 
-  const initialValue = sliderValues[questionKey] ?? 0.6;
+  const initialValue = sliderValues[questionKey] ?? 0.2;
   const [sliderValue, setSliderValue] = useState(initialValue);
   const imageIndex = Math.round(Math.max(0, Math.min(1, sliderValue)) * 10);
   //const currentImage = portraitImageMap[imageIndex];
@@ -88,7 +87,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
         
         <Row className="align-items-start">
           {/* Slider section */}
-          <Col md={6}>
+          <Col lg={6} xs={12}>
             <div className="text-muted fst-italic text-center pt-3" >
               Change the image using the slider.
             </div>
@@ -102,7 +101,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
                 return info.imageMap[imageIndex];
               }}
               min={0}
-              max={0.9}
+              max={0.8}
               step={0.1}
               initialValue={sliderValue}
               displayValue={(val) => {
@@ -120,7 +119,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
           </Col>
 
           {/* Reference image section */}
-          <Col md={6}>
+          <Col lg={6} xs={12}>
             <div className="text-muted fst-italic text-center pt-3" >
               Reference image
             </div>
@@ -129,7 +128,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
                 src={info.referenceImage}
                 alt="Reference"
                 style={{ 
-                  maxWidth: "55%", 
+                  maxWidth: "80%", 
                   height: "auto", 
                   padding: "none",
                   }}

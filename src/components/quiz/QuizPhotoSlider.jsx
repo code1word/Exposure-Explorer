@@ -41,7 +41,7 @@ function QuizPhotoSlider({
           src={imageSrcFunction(value)}
           alt={`${title} visual`}
           style={{ 
-            maxWidth: "55%", 
+            maxWidth: "80%", 
             height: "auto", 
             marginBottom: "1rem" }}
         />

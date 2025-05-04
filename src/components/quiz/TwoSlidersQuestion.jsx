@@ -50,8 +50,8 @@ const displayApertureValue = (val) => {
 
 const displayISOValue = (val) => {
   const rounded = Math.round(val * 10) / 10;
-  const aperture = sliderValueMapISO[rounded];
-  return aperture !== undefined ? aperture.toFixed(1) : "-";
+  const iso = sliderValueMapISO[rounded];
+  return iso !== undefined ? String(Math.round(iso)) : "-";
 };
 
 //const sliderSteps = [0.3, 0.6, 0.9]; // match grid size
@@ -62,9 +62,10 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
   const { sliderValues, recordSliderValue, selectedImages, recordSelectedImage } = useContext(QuizContext);
 
   const initial1 = sliderValues[`${questionKey}_1`] ?? 0.4;
-  const initial2 = sliderValues[`${questionKey}_2`] ?? 0.6;
+  const initial2 = sliderValues[`${questionKey}_2`] ?? 1.0;
   const [sliderValue1, setSliderValue1] = useState(initial1);
   const [sliderValue2, setSliderValue2] = useState(initial2);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const getGridIndex = (value) => sliderSteps.indexOf(value);
   const rowIndex = getGridIndex(sliderValue1);
@@ -74,6 +75,7 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
 
   const handleSlider1Change = (value) => {
     setSliderValue1(value);
+    if (!hasInteracted) setHasInteracted(true);
     if (!reviewMode) {
       recordSliderValue(`${questionKey}_1`, value);
     }
@@ -81,13 +83,14 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
 
   const handleSlider2Change = (value) => {
     setSliderValue2(value);
+    if (!hasInteracted) setHasInteracted(true);
     if (!reviewMode) {
       recordSliderValue(`${questionKey}_2`, value);
     }
   };
 
   useEffect(() => {
-    if (!reviewMode && currentImage) {
+    if (!reviewMode && hasInteracted && currentImage) {
       recordSelectedImage(questionKey, currentImage);
     }
   }, [sliderValue1, sliderValue2]);
@@ -113,7 +116,7 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
         ) : (
           <>
             ❌ Incorrect Image<br />
-            The correct settings are f/0.30 and 0.90s
+            The correct settings are f/16.0 and 150
           </>
         )}
       </div>
@@ -124,7 +127,7 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
     <Container>
 
       <Row className="align-items-start">
-        <Col md={6}>
+        <Col lg={6} xs={12}>
           <div className="text-muted fst-italic text-center pt-3">
             Adjust aperture and ISO.
           </div>
@@ -155,7 +158,7 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
           />
         </Col>
 
-        <Col md={6} >
+        <Col lg={6} xs={12} >
           <div className="text-muted fst-italic text-center pt-3">
             Reference image
           </div>
@@ -163,7 +166,7 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
             <img
               src={referenceImage}
               alt="Reference"
-              style={{ maxWidth: "55%", height: "auto" }}
+              style={{ maxWidth: "80%", height: "auto" }}
             />
             {getStatus()}
           </Container> 

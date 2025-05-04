@@ -100,52 +100,66 @@ function QuizQuestion() {
   };
   
   const submitQuiz = async () => {
+    let calculatedScore = 0;
+    const sanitizedResults = {};
     const questionKeys = Object.keys(quizQuestionData);
-    let score = 0;
   
     questionKeys.forEach((key) => {
       const question = quizQuestionData[key];
       const format = question.format;
-      const correctAnswer = question.answer;
+      const questionNum = question.question_number;
+  
       let isCorrect = false;
+      let userResponse = null;
   
       if (format === "multiple_choice") {
-        isCorrect = selectedAnswersMC[key] === correctAnswer;
-      } 
+        userResponse = selectedAnswersMC[key] ?? "LEFT_BLANK";
+        isCorrect = userResponse === question.answer;
+      }
       else if (format === "table_fill_blanks") {
         const userAnswers = selectedAnswersTable[key] || {};
         const correctAnswers = question.correctAnswers;
-        isCorrect = Object.entries(correctAnswers).every(
+        const allMatch = Object.entries(correctAnswers).every(
           ([cellKey, correctVal]) => userAnswers[cellKey] === correctVal
         );
-      } 
+        isCorrect = allMatch;
+        userResponse = Object.keys(correctAnswers).reduce((acc, cellKey) => {
+          acc[cellKey] = userAnswers[cellKey] ?? "LEFT_BLANK";
+          return acc;
+        }, {});
+      }
       else if (format === "order_images") {
-        isCorrect = JSON.stringify(selectedOrderImages[key]) === JSON.stringify(question.correctOrder);
-      } 
+        const userOrder = selectedOrderImages[key] ?? "LEFT_BLANK";
+        isCorrect = JSON.stringify(userOrder) === JSON.stringify(question.correctOrder);
+        userResponse = userOrder;
+      }
       else if (format === "match_image") {
-        isCorrect = selectedImageMatch1[key] === question.referenceImage;
+        userResponse = selectedImageMatch1[key] ?? "LEFT_BLANK";
+        isCorrect = userResponse === question.referenceImage;
       }
       else if (format === "two_sliders") {
-        isCorrect = selectedImageMatch2[key] === question.referenceImage;
+        userResponse = selectedImageMatch2[key] ?? "LEFT_BLANK";
+        isCorrect = userResponse === question.referenceImage;
       }
   
-      if (isCorrect) score++;
+      if (isCorrect) calculatedScore++;
+  
+      sanitizedResults[key] = {
+        question_number: questionNum,
+        format,
+        response: userResponse,
+        correct: isCorrect,
+      };
     });
   
     try {
       await axios.post("http://localhost:3000/submit-quiz", {
-        score,
+        score: calculatedScore,
         total: questionKeys.length,
-        answers: {
-          ...selectedAnswersMC,
-          ...selectedAnswersTable,
-          ...selectedOrderImages,
-          ...selectedImageMatch1,
-          ...selectedImageMatch2
-        }
+        answers: sanitizedResults,
       });
     } catch (error) {
-      console.error("Error sending quiz data:", error);
+      console.error("Error submitting quiz:", error);
     }
   
     navigate(`/learn/quiz/results`);

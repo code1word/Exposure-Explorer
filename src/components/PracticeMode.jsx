@@ -62,7 +62,7 @@ function PracticeMode() {
       <h2
         style={{
           fontSize: "2.5rem",
-          color: "#1d2a45",
+          color: "#13275e",
         }}
       >
         <em>Ready to test your knowledge of the exposure triangle?</em>
@@ -71,7 +71,7 @@ function PracticeMode() {
         style={{
           fontSize: "1.2rem",
           marginTop: "1rem",
-          color: "#35476b",
+          color: "#13275e",
           fontStyle: "italic",
         }}
       >
