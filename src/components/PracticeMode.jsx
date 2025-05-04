@@ -42,7 +42,7 @@ function PracticeMode() {
     resetQuizMATCH2();
     const firstQuestionKey = Object.keys(quizQuestionData)[0];
     //console.log("firstQuestionKey", firstQuestionKey);
-    navigate(`/learn/quiz/${firstQuestionKey}`);
+    navigate(`/quiz/${firstQuestionKey}`);
   };
 
   return (
@@ -63,7 +63,7 @@ function PracticeMode() {
           color: "#13275e",
         }}
       >
-        <em>Ready to test your knowledge of the exposure triangle?</em>
+        <strong>Ready to test your knowledge of the exposure triangle?</strong>
       </h2>
       <h3
         style={{
@@ -74,7 +74,7 @@ function PracticeMode() {
         }}
       >
         This short quiz will challenge what you’ve learned — from recognizing
-        settings to applying them in real scenarios. Click Start to begin!
+        settings to applying them in real scenarios.
       </h3>
       <br></br>
       <Button size="lg" className="quiz-start-button" onClick={handleStart}>

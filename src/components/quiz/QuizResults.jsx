@@ -95,11 +95,11 @@ function QuizResults() {
     resetQuizORD();
     resetQuizMATCH1();
     resetQuizMATCH2();
-    navigate(`/learn/quiz/${questionKeys[0]}`);
+    navigate(`/quiz/${questionKeys[0]}`);
   };
 
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
+    <div className="navy" style={{ padding: "2rem", textAlign: "center" }}>
       <h2>
         <em>You scored a {score}/{questionKeys.length}!</em>
       </h2>
@@ -120,7 +120,7 @@ function QuizResults() {
 
           return (
             <div key={key}>
-              <Link to={`/learn/quiz/${key}?reviewMode=true`}>
+              <Link to={`/quiz/${key}?reviewMode=true`}>
                 <button className="hint-button btn" style={{ margin: "0.5rem" }}>
                   {isCorrect ? "✅" : "❌"} Question {index + 1}
                 </button>

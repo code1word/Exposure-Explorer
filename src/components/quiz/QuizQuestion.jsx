@@ -95,10 +95,12 @@ function QuizQuestion() {
     : Math.round(((currentIndex + 1) / questionKeys.length) * 100);
 
   const handleShowHint = () => {
-    if (hintsLeft > 0 && !usedHints.has(type)) {
-      setHintsLeft((prev) => prev - 1);
-      setUsedHints((prev) => new Set(prev).add(type));
-      setModalContent(info?.hint ?? "No hint provided.");
+    if (hintsLeft > 0) {
+      if (!usedHints.has(type)) {
+        setHintsLeft(prev => prev - 1);
+        setUsedHints(prev => new Set(prev).add(type));
+      }
+      setModalContent(info.hint ?? "No hint provided for this question.");
     } else {
       setModalContent("🚫 No more hints available.");
     }
@@ -109,20 +111,20 @@ function QuizQuestion() {
 
   const handleNext = () => {
     if (nextKey) {
-      navigate(`/learn/quiz/${nextKey}${reviewMode ? "?reviewMode=true" : ""}`);
+      navigate(`/quiz/${nextKey}${reviewMode ? "?reviewMode=true" : ""}`);
     }
   };
 
   const handlePrevious = () => {
     if (previousKey) {
       navigate(
-        `/learn/quiz/${previousKey}${reviewMode ? "?reviewMode=true" : ""}`
+        `/quiz/${previousKey}${reviewMode ? "?reviewMode=true" : ""}`
       );
     }
   };
 
   const handleFinish = () => {
-    navigate(`/learn/quiz/results`);
+    navigate(`/quiz/results`);
   };
 
   const submitQuiz = async () => {
@@ -188,7 +190,7 @@ function QuizQuestion() {
       console.error("Error submitting quiz:", error);
     }
 
-    navigate(`/learn/quiz/results`);
+    navigate(`/quiz/results`);
   };
 
   const renderNavigationButtons = () => {
@@ -260,23 +262,29 @@ function QuizQuestion() {
         )}
       </div>
     );
+    
 
     return (
-      <Row className="align-items-center mt-4">
-        <Col xs="auto">
-          {previousKey && makeButton("Back", faArrowLeft, handlePrevious)}
-        </Col>
-        <Col className="text-end">
-          {nextKey
-            ? makeButton("Next", faArrowRight, handleNext, true)
-            : makeButton(
-                "Finish",
-                faArrowRight,
-                reviewMode ? handleFinish : submitQuiz,
-                true
-              )}
-        </Col>
-      </Row>
+      <div>
+        <Row className="align-items-center mt-4">
+          <Col xs="auto">
+            {previousKey && makeButton("Back", faArrowLeft, handlePrevious)}
+          </Col>
+          <Col className="text-end">
+          {nextKey && makeButton("Next", faArrowRight, handleNext, true)}
+          {!nextKey && reviewMode && makeButton("See Results", faArrowRight, handleFinish, true)}
+          {!nextKey && !reviewMode && makeButton("Finish", faArrowRight, submitQuiz, true)}
+          </Col>
+        </Row>
+        <br/><br/>
+        <Row>
+          <Col className="text-end">
+            {nextKey && reviewMode && makeButton("See Results", faArrowRight, handleFinish, true)}
+          </Col>
+        </Row>
+      </div>
+      
+      
     );
   };
 

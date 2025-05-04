@@ -46,13 +46,26 @@ function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
             </div>
           ))}
 
-          {reviewMode && selectedAnswer && (
-            <p style={{ marginTop: "1rem" }}>
-              {selectedAnswer === info.answer
-                ? "✅ Correct!"
-                : `❌ Incorrect. Correct answer: ${info.answer}`}
-            </p>
+          <div><br/></div>
+
+          {reviewMode && (
+            <div style={{ marginTop: "1rem" }}>
+              {/* Always display the correct answer */}
+              {selectedAnswer && selectedAnswer !== info.answer && (
+                <p><strong>❌ Incorrect.</strong></p>
+              )}
+              {!selectedAnswer && (
+                <p><strong>❌ Incorrect.</strong></p>
+              )}
+              {selectedAnswer === info.answer && (
+                <p>✅ You selected the correct answer!</p>
+              )}
+              <p>
+                <strong>Correct Answer:</strong> {info.answer}
+              </p>
+            </div>
           )}
+
         </Col>
 
         

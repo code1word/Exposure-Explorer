@@ -66,7 +66,7 @@ quiz_questions = {
     "4": {
       "format": "order_images",
       "question_number": "4",
-      "question": "Different types of pictures require different settings. Drag and drop the following types of pictures to order them from lowest to highest shutter speed.",
+      "question": "Different types of photos require different settings. Drag and drop the following types of pictures to order them from lowest to highest shutter speed.",
       "images": [
         "http://localhost:3000/static/images_q4/orderLandscape.jpg",
         "http://localhost:3000/static/images_q4/orderActionShot.jpg",

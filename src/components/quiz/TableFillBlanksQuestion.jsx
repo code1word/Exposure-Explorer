@@ -66,48 +66,89 @@ function DroppableCell({
 
   let displayValue = currentValue || "";
   let style = {
-    width: "150px",
-    height: "50px",
+    width: "170px",
     border: "1px solid #ccc",
     margin: "5px",
     textAlign: "center",
-    lineHeight: "50px",
+    padding: "5px",
+    lineHeight: "1.2",
     backgroundColor: isOver ? "#e0f7fa" : "white",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "65px",
   };
 
   // Only apply these styles if in reviewMode
   if (reviewMode) {
     if (currentValue === correctValue) {
-      style.backgroundColor = "#d0f0c0"; // Green for correct answer
+      style.backgroundColor = "#d0f0c0"; // Green
       displayValue = `✅ ${currentValue}`;
     } else if (currentValue) {
-      style.backgroundColor = "#f8d7da"; // Red for incorrect answer
-      displayValue = `❌ ${currentValue}`;
+      style.backgroundColor = "#f8d7da"; // Red
+      displayValue = (
+        <div>
+          <span style={{ color: "#555" }}>
+            ❌ {currentValue}
+            <br />
+          </span>
+          <span style={{ fontSize: "12px", color: "#555" }}>
+            Correct answer: {correctValue}
+          </span>
+        </div>
+      );
     } else {
-      style.backgroundColor = "#f8d7da"; // Red for incorrect answer
-      displayValue = `❌`;
+      style.backgroundColor = "#f8d7da"; // Red
+      displayValue = (
+        <div style={{
+        }}>
+          
+          <span style={{ 
+            color: "#555",
+            paddingTop: "12px" }}>
+            ❌
+            <br />
+          </span>
+          <span style={{ 
+            fontSize: "12px", 
+            color: "#555",
+             }}>
+            Correct answer: {correctValue}
+          </span>
+        </div>
+      );
     }
   }
 
   return (
     <div ref={drop} style={style}>
-      {displayValue}
-      {currentValue && !reviewMode && (
-        <button
-          onClick={() => onRemove(row, col, currentValue)}
-          style={{
-            marginLeft: "5px",
-            fontSize: "10px",
-            padding: "2px 5px",
-            cursor: "pointer",
-            border: "none",
-            // backgroundColor: "#f44336",
-            backgroundColor: "rgb(1,1,1,0)",
-            color: "white",
-          }}
-        >
-          🗑️
-        </button>
+      {!reviewMode ? (
+        <div style={{ 
+          display: "flex", 
+          alignItems: "center", 
+          textAlign: "center",
+          justifyContent: "center",
+          width: "100%" }}>
+          <span>{displayValue}</span>
+          {currentValue && (
+            <button
+              onClick={() => onRemove(row, col, currentValue)}
+              style={{
+                marginLeft: "10px",
+                cursor: "pointer",
+                fontSize: "12pt",
+                border: "none",
+                backgroundColor: "transparent",
+                color: "#888",
+              }}
+            >
+              🗑️
+            </button>
+          )}
+        </div>
+      ) : (
+        displayValue
       )}
     </div>
   );
@@ -225,8 +266,7 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
     <div>
       <Row
         style={{
-          height: "100px",
-          overflowY: "auto",
+          minHeight: "120px",
           marginBottom: "30px",
         }}
       >
@@ -236,21 +276,41 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
         <div
           style={{ display: "flex", flexWrap: "wrap", marginBottom: "1rem" }}
         >
-          {availableAnswers.map((answer) => (
-            <DraggableItem key={answer} answer={answer} onDrag={() => {}} />
-          ))}
+          {availableAnswers.map((answer) =>
+            reviewMode ? (
+              <div
+                key={answer}
+                style={{
+                  padding: "5px",
+                  margin: "5px",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  backgroundColor: "#f0f0f0",
+                  color: "#999",
+                  cursor: "not-allowed",
+                }}
+              >
+                {answer}
+              </div>
+            ) : (
+              <DraggableItem key={answer} answer={answer} onDrag={() => {}} />
+            )
+          )}
         </div>
       </Row>
 
       <div
         style={{
-          display: "flex",
-          gap: "1rem",
-          flexWrap: "wrap",
-          justifyContent: "center",
+          overflowX: "auto",
+          maxWidth: "100%", // ensures it doesn't overflow the screen
+          margin: "0 auto", // optional: centers the scroll container
+          textAlign: "center"
         }}
       >
-        <table>
+        <div style={{display: "inline-block"}}>
+        <table
+          style={{ tableLayout: "auto", width: "100%" }}>
+          
           <thead>
             <tr>
               <th></th>
@@ -284,7 +344,7 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table></div>
       </div>
     </div>
   );

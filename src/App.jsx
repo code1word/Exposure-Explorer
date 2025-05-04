@@ -36,8 +36,8 @@ function App() {
         <Route path="/simulator" element={<InteractiveSim />} />
         <Route path="/learn/cheatsheet" element={<CheatSheet />} />
         <Route path="/learn/cheatsheet/:type" element={<CheatSheetDetail />} />
-        <Route path="/learn/quiz/:type" element={<QuizQuestion />} />
-        <Route path="/learn/quiz/results" element={<QuizResults />} />
+        <Route path="/quiz/:type" element={<QuizQuestion />} />
+        <Route path="/quiz/results" element={<QuizResults />} />
         <Route path="/learn/portrait" element={<PortraitSettings />} />
         <Route path="/learn/landscape" element={<LandscapeSettings />} />
         <Route path="/learn/night" element={<NightSettings />} />
