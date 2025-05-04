@@ -271,15 +271,31 @@ function QuizQuestion() {
             {previousKey && makeButton("Back", faArrowLeft, handlePrevious)}
           </Col>
           <Col className="text-end">
-          {nextKey && makeButton("Next", faArrowRight, handleNext, true)}
-          {!nextKey && reviewMode && makeButton("See Results", faArrowRight, handleFinish, true)}
-          {!nextKey && !reviewMode && makeButton("Finish", faArrowRight, submitQuiz, true)}
+          {nextKey && makeButton(
+            "Next", 
+            faArrowRight, 
+            handleNext, 
+            true)}
+          {!nextKey && reviewMode && makeButton(
+            "See Results", 
+            faArrowRight, 
+            handleFinish, 
+            true)}
+          {!nextKey && !reviewMode && makeButton(
+            "Finish", 
+            faArrowRight, 
+            submitQuiz, 
+            true)}
           </Col>
         </Row>
         <br/>
         <Row>
           <Col className="text-end">
-            {nextKey && reviewMode && makeButton("See Results", faArrowRight, handleFinish, true)}
+            {nextKey && reviewMode && makeButton(
+              "See Results", 
+              faArrowRight, 
+              handleFinish, 
+              true)}
           </Col>
         </Row>
       </div>

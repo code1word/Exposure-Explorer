@@ -100,9 +100,10 @@ function QuizResults() {
 
   return (
     <div className="navy" style={{ padding: "2rem", textAlign: "center" }}>
-      <h2>
-        <em>You scored a {score}/{questionKeys.length}!</em>
-      </h2>
+      <br/>
+      <h1>
+        <em><strong>You scored a {score}/{questionKeys.length}!</strong></em>
+      </h1>
       
       <h3>
         Feel free to review a topic, explore the simulator at your own pace, or get some more practice.
