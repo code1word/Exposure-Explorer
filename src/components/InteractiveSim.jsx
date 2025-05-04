@@ -103,7 +103,7 @@ function InteractiveSim() {
             </p>
 
             {/* Aperture */}
-            <div style={{ marginBottom: "2rem" }}>
+            <div style={{ marginBottom: "2rem", color: "#13275e" }}>
               <div className="d-flex justify-content-between">
                 <strong>Small Aperture</strong>
                 <strong>Large Aperture</strong>
@@ -120,7 +120,7 @@ function InteractiveSim() {
             </div>
 
             {/* Shutter Speed */}
-            <div style={{ marginBottom: "2rem" }}>
+            <div style={{ marginBottom: "2rem", color: "#13275e" }}>
               <div className="d-flex justify-content-between">
                 <strong>Fast Shutter</strong>
                 <strong>Slow Shutter</strong>
@@ -145,7 +145,7 @@ function InteractiveSim() {
             </div>
 
             {/* ISO */}
-            <div style={{ marginBottom: "2rem" }}>
+            <div style={{ marginBottom: "2rem", color: "#13275e" }}>
               <div className="d-flex justify-content-between">
                 <strong>Low ISO</strong>
                 <strong>High ISO</strong>
