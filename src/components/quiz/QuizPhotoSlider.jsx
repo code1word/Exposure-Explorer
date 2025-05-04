@@ -24,7 +24,7 @@ function QuizPhotoSlider({
   const handleChange = (e) => {
     const newValue = parseFloat(e.target.value);
     setValue(newValue);
-    
+
     if (onChange) {
       onChange(newValue); // Call the onChange function passed from the parent
     }
@@ -100,7 +100,7 @@ function QuizPhotoSlider({
           height: 18px;
           width: 18px;
           border-radius: 50%;
-          background: #1d2a45;
+          background: #13275e;
           cursor: pointer;
           margin-top: -6px;
           border: none;
@@ -110,7 +110,7 @@ function QuizPhotoSlider({
           height: 18px;
           width: 18px;
           border-radius: 50%;
-          background: #1d2a45;
+          background: #13275e;
           cursor: pointer;
           border: none;
         }

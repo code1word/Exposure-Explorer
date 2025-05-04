@@ -64,7 +64,7 @@ function PortraitSettings() {
               icon={faArrowLeft}
               style={{
                 fontSize: "20px",
-                color: "#1d2a45",
+                color: "#13275e",
                 display: "block",
                 lineHeight: "1",
               }}
@@ -80,7 +80,7 @@ function PortraitSettings() {
           fontSize: "2.25rem",
           fontWeight: 700,
           letterSpacing: "-1px",
-          color: "#1d2a45",
+          color: "#13275e",
         }}
       >
         Portrait Photography Settings
@@ -99,7 +99,7 @@ function PortraitSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A wide aperture (e.g., f/2.0) creates a shallow depth of
                   field, making the subject sharp while beautifully blurring the
                   background.
@@ -135,7 +135,7 @@ function PortraitSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A fast shutter speed (like 1/250s) helps avoid motion blur
                   from small subject movements or camera shake.
                 </Tooltip>
@@ -146,16 +146,15 @@ function PortraitSettings() {
                   Shutter Speed (seconds)
                 </label>
                 <Slider
-                  min={0.0}
+                  min={2}
                   max={30}
                   step={0.0005}
-                  defaultValue={6}
+                  defaultValue={5}
                   disabled={true}
                   marks={{
-                    0: "1/2000",
-                    2: "1/1000",
-                    6: "1/250",
-                    8: "1/30",
+                    2: "1/500s",
+                    5: "1/250s",
+                    8: "1/30s",
                     12: "1s",
                     20: "15s",
                     30: "30s",
@@ -173,7 +172,7 @@ function PortraitSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A low ISO (like 100–200) gives you clean, noise-free portraits
                   with the most detail.
                 </Tooltip>

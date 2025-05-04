@@ -1,29 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { Container, Row, Col, Image } from "react-bootstrap";
-import flowerPhoto from "../assets/flower.jpg";
-import dialIcon from "../assets/manual_mode.PNG";
+import {
+  Container,
+  Row,
+  Col,
+  Image,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
+import dialIcon from "../assets/manual_mode.png";
+
+const apertureSteps = [1, 2, 3, 4, 5, 6];
+const shutterSteps = [0.25, 0.5, 1.0, 2.0, 4.0];
+const isoSteps = [0.25, 0.5, 1.0, 2.0, 4.0];
+
+// Closest match function
+const getClosest = (val, steps) =>
+  steps.reduce((prev, curr) =>
+    Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev
+  );
+
+// Constructs dynamic image path
+const getImagePath = (aperture, shutter, iso) => {
+  const a = getClosest(aperture, apertureSteps);
+  const s = getClosest(shutter, shutterSteps).toFixed(2);
+  const i = getClosest(iso, isoSteps).toFixed(2);
+  return `/output_images/aperture_${a}_shutter_x${s}_iso_x${i}.jpg`;
+};
 
 function InteractiveSim() {
+  const [aperture, setAperture] = useState(3);
+  const [shutter, setShutter] = useState(1.0);
+  const [iso, setISO] = useState(1.0);
+  const [showHoverHint, setShowHoverHint] = useState(true);
+  const [hasHovered, setHasHovered] = useState(false);
+
+  const imageSrc = getImagePath(aperture, shutter, iso);
+
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
       <Container className="py-4">
         <h2
-            className="mb-3"
-            style={{
-              fontSize: "2.25rem",
-              fontWeight: 700,
-              letterSpacing: "-1px",
-              color: "#1d2a45",
-              alignSelf: "flex-start",
-            }}
-          >
-            Interactive Simulator
-          </h2>
+          className="mb-4 text-center"
+          style={{ fontSize: "2.25rem", fontWeight: 700, color: "#13275e" }}
+        >
+          Interactive Simulator
+        </h2>
+
         <Row>
-          {/* Left Column: Title + Image */}
-          <Col md={6} className="d-flex flex-column align-items-center justify-content-start">
+          {/* Image preview */}
+          <Col
+            md={6}
+            className="d-flex flex-column align-items-center justify-content-start"
+          >
             <div
               style={{
                 padding: "6px",
@@ -34,7 +64,7 @@ function InteractiveSim() {
                 transition: "transform 0.3s ease, box-shadow 0.3s ease",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.02)";
+                e.currentTarget.style.transform = "scale(1.01)";
                 e.currentTarget.style.boxShadow = "0 0 12px 4px #ABE2FB";
               }}
               onMouseLeave={(e) => {
@@ -43,171 +73,192 @@ function InteractiveSim() {
               }}
             >
               <Image
-                src={flowerPhoto}
-                alt="Flower with blur"
+                src={imageSrc}
+                alt="Simulated output"
                 fluid
                 style={{
                   maxHeight: "450px",
                   objectFit: "cover",
                   borderRadius: "inherit",
-                  display: "block",
                 }}
               />
             </div>
           </Col>
 
-          {/* Right Column: Sliders and Icon */}
-          <Col md={6} className="d-flex flex-column justify-content-between">
-            <div>
-              <p
-                className="text-muted"
-                style={{ fontSize: "1.15rem" }}
-              >
-                Adjust the different settings to see how each changes the look and
-                exposure of this photo in real time.
-              </p>
+          {/* Sliders */}
+          <Col
+            md={6}
+            className="d-flex flex-column justify-content-between px-3"
+          >
+            <p
+              className="text-muted"
+              style={{
+                fontSize: "1.25rem",
+                textAlign: "center",
+                marginTop: "1rem",
+              }}
+            >
+              Adjust the different settings to see how each changes the look and
+              exposure of this photo in real time.
+            </p>
 
-              {/* Aperture Slider */}
-              <div style={{ marginBottom: "2.5rem" }}>
-                <div className="d-flex justify-content-between">
-                  <div style={{ fontWeight: "bold", fontSize: "1.1rem" }}>Small Aperture</div>
-                  <div style={{ fontWeight: "bold", fontSize: "1.1rem", textAlign: "right" }}>Large Aperture</div>
-                </div>
-                <Slider
-                  min={1.4}
-                  max={22}
-                  step={0.1}
-                  defaultValue={2.0}
-                  marks={{
-                    1.4: "f/1.4",
-                    2.8: "f/2.8",
-                    5.6: "f/5.6",
-                    11: "f/11",
-                    16: "f/16",
-                    22: "f/22",
-                  }}
-                  tipFormatter={(val) => `f/${val.toFixed(1)}`}
-                />
+            {/* Aperture */}
+            <div style={{ marginBottom: "2rem", color: "#13275e" }}>
+              <div className="d-flex justify-content-between">
+                <strong>Small Aperture</strong>
+                <strong>Large Aperture</strong>
               </div>
-
-              {/* Shutter Speed Slider */}
-              <div style={{ marginBottom: "2.5rem" }}>
-                <div className="d-flex justify-content-between">
-                  <div style={{ fontWeight: "bold", fontSize: "1.1rem" }}>Slow Shutter</div>
-                  <div style={{ fontWeight: "bold", fontSize: "1.1rem", textAlign: "right" }}>Fast Shutter</div>
-                </div>
-                <Slider
-                  min={0}
-                  max={30}
-                  step={0.0005}
-                  defaultValue={20}
-                  marks={{
-                    0: "1/2000",
-                    2: "1/1000",
-                    6: "1/250",
-                    8: "1/30",
-                    12: "1''",
-                    20: "15''",
-                    30: "30''",
-                  }}
-                  tipFormatter={(val) =>
-                    val >= 1 ? `${val}s` : `1/${Math.round(1 / val)}s`
-                  }
-                />
-              </div>
-
-              {/* ISO Slider */}
-              <div style={{ marginBottom: "2.5rem" }}>
-                <div className="d-flex justify-content-between">
-                  <div style={{ fontWeight: "bold", fontSize: "1.1rem" }}>Low ISO</div>
-                  <div style={{ fontWeight: "bold", fontSize: "1.1rem", textAlign: "right" }}>High ISO</div>
-                </div>
-                <Slider
-                  min={50}
-                  max={6400}
-                  step={50}
-                  defaultValue={1600}
-                  marks={{
-                    50: "50",
-                    400: "100",
-                    800: "400",
-                    1200: "800",
-                    1600: "1600",
-                    3200: "3200",
-                    6400: "6400",
-                  }}
-                  tipFormatter={(val) => `ISO ${val}`}
-                />
-              </div>
+              <Slider
+                min={2}
+                max={6}
+                step={1}
+                value={aperture}
+                onChange={setAperture}
+                marks={{ 2: "f/5", 3: "f/4", 4: "f/3", 5: "f/2", 6: "f/1" }}
+                tipFormatter={(val) => `Step ${val}`}
+              />
             </div>
 
-            {/* Dial Icon & Tooltip */}
+            {/* Shutter Speed */}
+            <div style={{ marginBottom: "2rem", color: "#13275e" }}>
+              <div className="d-flex justify-content-between">
+                <strong>Fast Shutter</strong>
+                <strong>Slow Shutter</strong>
+              </div>
+              <Slider
+                min={0.25}
+                max={4.0}
+                step={0.01}
+                value={shutter}
+                onChange={setShutter}
+                marks={{
+                  0.25: "1/4s",
+                  0.5: "1/2s",
+                  1: "1s",
+                  2: "2s",
+                  4: "4s",
+                }}
+                tipFormatter={(val) =>
+                  val >= 1 ? `${val.toFixed(1)}s` : `1/${Math.round(1 / val)}s`
+                }
+              />
+            </div>
+
+            {/* ISO */}
+            <div style={{ marginBottom: "2rem", color: "#13275e" }}>
+              <div className="d-flex justify-content-between">
+                <strong>Low ISO</strong>
+                <strong>High ISO</strong>
+              </div>
+              <Slider
+                min={0.25}
+                max={4.0}
+                step={0.01}
+                value={iso}
+                onChange={setISO}
+                marks={{
+                  0.25: "50",
+                  0.5: "100",
+                  1: "200",
+                  2: "400",
+                  4: "800",
+                }}
+                tipFormatter={(val) => `ISO ${val * 200}`}
+              />
+            </div>
+
+            {/* Dial Tooltip */}
             <div
               className="d-flex justify-content-end align-items-end"
               style={{ height: "100px", position: "relative" }}
             >
-              <div style={{ position: "relative", display: "inline-block" }}>
+              <OverlayTrigger
+                placement="left"
+                overlay={
+                  <Tooltip
+                    id="manual-tooltip"
+                    style={{
+                      fontSize: "0.9rem",
+                      fontStyle: "italic",
+                      fontFamily: "'Nunito', sans-serif",
+                    }}
+                  >
+                    This is <strong>Manual Mode</strong>. Here, you have full
+                    control over the aperture, shutter speed, and ISO, giving
+                    you complete control over how your photo is exposed.
+                  </Tooltip>
+                }
+              >
                 <div
-                  className="manual-tooltip"
-                  style={{
-                    position: "absolute",
-                    right: "115px",
-                    bottom: "25px",
-                    backgroundColor: "#fff",
-                    border: "1px solid #ccc",
-                    borderRadius: "1rem",
-                    padding: "0.8rem 1rem",
-                    fontSize: "0.9rem",
-                    fontStyle: "italic",
-                    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                    whiteSpace: "nowrap",
-                    display: "none",
-                  }}
-                >
-                  In <strong>Manual Mode</strong>, you have full control over these settings!
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      right: "-10px",
-                      marginTop: "-8px",
-                      width: "0",
-                      height: "0",
-                      borderTop: "8px solid transparent",
-                      borderBottom: "8px solid transparent",
-                      borderLeft: "10px solid #ccc",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      right: "-9px",
-                      marginTop: "-7px",
-                      width: "0",
-                      height: "0",
-                      borderTop: "7px solid transparent",
-                      borderBottom: "7px solid transparent",
-                      borderLeft: "9px solid #fff",
-                    }}
-                  />
-                </div>
-
-                <Image
-                  src={dialIcon}
-                  alt="Manual Mode Dial"
-                  style={{ height: "100px", cursor: "pointer" }}
+                  id="mode-dial"
                   onMouseEnter={() => {
-                    const tooltip = document.querySelector(".manual-tooltip");
-                    if (tooltip) tooltip.style.display = "block";
+                    setShowHoverHint(false);
+                    setHasHovered(true);
                   }}
                   onMouseLeave={() => {
-                    const tooltip = document.querySelector(".manual-tooltip");
-                    if (tooltip) tooltip.style.display = "none";
+                    if (!hasHovered) setShowHoverHint(true);
                   }}
-                  rounded
-                />
-              </div>
+                  style={{ position: "relative" }}
+                >
+                  <Image
+                    src={dialIcon}
+                    alt="Manual Mode Dial"
+                    style={{
+                      height: "100px",
+                      cursor: "pointer",
+                      borderRadius: "50%",
+                    }}
+                    rounded
+                  />
+
+                  {!hasHovered && showHoverHint && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "-120px",
+                        transform: "translateY(-50%)",
+                        display: "flex",
+                        alignItems: "center",
+                        fontSize: "0.9rem",
+                        fontStyle: "italic",
+                        color: "#aaa",
+                        opacity: 0.6,
+                        fontFamily: "'Nunito', sans-serif",
+                        fontWeight: 700,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <span
+                        className="pulse-once"
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        Hover for tip
+                        <span style={{ display: "flex", marginLeft: "0.3rem" }}>
+                          <i
+                            className="fas fa-chevron-right"
+                            style={{ fontSize: "0.85rem" }}
+                          ></i>
+                          <i
+                            className="fas fa-chevron-right"
+                            style={{
+                              fontSize: "0.85rem",
+                              marginLeft: "-0.15rem",
+                            }}
+                          ></i>
+                          <i
+                            className="fas fa-chevron-right"
+                            style={{
+                              fontSize: "0.85rem",
+                              marginLeft: "-0.15rem",
+                            }}
+                          ></i>
+                        </span>
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </OverlayTrigger>
             </div>
           </Col>
         </Row>

@@ -75,7 +75,7 @@ function NightSettings() {
               icon={faArrowLeft}
               style={{
                 fontSize: "20px",
-                color: "#1d2a45",
+                color: "#13275e",
                 display: "block",
                 lineHeight: "1",
               }}
@@ -92,7 +92,7 @@ function NightSettings() {
           fontSize: "2.25rem",
           fontWeight: 700,
           letterSpacing: "-1px",
-          color: "#1d2a45",
+          color: "#13275e",
         }}
       >
         Night Photography Settings
@@ -112,7 +112,7 @@ function NightSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A wide aperture like f/2.0 helps gather more light in dark
                   conditions. Recommended: f/2.0
                 </Tooltip>
@@ -147,7 +147,7 @@ function NightSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Longer shutter speeds (e.g., 15s) allow more light to hit the
                   sensor—use a tripod! Recommended: 15s
                 </Tooltip>
@@ -158,18 +158,17 @@ function NightSettings() {
                   Shutter Speed (seconds)
                 </label>
                 <Slider
-                  min={0.0}
+                  min={2}
                   max={30}
                   step={0.0005}
                   value={staticShutterSpeed} // Use value for static display (points to 15s mark)
                   disabled={true} // Disable slider interaction
                   marks={{
-                    0: "1/2000",
-                    2: "1/1000",
-                    6: "1/250",
-                    8: "1/30",
+                    2: "1/500s",
+                    5: "1/250s",
+                    8: "1/30s",
                     12: "1s",
-                    20: "15s", // Value 20 points here
+                    20: "15s",
                     30: "30s",
                   }}
                   tipFormatter={(val) =>
@@ -190,7 +189,7 @@ function NightSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Higher ISO values (e.g., 1600) boost brightness but increase
                   noise—find a balance. Recommended: ISO 1600
                 </Tooltip>

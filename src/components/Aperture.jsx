@@ -2,9 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { Container, ProgressBar } from "react-bootstrap";
+import {
+  Container,
+  ProgressBar,
+  OverlayTrigger,
+  Tooltip,
+  Image,
+} from "react-bootstrap";
 import PhotoSlider from "./PhotoSlider";
 import axios from "axios";
+import dialIcon from "../assets/aperture_mode.png";
 
 function Aperture() {
   useEffect(() => {
@@ -110,7 +117,7 @@ function Aperture() {
         >
           <FontAwesomeIcon
             icon={faArrowDown}
-            style={{ fontSize: "24px", color: "#1d2a45" }}
+            style={{ fontSize: "24px", color: "#13275e" }}
           />
         </div>
         <p
@@ -131,6 +138,8 @@ function Aperture() {
     1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 9.0, 10.0, 11.0, 13.0, 14.0, 16.0,
   ];
 
+  const [isDialHovered, setIsDialHovered] = useState(false);
+
   return (
     <Container className="py-4" style={{ fontSize: "1.25rem" }}>
       <ProgressBar
@@ -138,7 +147,7 @@ function Aperture() {
         style={{
           height: "10px",
           borderRadius: "999px",
-          backgroundColor: "#1d2a45",
+          backgroundColor: "transparent",
           overflow: "hidden",
         }}
       >
@@ -146,10 +155,11 @@ function Aperture() {
           className="progress-bar"
           style={{
             width: `${progressWidth}%`,
-            backgroundColor: "#1d2a45",
+            backgroundColor: "#13275e",
             borderRadius: "999px",
             height: "100%",
             transition: "width 0.4s ease",
+            boxShadow: "none",
           }}
         />
       </ProgressBar>
@@ -199,7 +209,7 @@ function Aperture() {
               icon={faArrowLeft}
               style={{
                 fontSize: "20px",
-                color: "#1d2a45",
+                color: "#13275e",
                 display: "block",
                 lineHeight: "1",
               }}
@@ -214,8 +224,84 @@ function Aperture() {
         The <strong>aperture</strong> controls how wide the lens opens to let in
         light. It's measured in <strong>f-stops</strong>. A larger aperture
         corresponds to a smaller f-stop (e.g., f/1.4), while a smaller aperture
-        corresponds to a larger f-stop (e.g., f/16).
+        corresponds to a larger f-stop (e.g., f/16). Cameras typically let you
+        adjust the aperture using a mode dial like the one below.
       </p>
+
+      {/* Manual Mode Dial (centered) */}
+      <div
+        className="d-flex justify-content-end justify-content-md-center align-items-center"
+        style={{
+          height: "100px",
+          position: "relative",
+          marginTop: "0.75rem",
+          marginBottom: "0.75rem",
+        }}
+      >
+        <OverlayTrigger
+          placement="left"
+          overlay={
+            <Tooltip
+              id="manual-tooltip"
+              style={{
+                fontSize: "0.9rem",
+                fontStyle: "italic",
+                fontFamily: "'Nunito', sans-serif",
+              }}
+            >
+              In <strong>Aperture Priority Mode</strong>, you control the
+              aperture to adjust depth of field, while the camera automatically
+              changes the shutter speed to maintain proper exposure.
+            </Tooltip>
+          }
+        >
+          <div
+            id="mode-dial"
+            onMouseEnter={() => setIsDialHovered(true)}
+            onMouseLeave={() => setIsDialHovered(false)}
+            style={{ position: "relative" }}
+          >
+            <Image
+              src={dialIcon}
+              alt="Manual Mode Dial"
+              style={{
+                height: "100px",
+                cursor: "pointer",
+                borderRadius: "50%",
+              }}
+              rounded
+            />
+
+            <div
+              className="text-muted"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "-206px",
+                transform: "translateY(-50%)",
+                display: "flex",
+                alignItems: "center",
+                fontFamily: "'Nunito', sans-serif",
+                fontWeight: 500,
+                fontSize: "1.15rem",
+                fontStyle: "italic",
+                pointerEvents: "none",
+                opacity: isDialHovered ? 0 : 0.8,
+                transition: "opacity 0.5s ease",
+              }}
+            >
+              Aperture Priority Mode
+              <span style={{ marginLeft: "7px" }}>
+                <i
+                  className="fas fa-caret-right"
+                  style={{ fontSize: "1.15rem" }}
+                ></i>
+              </span>
+            </div>
+          </div>
+        </OverlayTrigger>
+      </div>
+
       <p>
         Aperture changes two key properties of the camera: the{" "}
         <strong>exposure</strong> and the <strong>depth of field</strong>.
@@ -233,7 +319,7 @@ function Aperture() {
           description="Use the slider to see how the aperture size affects exposure"
           imageSrcFunction={(index) => {
             const f = fStops[index];
-            return `/aperture_exposure/snowman_f${f.toFixed(1)}.png`;
+            return `/aperture_exposure/snowman_f${f.toFixed(1)}.jpg`;
           }}
           min={0}
           max={fStops.length - 1}
@@ -269,7 +355,7 @@ function Aperture() {
           description="Use the slider to see how the aperture size affects depth of field"
           imageSrcFunction={(index) => {
             const f = fStops[index];
-            return `/aperture_dof/squirrel_f${f.toFixed(1)}.png`;
+            return `/aperture_dof/squirrel_f${f.toFixed(1)}.jpg`;
           }}
           min={0}
           max={fStops.length - 1}

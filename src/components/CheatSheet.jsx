@@ -74,7 +74,7 @@ function CheatSheet() {
               icon={faArrowLeft}
               style={{
                 fontSize: "20px",
-                color: "#1d2a45",
+                color: "#13275e",
                 display: "block",
                 lineHeight: "1",
               }}
@@ -91,7 +91,7 @@ function CheatSheet() {
           fontSize: "2.25rem",
           fontWeight: 700,
           letterSpacing: "-1px",
-          color: "#1d2a45",
+          color: "#13275e",
         }}
       >
         Settings Cheat Sheet for Common Photos
@@ -112,7 +112,7 @@ function CheatSheet() {
               to={`/learn/${key}`}
               style={{
                 textDecoration: "none",
-                border: "2.5px solid #1d2a45",
+                border: "2.5px solid #13275e",
                 borderRadius: "20px",
                 padding: "20px",
                 display: "flex",
@@ -122,7 +122,7 @@ function CheatSheet() {
                 width: "190px",
                 height: "190px",
                 backgroundColor: "#dbe3ee",
-                color: "#1d2a45",
+                color: "#13275e",
                 transition: "transform 0.1s ease, opacity 0.1s ease",
               }}
               onMouseEnter={(e) => {

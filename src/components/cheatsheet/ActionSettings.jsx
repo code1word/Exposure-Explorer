@@ -23,7 +23,7 @@ function ActionSettings() {
   const staticAperture = 2.8;
   // Note: Original defaultValue=1 maps between '1/2000' and '1/1000'.
   // Setting value=2 to point to the '1/1000s' mark as recommended.
-  const staticShutterSpeed = 2;
+  const staticShutterSpeed = 6;
   // Note: Original defaultValue=800 maps to the '400' ISO mark.
   // Setting value=800 to point to the 'ISO 400' mark.
   const staticISO = 800;
@@ -76,7 +76,7 @@ function ActionSettings() {
               icon={faArrowLeft}
               style={{
                 fontSize: "20px",
-                color: "#1d2a45",
+                color: "#13275e",
                 display: "block",
                 lineHeight: "1",
               }}
@@ -93,7 +93,7 @@ function ActionSettings() {
           fontSize: "2.25rem",
           fontWeight: 700,
           letterSpacing: "-1px",
-          color: "#1d2a45",
+          color: "#13275e",
         }}
       >
         Action Photography Settings
@@ -112,7 +112,7 @@ function ActionSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A wide aperture like f/2.8 lets in more light, allowing for
                   faster shutter speeds. Recommended: f/2.8
                 </Tooltip>
@@ -147,9 +147,9 @@ function ActionSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
-                  Use a very fast shutter speed like 1/1000s or faster to freeze
-                  motion without blur. Recommended: 1/1000s
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
+                  Use a very fast shutter speed like 1/500s or faster to freeze
+                  motion without blur. Recommended: 1/500s
                 </Tooltip>
               }
             >
@@ -158,16 +158,15 @@ function ActionSettings() {
                   Shutter Speed (seconds)
                 </label>
                 <Slider
-                  min={0.0}
+                  min={2}
                   max={30}
                   step={0.0005}
                   value={staticShutterSpeed} // Use value for static display (points to 1/1000s mark)
                   disabled={true} // Disable slider interaction
                   marks={{
-                    0: "1/2000",
-                    2: "1/1000", // Value 2 points here
-                    6: "1/250",
-                    8: "1/30",
+                    2: "1/1000s", // Value 2 points here
+                    6: "1/500s",
+                    9: "1/100s",
                     12: "1s",
                     20: "15s",
                     30: "30s",
@@ -190,7 +189,7 @@ function ActionSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Increase ISO as needed (e.g., 400 or higher) to compensate for
                   fast shutter speeds, especially if not in bright light.
                   Recommended: ISO 400

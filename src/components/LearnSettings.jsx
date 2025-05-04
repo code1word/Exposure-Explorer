@@ -54,7 +54,7 @@ function LearnSettings() {
           to={route}
           style={{
             textDecoration: "none",
-            border: "2.5px solid #1d2a45",
+            border: "2.5px solid #13275e",
             borderRadius: "20px",
             padding: "20px",
             display: "flex",
@@ -70,13 +70,13 @@ function LearnSettings() {
         >
           <FontAwesomeIcon
             icon={icon}
-            style={{ fontSize: "90px", color: "#1d2a45" }}
+            style={{ fontSize: "90px", color: "#13275e" }}
           />
           <div
             style={{
               marginTop: "15px",
               fontWeight: "700",
-              color: "#1d2a45",
+              color: "#13275e",
               fontSize: "21px",
             }}
           >
@@ -90,7 +90,7 @@ function LearnSettings() {
               position: "absolute",
               top: -9,
               left: -9,
-              background: "#1d2a45",
+              background: "#13275e",
               color: "white",
               borderRadius: "50%",
               width: "30px",
@@ -125,7 +125,7 @@ function LearnSettings() {
           fontSize: "2.25rem",
           fontWeight: 700,
           letterSpacing: "-1px",
-          color: "#1d2a45",
+          color: "#13275e",
           textTransform: "none",
         }}
       >
@@ -194,7 +194,7 @@ function LearnSettings() {
               href="/learn/cheatsheet"
               style={{
                 textDecoration: "none",
-                color: "#1d2a45",
+                color: "#13275e",
                 fontWeight: "600",
               }}
             >
@@ -211,14 +211,14 @@ function LearnSettings() {
             to="/learn/cheatsheet"
             style={{
               textDecoration: "none",
-              border: "2.5px solid #1d2a45",
+              border: "2.5px solid #13275e",
               borderRadius: "20px",
               padding: "20px",
               display: "inline-block",
               width: "200px",
               height: "auto",
               backgroundColor: "#dbe3ee",
-              color: "#1d2a45",
+              color: "#13275e",
               transition: "transform 0.1s ease, opacity 0.1s ease",
             }}
             onMouseEnter={(e) => {
@@ -241,7 +241,7 @@ function LearnSettings() {
               style={{
                 marginTop: "10px",
                 fontWeight: "600",
-                color: "#1d2a45",
+                color: "#13275e",
                 fontSize: "24px",
               }}
             >

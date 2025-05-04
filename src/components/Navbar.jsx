@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useLocation } from "react-router-dom";
+import logo from "/exposure_explorer.png";
 
 function OurNavbar() {
   const location = useLocation();
@@ -18,7 +19,7 @@ function OurNavbar() {
       expand="lg"
       style={{
         backgroundColor: "#ABE2FB",
-        borderBottom: "2px solid #1d2a45",
+        borderBottom: "2px solid #13275e",
         padding: "0.75rem 1rem",
         fontFamily: "Nunito, sans-serif",
         fontWeight: 600,
@@ -28,13 +29,27 @@ function OurNavbar() {
         <Navbar.Brand
           href="/"
           style={{
-            color: "#1d2a45",
+            color: "#13275e",
             fontSize: "1.5rem",
             fontWeight: 800,
             letterSpacing: "-1px",
             textTransform: "uppercase",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
           }}
         >
+          <img
+            src={logo}
+            alt="Exposure Explorer Logo"
+            style={{
+              width: "36px",
+              height: "36px",
+              objectFit: "contain",
+              borderRadius: "6px",
+              marginRight: "0.3rem",
+            }}
+          />
           <span>Exposure Explorer</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -72,7 +87,7 @@ function OurNavbar() {
         .nav-link-clean {
           font-size: 1.1rem;
           font-weight: 700;
-          color: #1d2a45 !important;
+          color: #13275e !important;
           text-decoration: none;
           padding: 0.5rem 1rem;
           display: inline-block;
@@ -95,7 +110,7 @@ function OurNavbar() {
           position: absolute;
           width: 8px;
           height: 8px;
-          border: 2px solid #1d2a45;
+          border: 2px solid #13275e;
           opacity: 0;
           transition: opacity 0.2s ease, border-color 0.5s ease;
           pointer-events: none;
@@ -150,7 +165,6 @@ function OurNavbar() {
         .nav-link-wrapper.active .nav-link-clean {
           color: rgba(29, 42, 69, 0.6) !important;
         }
-
       `}</style>
     </Navbar>
   );

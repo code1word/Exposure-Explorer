@@ -19,7 +19,7 @@ function Home() {
       <Card
         className="h-100 card-hover glass-card border-3"
         style={{
-          borderColor: "#1d2a45",
+          borderColor: "#13275e",
           borderRadius: "20px",
           backgroundColor: "rgba(219, 227, 238, 0.6)",
           backdropFilter: "blur(12px)",
@@ -32,7 +32,7 @@ function Home() {
             icon={icon}
             style={{
               fontSize: "7.5rem",
-              color: "#1d2a45",
+              color: "#13275e",
               transition: "transform 0.2s ease",
             }}
           />

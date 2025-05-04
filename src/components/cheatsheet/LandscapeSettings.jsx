@@ -74,7 +74,7 @@ function LandscapeSettings() {
               icon={faArrowLeft}
               style={{
                 fontSize: "20px",
-                color: "#1d2a45",
+                color: "#13275e",
                 display: "block",
                 lineHeight: "1",
               }}
@@ -91,7 +91,7 @@ function LandscapeSettings() {
           fontSize: "2.25rem",
           fontWeight: 700,
           letterSpacing: "-1px",
-          color: "#1d2a45",
+          color: "#13275e",
         }}
       >
         Landscape Photography Settings
@@ -111,7 +111,7 @@ function LandscapeSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   A narrower aperture (e.g., f/8 or higher) increases depth of
                   field, ensuring more of the scene is in focus. Recommended:
                   f/11
@@ -147,7 +147,7 @@ function LandscapeSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Longer shutter speeds (e.g. 1/30s or slower) can help in low
                   light and create artistic motion effects, but a tripod is
                   recommended. Recommended: 1/30s
@@ -159,16 +159,15 @@ function LandscapeSettings() {
                   Shutter Speed (seconds)
                 </label>
                 <Slider
-                  min={0.0}
+                  min={2}
                   max={30}
                   step={0.0005}
                   value={staticShutterSpeed} // Use value for static display
                   disabled={true} // Disable slider interaction
                   marks={{
-                    0: "1/2000",
-                    2: "1/1000",
-                    6: "1/250",
-                    8: "1/30", // Value 8 points here
+                    2: "1/500s",
+                    5: "1/250s",
+                    8: "1/30s",
                     12: "1s",
                     20: "15s",
                     30: "30s",
@@ -191,7 +190,7 @@ function LandscapeSettings() {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip>
+                <Tooltip style={{ fontFamily: "'Nunito', sans-serif" }}>
                   Use the lowest ISO possible (like 100) to minimize noise and
                   maximize detail, especially since you can use a tripod.
                   Recommended: ISO 100
