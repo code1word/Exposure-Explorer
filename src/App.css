@@ -88,6 +88,19 @@ body {
     grid-template-columns: 1fr; /* 1 item per row on small screens */
   }
 }
+@media (max-width: 768px) {
+  .order-images-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  .order-images-container > div:first-child,
+  .order-images-container > div:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+
+
 @keyframes scalePulse {
   0% {
     transform: scale(1);

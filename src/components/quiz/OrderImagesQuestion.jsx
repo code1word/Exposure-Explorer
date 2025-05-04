@@ -56,64 +56,73 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
   };
 
   return (
-    <div>
-        Lowest Shutter Speed
-        <div
-        className="order-images-container"
+    <div className="container mt-5">
+  {/* Small screen: show lowest label above */}
+  <div className="text-center fw-bold d-xl-none d-lg-none mb-3">
+    Lowest<br />Shutter Speed
+  </div>
+
+  <div className="row align-items-center">
+    {/* XL screen: Lowest label on the left */}
+    <div className="col-xl-2 col-lg-2 d-none d-xl-block d-lg-block text-center fw-bold">
+      Lowest<br />Shutter Speed
+    </div>
+
+    {/* Images */}
+    {currentOrder.map((imgSrc, index) => (
+      <div
+        key={imgSrc}
+        className="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-3 d-flex justify-content-center"
         style={{
-          marginTop: "70px",
-          display: "grid",
-          gap: "1rem",
-          justifyItems: "center",
+            cursor: reviewMode ? "default" : "grab", // make whole column droppable
+          }}
+        draggable={!reviewMode}
+        onDragStart={(e) => {
+          if (reviewMode) {
+            e.preventDefault();
+            return;
+          }
+          handleDragStart(index);
+        }}
+        onDragOver={(e) => {
+          if (!reviewMode) e.preventDefault();
+        }}
+        onDrop={(e) => {
+          if (!reviewMode) handleDrop(index);
         }}
       >
-        {currentOrder.map((imgSrc, index) => (
-          <div
-            key={imgSrc}
-            className="col-12 col-sm-6 col-xl-3 col-md-12" // Bootstrap classes for responsiveness
-            draggable={!reviewMode}
-            onDragStart={(e) => {
-              if (reviewMode) {
-                e.preventDefault();
-                return;
-              }
-              handleDragStart(index);
-            }}
-            onDragOver={(e) => {
-              if (!reviewMode) e.preventDefault();
-            }}
-            onDrop={(e) => {
-              if (!reviewMode) handleDrop(index);
-            }}
-            style={{
-                border: "2px solid #ccc",
-                borderRadius: "8px",
-                padding: "0.5rem",
-                backgroundColor: reviewMode ? "#f9f9f9" : "#fff",
-                cursor: reviewMode ? "default" : "grab",
-                textAlign: "center",
-                transition: "transform 0.2s",
-              }}
-          >
-            <img
-              src={imgSrc}
-              alt={`ordered-img-${index}`}
-              style={{ 
-                width: "150px", 
-                height: "auto", 
-                borderRadius: "6px" }}
-            />
-          </div>
-        ))}
+        <img
+          src={imgSrc}
+          alt={`ordered-img-${index}`}
+          style={{
+            width: "100%",
+            maxWidth: "210px",
+            height: "auto",
+            borderRadius: "6px",
+            border: "2px solid #ccc",
+            padding: "0.5rem",
+          }}
+        />
       </div>
-      Highest Shutter Speed
+    ))}
 
-      {reviewMode && (
-        <div style={{ marginTop: "1rem", textAlign: "center", fontWeight: "bold" }}>
-          {getStatus()}
-        </div>
-      )}
+    {/* XL screen: Highest label on the right */}
+    <div className="col-xl-2 col-lg-2 d-none d-xl-block d-lg-block text-center fw-bold">
+      Highest<br />Shutter Speed
     </div>
+  </div>
+
+  {/* Small screen: show highest label below */}
+  <div className="text-center fw-bold d-xl-none d-lg-none mt-3">
+    Highest<br />Shutter Speed
+  </div>
+
+  {reviewMode && (
+    <div style={{ marginTop: "1rem", textAlign: "center", fontWeight: "bold" }}>
+      {getStatus()}
+    </div>
+  )}
+</div>
   );
 }
 
