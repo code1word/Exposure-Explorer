@@ -145,6 +145,7 @@ function ISO() {
           borderRadius: "999px",
           backgroundColor: "transparent",
           overflow: "hidden",
+          border: "2px solid #abe2fb"
         }}
       >
         <div
