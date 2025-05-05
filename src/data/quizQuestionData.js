@@ -103,6 +103,17 @@ export const quizQuestionData = {
       correctSetting: "Aperture: f/0.30, Shutter: 0.90s",
       hint: "Recall that a wider aperture causes increased exposure and deeper depth of field. A faster shutter speed decreases exposure and captures motion freeze.",
     },
+    q7: {
+      format: "multiple_choice",
+      question_number: "7",
+      question: "Which setting controls how much of the scene is in focus?",
+      options: ["   ISO", 
+                "   Shutter Speed", 
+                "   Aperture", 
+                "   None of the above"],
+      answer: "   Aperture",
+      hint: "Think about the property that controls the blurriness of the background, and the setting that affects it."
+    },
     
       
 

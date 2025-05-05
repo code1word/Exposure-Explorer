@@ -450,8 +450,8 @@ function QuizQuestion() {
                   style={{ fontSize: "20px", color: "#13275e" }}
                 />
               </div>
-              <span>
-                {usedHintsRef.current.has(type) ? `Hint used` : `Hint (${hintsLeft})`}
+              <span style={{whiteSpace: "nowrap"}}>
+                {usedHintsRef.current.has(type) ? `See hint` : `Hint (${hintsLeft})`}
               </span>
             </div>
           </OverlayTrigger>

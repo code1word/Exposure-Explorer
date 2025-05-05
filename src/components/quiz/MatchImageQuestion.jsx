@@ -20,7 +20,7 @@ const sliderValueMap = {
 function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   const { sliderValues, recordSliderValue, selectedImages, recordSelectedImage } = useContext(QuizContext);
 
-  const initialValue = sliderValues[questionKey] ?? 0.2;
+  const initialValue = sliderValues[questionKey] ?? 0.6;
   const [sliderValue, setSliderValue] = useState(initialValue);
   const imageIndex = Math.round(Math.max(0, Math.min(1, sliderValue)) * 10);
   //const currentImage = portraitImageMap[imageIndex];
