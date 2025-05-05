@@ -23,13 +23,14 @@ const imageGrid_orig = [
   [img_20, img_21, img_22, img_010, img_01, img_02]
 ];
 
+
 const sliderValueMapAperture = {
-  0.0: 1.4,
-  0.2: 2.8,
-  0.4: 5.6,
-  0.6: 11.0,
-  0.8: 14.0,
-  1.0: 16.0
+  0.0: 16.0,
+  0.2: 14.0,
+  0.4: 11.0,
+  0.6: 5.6,
+  0.8: 2.8,
+  1.0: 1.4
 }
 
 const sliderValueMapISO = {
@@ -116,7 +117,7 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
         ) : (
           <>
             ❌ Incorrect Image<br />
-            The correct settings are f/16.0 and 150
+            The correct settings are f/1.4 and 150
           </>
         )}
       </div>

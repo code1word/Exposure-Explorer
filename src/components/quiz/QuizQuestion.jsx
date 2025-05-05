@@ -65,7 +65,9 @@ function QuizQuestion() {
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [hintsLeft, setHintsLeft] = useState(2);
-  const [usedHints, setUsedHints] = useState(new Set());
+  //const [usedHints, setUsedHints] = useState(new Set());
+  const usedHintsRef = React.useRef(new Set());
+
   const [showHint, setShowHint] = useState(false);
   const [modalContent, setModalContent] = useState("");
 
@@ -95,15 +97,20 @@ function QuizQuestion() {
     : Math.round(((currentIndex + 1) / questionKeys.length) * 100);
 
   const handleShowHint = () => {
-    if (hintsLeft > 0) {
-      if (!usedHints.has(type)) {
-        setHintsLeft(prev => prev - 1);
-        setUsedHints(prev => new Set(prev).add(type));
-      }
-      setModalContent(info.hint ?? "No hint provided for this question.");
-    } else {
+    const alreadyUsed = usedHintsRef.current.has(type);
+  
+    if (!alreadyUsed && hintsLeft === 0) {
       setModalContent("🚫 No more hints available.");
+      setShowHint(true);
+      return;
     }
+  
+    if (!alreadyUsed && hintsLeft > 0) {
+      setHintsLeft((prev) => prev - 1);
+      usedHintsRef.current.add(type);
+    }
+  
+    setModalContent(info.hint ?? "No hint provided for this question.");
     setShowHint(true);
   };
 
@@ -372,6 +379,7 @@ function QuizQuestion() {
           borderRadius: "999px",
           backgroundColor: "transparent",
           overflow: "hidden",
+          border: "2px solid #abe2fb"
         }}
       >
         <div
@@ -442,7 +450,9 @@ function QuizQuestion() {
                   style={{ fontSize: "20px", color: "#13275e" }}
                 />
               </div>
-              <span>Hint ({hintsLeft})</span>
+              <span>
+                {usedHintsRef.current.has(type) ? `Hint used` : `Hint (${hintsLeft})`}
+              </span>
             </div>
           </OverlayTrigger>
         )}

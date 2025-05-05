@@ -6,15 +6,15 @@ import { QuizContext } from "../../context/QuizContextMatchImage";
 
 
 const sliderValueMap = {
-  0.0: 1.4,
-  0.1: 2.0,
-  0.2: 4.0,
-  0.3: 5.6,
+  0.0: 16.0,
+  0.1: 14.0,
+  0.2: 11.0,
+  0.3: 9.0,
   0.4: 8.0,
-  0.5: 9.0,
-  0.6: 11.0,
-  0.7: 14.0,
-  0.8: 16.0,
+  0.5: 5.6,
+  0.6: 4.0,
+  0.7: 2.0,
+  0.8: 1.4,
 };
 
 function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
