@@ -75,7 +75,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
       return (
         <div style={{ backgroundColor: "#f8d7da", padding: "0.5rem", borderRadius: "0.5rem" }}>
           ❌ Incorrect Image<br />
-          The correct setting is: f/{sliderValueMap[correctValue]}
+          The correct setting is: f/9.0
         </div>
       );
     }
