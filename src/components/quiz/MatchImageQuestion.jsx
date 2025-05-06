@@ -113,7 +113,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
             Incorrect Image
           </span>
           <br />
-          The correct setting is: f/5.6
+          <strong>Correct setting: </strong>f/5.6
         </div>
       );
     }

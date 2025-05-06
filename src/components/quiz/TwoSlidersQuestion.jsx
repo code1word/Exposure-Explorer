@@ -133,7 +133,7 @@ export default function TwoSlidersQuestion({
               Incorrect Image
             </span>
             <br />
-            The correct settings are f/1.4 and 150
+            <strong>Correct settings: </strong>f/1.4 and 150
           </>
         )}
       </div>
