@@ -25,7 +25,6 @@ body {
   color: #13275e;
 }
 
-
 .nav-button {
   margin-top: 1.5rem;
   font-size: 1.5rem;
@@ -74,8 +73,7 @@ body {
   font-size: 1.2rem;
 }
 
-
-.order-img{
+.order-img {
   width: 100%;
   max-width: 210px;
   height: auto;
@@ -121,12 +119,12 @@ body {
 .order-img:hover {
   border: 2px solid #77d3fd; /* Color of the border on hover */
   background-color: #abe2fb; /* Background color change */
-  
+
   transform: scale(1.05); /* Slightly increase the size */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Add a shadow to create the "pop out" effect */
 }
 
-.order-img-review{
+.order-img-review {
   width: 100%;
   max-width: 210px;
   height: auto;
@@ -151,3 +149,12 @@ body {
   animation: scalePulse 1.2s ease-in-out infinite;
 }
 
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
