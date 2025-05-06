@@ -110,14 +110,14 @@ function DroppableCell({
           <span
             style={{
               color: "#555",
-              display: "inline-flex",
+              // display: "inline-block",
               alignItems: "center",
               gap: "0.5rem",
             }}
           >
             <FontAwesomeIcon
               icon={faCircleXmark}
-              style={{ color: "#d9534f" }}
+              style={{ color: "#d9534f", marginRight: "0.5rem" }}
             />
             {currentValue}
             <br />
