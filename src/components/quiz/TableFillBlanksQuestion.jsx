@@ -174,6 +174,7 @@ function DroppableCell({
           {currentValue && (
             <button
               onClick={() => onRemove(row, col, currentValue)}
+              className="navy"
               style={{
                 marginLeft: "10px",
                 cursor: "pointer",
@@ -355,7 +356,7 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
               <tr>
                 <th></th>
                 {info.columns.map((col) => (
-                  <th key={col} className="wide-column">
+                  <th key={col} className="navy wide-column">
                     {col}
                   </th>
                 ))}
@@ -364,7 +365,10 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
             <tbody>
               {info.rows.map((row) => (
                 <tr key={row}>
-                  <td>{row}</td>
+                  <td 
+                  className="navy"
+                  style={{ fontWeight: "bold" }}
+                  >{row}</td>
                   {info.columns.map((col) => {
                     const key = `${row}-${col}`;
                     return (
