@@ -479,7 +479,12 @@ function QuizQuestion() {
         </Modal.Header>
         <Modal.Body style={{ color: "#13275e" }}>{modalContent}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" className="close-hint" onClick={handleCloseHint}>
+          <Button
+            variant="secondary"
+            className="close-hint"
+            onClick={handleCloseHint}
+            style={{ border: "none" }}
+          >
             Close
           </Button>
         </Modal.Footer>
