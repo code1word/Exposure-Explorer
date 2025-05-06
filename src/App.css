@@ -105,6 +105,18 @@ body {
   border: 4px dashed #77d3fd; /* blue border on hover */
   animation: dashPulse 1s infinite ease-in-out;
 }
+.green-check{
+  color: #56a82d;
+  padding-top: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.red-x{
+  color: #db3a3a;
+  padding-top: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 
 .order-img:hover {
   border: 2px solid #77d3fd; /* Color of the border on hover */
