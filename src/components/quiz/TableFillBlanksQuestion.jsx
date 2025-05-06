@@ -36,12 +36,14 @@ function DraggableItem({ answer, onDrag }) {
     <div
       ref={drag}
       style={{
-        padding: "5px",
+        padding: "5px 10px",
         margin: "5px",
-        border: "1px solid #ccc",
-        borderRadius: "4px",
-        backgroundColor: "#f9f9f9",
+        border: "2px solid #13275e",
+        borderRadius: "10px",
+        backgroundColor: "#dbe3ee",
         cursor: "grab",
+        color: "#13275e",
+        fontWeight: "bold",
       }}
     >
       {answer}
