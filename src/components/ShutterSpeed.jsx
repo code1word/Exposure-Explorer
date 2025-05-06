@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faArrowLeft,
+  faArrowUp,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   Container,
   ProgressBar,
@@ -146,7 +150,7 @@ function ShutterSpeed() {
           borderRadius: "999px",
           backgroundColor: "transparent",
           overflow: "hidden",
-          border: "2px solid #abe2fb"
+          border: "2px solid #abe2fb",
         }}
       >
         <div
@@ -376,6 +380,58 @@ function ShutterSpeed() {
         >
           You've reached the end of this section!
         </p>
+        {step === 2 && (
+          <div style={{ marginTop: "3rem", textAlign: "center" }}>
+            <div
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              onMouseEnter={(e) => {
+                const circle = e.currentTarget.querySelector(".top-circle");
+                circle.style.backgroundColor = "#cdd6e0";
+                circle.style.transform = "scale(1.1)";
+              }}
+              onMouseLeave={(e) => {
+                const circle = e.currentTarget.querySelector(".top-circle");
+                circle.style.backgroundColor = "#dbe3ee";
+                circle.style.transform = "scale(1)";
+              }}
+              style={{
+                display: "inline-block",
+                cursor: "pointer",
+                animation: "bounce 1.5s infinite",
+              }}
+            >
+              <div
+                className="top-circle"
+                style={{
+                  backgroundColor: "#dbe3ee",
+                  width: "48px",
+                  height: "48px",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faArrowUp}
+                  style={{ fontSize: "24px", color: "#13275e" }}
+                />
+              </div>
+              <p
+                style={{
+                  marginTop: "0.5rem",
+                  fontSize: "1rem",
+                  color: "#999",
+                  fontStyle: "italic",
+                }}
+              >
+                Back to Top
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </Container>
   );
