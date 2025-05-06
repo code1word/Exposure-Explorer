@@ -124,6 +124,14 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Add a shadow to create the "pop out" effect */
 }
 
+.close-hint{
+  background-color: #13275e;
+}
+
+.close-hint:hover{
+  background-color: #4d629d !important;
+}
+
 .order-img-review {
   width: 100%;
   max-width: 210px;
