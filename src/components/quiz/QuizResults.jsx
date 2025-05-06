@@ -147,7 +147,7 @@ function QuizResults() {
                   <FontAwesomeIcon
                     icon={isCorrect ? faCheckCircle : faCircleXmark}
                     style={{
-                      color: isCorrect ? "4CAF50" : "#d9534f",
+                      color: isCorrect ? "#4CAF50" : "#d9534f",
                       marginRight: "0.5rem",
                     }}
                   />

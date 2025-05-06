@@ -22,6 +22,7 @@ import {
   faArrowLeft,
   faArrowRight,
   faLightbulb,
+  faBan,
 } from "@fortawesome/free-solid-svg-icons";
 
 import MultipleChoiceQuestion from "./MultipleChoiceQuestion";
@@ -98,18 +99,32 @@ function QuizQuestion() {
 
   const handleShowHint = () => {
     const alreadyUsed = usedHintsRef.current.has(type);
-  
+
     if (!alreadyUsed && hintsLeft === 0) {
-      setModalContent("🚫 No more hints available.");
+      setModalContent(
+        <>
+          <span
+            style={{
+              color: "#d9534f",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <FontAwesomeIcon icon={faBan} />
+            No more hints available.
+          </span>
+        </>
+      );
       setShowHint(true);
       return;
     }
-  
+
     if (!alreadyUsed && hintsLeft > 0) {
       setHintsLeft((prev) => prev - 1);
       usedHintsRef.current.add(type);
     }
-  
+
     setModalContent(info.hint ?? "No hint provided for this question.");
     setShowHint(true);
   };
@@ -124,9 +139,7 @@ function QuizQuestion() {
 
   const handlePrevious = () => {
     if (previousKey) {
-      navigate(
-        `/quiz/${previousKey}${reviewMode ? "?reviewMode=true" : ""}`
-      );
+      navigate(`/quiz/${previousKey}${reviewMode ? "?reviewMode=true" : ""}`);
     }
   };
 
@@ -138,20 +151,19 @@ function QuizQuestion() {
     let calculatedScore = 0;
     const sanitizedResults = {};
     const questionKeys = Object.keys(quizQuestionData);
-  
+
     questionKeys.forEach((key) => {
       const question = quizQuestionData[key];
       const format = question.format;
       const questionNum = question.question_number;
-  
+
       let isCorrect = false;
       let userResponse = null;
-  
+
       if (format === "multiple_choice") {
         userResponse = selectedAnswersMC[key] ?? "LEFT_BLANK";
         isCorrect = userResponse === question.answer;
-      }
-      else if (format === "table_fill_blanks") {
+      } else if (format === "table_fill_blanks") {
         const userAnswers = selectedAnswersTable[key] || {};
         const correctAnswers = question.correctAnswers;
         const allMatch = Object.entries(correctAnswers).every(
@@ -162,23 +174,21 @@ function QuizQuestion() {
           acc[cellKey] = userAnswers[cellKey] ?? "LEFT_BLANK";
           return acc;
         }, {});
-      }
-      else if (format === "order_images") {
+      } else if (format === "order_images") {
         const userOrder = selectedOrderImages[key] ?? "LEFT_BLANK";
-        isCorrect = JSON.stringify(userOrder) === JSON.stringify(question.correctOrder);
+        isCorrect =
+          JSON.stringify(userOrder) === JSON.stringify(question.correctOrder);
         userResponse = userOrder;
-      }
-      else if (format === "match_image") {
+      } else if (format === "match_image") {
         userResponse = selectedImageMatch1[key] ?? "LEFT_BLANK";
         isCorrect = userResponse === question.referenceImage;
-      }
-      else if (format === "two_sliders") {
+      } else if (format === "two_sliders") {
         userResponse = selectedImageMatch2[key] ?? "LEFT_BLANK";
         isCorrect = userResponse === question.referenceImage;
       }
-  
+
       if (isCorrect) calculatedScore++;
-  
+
       sanitizedResults[key] = {
         question_number: questionNum,
         format,
@@ -269,7 +279,6 @@ function QuizQuestion() {
         )}
       </div>
     );
-    
 
     return (
       <div>
@@ -278,36 +287,24 @@ function QuizQuestion() {
             {previousKey && makeButton("Back", faArrowLeft, handlePrevious)}
           </Col>
           <Col className="text-end">
-          {nextKey && makeButton(
-            "Next", 
-            faArrowRight, 
-            handleNext, 
-            true)}
-          {!nextKey && reviewMode && makeButton(
-            "See Results", 
-            faArrowRight, 
-            handleFinish, 
-            true)}
-          {!nextKey && !reviewMode && makeButton(
-            "Finish", 
-            faArrowRight, 
-            submitQuiz, 
-            true)}
+            {nextKey && makeButton("Next", faArrowRight, handleNext, true)}
+            {!nextKey &&
+              reviewMode &&
+              makeButton("See Results", faArrowRight, handleFinish, true)}
+            {!nextKey &&
+              !reviewMode &&
+              makeButton("Finish", faArrowRight, submitQuiz, true)}
           </Col>
         </Row>
-        <br/>
+        <br />
         <Row>
           <Col className="text-end">
-            {nextKey && reviewMode && makeButton(
-              "See Results", 
-              faArrowRight, 
-              handleFinish, 
-              true)}
+            {nextKey &&
+              reviewMode &&
+              makeButton("See Results", faArrowRight, handleFinish, true)}
           </Col>
         </Row>
       </div>
-      
-      
     );
   };
 
@@ -363,13 +360,18 @@ function QuizQuestion() {
       <Container style={{ padding: "2rem" }}>
         <h2>Not Found.</h2>
         <h4>This quiz question doesn't exist.</h4>
-        <br/>
+        <br />
         <Link to="/quiz">
-          <button className="hint-button" style={{
-            height: "50px",
-            width: "100px",
-            borderRadius: "999px",
-          }}>← Back</button>
+          <button
+            className="hint-button"
+            style={{
+              height: "50px",
+              width: "100px",
+              borderRadius: "999px",
+            }}
+          >
+            ← Back
+          </button>
         </Link>
       </Container>
     );
@@ -384,7 +386,7 @@ function QuizQuestion() {
           borderRadius: "999px",
           backgroundColor: "transparent",
           overflow: "hidden",
-          border: "2px solid #abe2fb"
+          border: "2px solid #abe2fb",
         }}
       >
         <div
@@ -455,8 +457,10 @@ function QuizQuestion() {
                   style={{ fontSize: "20px", color: "#13275e" }}
                 />
               </div>
-              <span style={{whiteSpace: "nowrap"}}>
-                {usedHintsRef.current.has(type) ? `See hint` : `Hint (${hintsLeft})`}
+              <span style={{ whiteSpace: "nowrap" }}>
+                {usedHintsRef.current.has(type)
+                  ? `See hint`
+                  : `Hint (${hintsLeft})`}
               </span>
             </div>
           </OverlayTrigger>
