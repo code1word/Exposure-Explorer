@@ -170,7 +170,9 @@ function DroppableCell({
             width: "100%",
           }}
         >
-          <span>{displayValue}</span>
+          <span style={{ color: "#13275e", fontWeight: "bold" }}>
+            {displayValue}
+          </span>
           {currentValue && (
             <button
               onClick={() => onRemove(row, col, currentValue)}
