@@ -79,7 +79,7 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
             </span>
           </div>
         ) : (
-          <div>
+          <div className="navy">
             <span
               style={{
                 color: "#d9534f",
@@ -105,7 +105,7 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
   return (
     <div className="container mt-5">
       {/* Small screen: show lowest label above */}
-      <div className="text-center fw-bold d-xl-none d-lg-none mb-3">
+      <div className="navy text-center fw-bold d-xl-none d-lg-none mb-3">
         Lowest
         <br />
         Shutter Speed
@@ -113,7 +113,7 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
 
       <div className="row align-items-center">
         {/* XL screen: Lowest label on the left */}
-        <div className="col-xl-2 col-lg-2 d-none d-xl-block d-lg-block text-center fw-bold">
+        <div className="navy col-xl-2 col-lg-2 d-none d-xl-block d-lg-block text-center fw-bold">
           Lowest
           <br />
           Shutter Speed
@@ -164,7 +164,7 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
         ))}
 
         {/* XL screen: Highest label on the right */}
-        <div className="col-xl-2 col-lg-2 d-none d-xl-block d-lg-block text-center fw-bold">
+        <div className="navy col-xl-2 col-lg-2 d-none d-xl-block d-lg-block text-center fw-bold">
           Highest
           <br />
           Shutter Speed
@@ -172,7 +172,7 @@ function OrderImagesQuestion({ info, questionKey, reviewMode = false }) {
       </div>
 
       {/* Small screen: show highest label below */}
-      <div className="text-center fw-bold d-xl-none d-lg-none mt-3">
+      <div className="navy text-center fw-bold d-xl-none d-lg-none mt-3">
         Highest
         <br />
         Shutter Speed

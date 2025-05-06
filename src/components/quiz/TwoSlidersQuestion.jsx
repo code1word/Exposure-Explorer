@@ -94,6 +94,7 @@ export default function TwoSlidersQuestion({
 
     return (
       <div
+        className="navy"
         style={{
           backgroundColor: isCorrect ? "#d0f0c0" : "#f8d7da",
           padding: "0.5rem",

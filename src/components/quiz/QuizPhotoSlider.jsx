@@ -50,7 +50,7 @@ function QuizPhotoSlider({
       {/* Slider + Labels */}
       <Row className="align-items-center">
         <Col xs={4} className="text-end pe-3">
-          <div className="fw-bold">{leftLabel}</div>
+          <div className="fw-bold navy">{leftLabel}</div>
           <div style={{ fontSize: "0.85rem" }}>
             {leftDescriptions.map((line, i) => (
               <div key={i}>{line}</div>
@@ -75,7 +75,7 @@ function QuizPhotoSlider({
               padding: 0,
             }}
           />
-          <div className="mt-1 fw-medium">
+          <div className="mt-1 fw-medium navy">
             {unitPrefix}
             {displayValue ? displayValue(value) : value.toFixed(2)}
             {unitSuffix}
@@ -83,7 +83,7 @@ function QuizPhotoSlider({
         </Col>
 
         <Col xs={4} className="text-start ps-3">
-          <div className="fw-bold">{rightLabel}</div>
+          <div className="fw-bold navy">{rightLabel}</div>
           <div style={{ fontSize: "0.85rem" }}>
             {rightDescriptions.map((line, i) => (
               <div key={i}>{line}</div>

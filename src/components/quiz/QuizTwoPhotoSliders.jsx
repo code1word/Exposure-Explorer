@@ -25,7 +25,7 @@ function QuizTwoPhotoSliders({
     return (
       <Row className="align-items-center my-2">
         <Col xs={4} className="text-end pe-3">
-          <div className="fw-bold">{leftLabel}</div>
+          <div className="fw-bold navy">{leftLabel}</div>
           {leftDescriptions.map((line, i) => (
             <div key={i} style={{ fontSize: "0.85rem" }}>
               {line}
@@ -50,7 +50,7 @@ function QuizTwoPhotoSliders({
               padding: 0,
             }}
           />
-          <div className="mt-1 fw-medium">
+          <div className="mt-1 fw-medium navy">
             {unitPrefix}
             {displayValue ? displayValue(value) : value.toFixed(2)}
             {unitSuffix}
@@ -58,7 +58,7 @@ function QuizTwoPhotoSliders({
         </Col>
 
         <Col xs={4} className="text-start ps-3">
-          <div className="fw-bold">{rightLabel}</div>
+          <div className="fw-bold navy">{rightLabel}</div>
           {rightDescriptions.map((line, i) => (
             <div key={i} style={{ fontSize: "0.85rem" }}>
               {line}

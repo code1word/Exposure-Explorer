@@ -144,27 +144,15 @@ function ShutterSpeed() {
   return (
     <Container className="py-4" style={{ fontSize: "1.25rem" }}>
       <ProgressBar
-        className="mb-3"
+        now={progressWidth}
+        className="rounded-pill my-progress-bar"
         style={{
           height: "10px",
-          borderRadius: "999px",
           backgroundColor: "transparent",
-          overflow: "hidden",
           border: "2px solid #abe2fb",
+          overflow: "hidden",
         }}
-      >
-        <div
-          className="progress-bar"
-          style={{
-            width: `${progressWidth}%`,
-            backgroundColor: "#13275e",
-            borderRadius: "999px",
-            height: "100%",
-            transition: "width 0.4s ease",
-            boxShadow: "none",
-          }}
-        />
-      </ProgressBar>
+      />
 
       {/* Back Button */}
       <div style={{ marginTop: "2rem", marginBottom: "1rem" }}>

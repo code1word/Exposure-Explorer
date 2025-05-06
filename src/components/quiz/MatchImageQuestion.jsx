@@ -57,7 +57,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
 
     if (isCorrect) {
       return (
-        <div
+        <div className="navy"
           style={{
             fontWeight: "bold",
             backgroundColor: "#d0f0c0",
@@ -67,29 +67,23 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
           }}
         >
           {
-            <FontAwesomeIcon
-              icon={faCircleCheck}
-              className="green-check"
-              style={{ color: "#4CAF50" }}
-            />
+            <span
+              style={{
+                color: "#4CAF50",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+              }}
+            >
+              <FontAwesomeIcon icon={faCircleCheck} />
+              Correct!
+            </span>
           }
-          Correct Image
-          <br />
+          <br/>
           Image Matched.
         </div>
       );
     } else {
-      // // Find the correct slider value that maps to the reference image
-      // const correctEntry = Object.entries(portraitImageMap).find(
-      //   ([_, image]) => image === info.referenceImage
-      // );
-
-      // let correctValue = null;
-      // if (correctEntry) {
-      //   const correctIndex = Number(correctEntry[0]);
-      //   correctValue = (correctIndex / 10).toFixed(2); // convert index back to 0.0–1.0 and format
-      // }
-
       const correctKey = Object.entries(info.imageMap).find(
         ([_, img]) => img === info.referenceImage
       )?.[0];
@@ -99,6 +93,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
 
       return (
         <div
+          className="navy"
           style={{
             backgroundColor: "#f8d7da",
             padding: "0.5rem",
@@ -106,12 +101,17 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
             fontWeight: "bold",
           }}
         >
-          <FontAwesomeIcon
-            icon={faCircleXmark}
-            className="red-x"
-            style={{ color: "#d9534f" }}
-          />
-          Incorrect Image
+          <span
+            style={{
+              color: "#d9534f",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <FontAwesomeIcon icon={faCircleXmark} />
+            Incorrect Image
+          </span>
           <br />
           The correct setting is: f/5.6
         </div>

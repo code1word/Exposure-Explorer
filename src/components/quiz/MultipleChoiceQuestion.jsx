@@ -50,6 +50,7 @@ function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
           {info.options.map((option, i) => (
             <div key={i}>
               <label
+                className="navy"
                 style={{
                   fontSize: "1.5rem",
                 }}
@@ -73,7 +74,7 @@ function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
           </div>
 
           {reviewMode && (
-            <div style={{ marginTop: "1rem" }}>
+            <div className="navy" style={{ marginTop: "1rem" }}>
               {/* Always display the correct answer */}
               {selectedAnswer && selectedAnswer !== info.answer && (
                 <p>
