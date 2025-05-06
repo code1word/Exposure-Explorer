@@ -4,6 +4,12 @@ import React, { useState, useContext, useEffect, useMemo } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { QuizContext } from "../../context/QuizContextTable";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleXmark,
+  faCircleCheck,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 import "./quiz.css";
 
@@ -60,8 +66,8 @@ function DroppableCell({
     },
     canDrop: () => {
       //console.log(`Cell [${row},${col}] currentValue: "${currentValue}"`);
-      return !reviewMode  // Prevent dropping in review mode
-    }
+      return !reviewMode; // Prevent dropping in review mode
+    },
   }));
 
   let displayValue = currentValue || "";
@@ -84,13 +90,36 @@ function DroppableCell({
   if (reviewMode) {
     if (currentValue === correctValue) {
       style.backgroundColor = "#d0f0c0"; // Green
-      displayValue = `✅ ${currentValue}`;
+      displayValue = (
+        <span
+          style={{
+            color: "#4CAF50",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+          }}
+        >
+          <FontAwesomeIcon icon={faCircleCheck} />
+          {currentValue}
+        </span>
+      );
     } else if (currentValue) {
       style.backgroundColor = "#f8d7da"; // Red
       displayValue = (
         <div>
-          <span style={{ color: "#555" }}>
-            ❌ {currentValue}
+          <span
+            style={{
+              color: "#555",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faCircleXmark}
+              style={{ color: "#d9534f" }}
+            />
+            {currentValue}
             <br />
           </span>
           <span style={{ fontSize: "12px", color: "#555" }}>
@@ -101,19 +130,25 @@ function DroppableCell({
     } else {
       style.backgroundColor = "#f8d7da"; // Red
       displayValue = (
-        <div style={{
-        }}>
-          
-          <span style={{ 
-            color: "#555",
-            paddingTop: "12px" }}>
-            ❌
+        <div style={{}}>
+          <span
+            style={{
+              color: "#555",
+              paddingTop: "12px",
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faCircleXmark}
+              style={{ color: "#d9534f" }}
+            />
             <br />
           </span>
-          <span style={{ 
-            fontSize: "12px", 
-            color: "#555",
-             }}>
+          <span
+            style={{
+              fontSize: "12px",
+              color: "#555",
+            }}
+          >
             Correct answer: {correctValue}
           </span>
         </div>
@@ -124,12 +159,15 @@ function DroppableCell({
   return (
     <div ref={drop} style={style}>
       {!reviewMode ? (
-        <div style={{ 
-          display: "flex", 
-          alignItems: "center", 
-          textAlign: "center",
-          justifyContent: "center",
-          width: "100%" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textAlign: "center",
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
           <span>{displayValue}</span>
           {currentValue && (
             <button
@@ -143,7 +181,7 @@ function DroppableCell({
                 color: "#888",
               }}
             >
-              🗑️
+              <FontAwesomeIcon icon={faTrashAlt} />
             </button>
           )}
         </div>
@@ -204,7 +242,7 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
 
     setAnswers((prevAnswers) => {
       if (reviewMode || prevAnswers[cellKey] !== "") {
-        console.log("❌ Drop ignored - cell already filled or in review mode.");
+        console.log("Drop ignored - cell already filled or in review mode.");
         return prevAnswers;
       }
 
@@ -304,47 +342,46 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
           overflowX: "auto",
           maxWidth: "100%", // ensures it doesn't overflow the screen
           margin: "0 auto", // optional: centers the scroll container
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <div style={{display: "inline-block"}}>
-        <table
-          style={{ tableLayout: "auto", width: "100%" }}>
-          
-          <thead>
-            <tr>
-              <th></th>
-              {info.columns.map((col) => (
-                <th key={col} className="wide-column">
-                  {col}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {info.rows.map((row) => (
-              <tr key={row}>
-                <td>{row}</td>
-                {info.columns.map((col) => {
-                  const key = `${row}-${col}`;
-                  return (
-                    <td key={key} className="wide-column">
-                      <DroppableCell
-                        row={row}
-                        col={col}
-                        currentValue={answers[key]} // Ensure the cell value is pulled from answers
-                        onDrop={handleDrop}
-                        reviewMode={reviewMode}
-                        correctValue={info.correctAnswers[key]}
-                        onRemove={handleRemove}
-                      />
-                    </td>
-                  );
-                })}
+        <div style={{ display: "inline-block" }}>
+          <table style={{ tableLayout: "auto", width: "100%" }}>
+            <thead>
+              <tr>
+                <th></th>
+                {info.columns.map((col) => (
+                  <th key={col} className="wide-column">
+                    {col}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table></div>
+            </thead>
+            <tbody>
+              {info.rows.map((row) => (
+                <tr key={row}>
+                  <td>{row}</td>
+                  {info.columns.map((col) => {
+                    const key = `${row}-${col}`;
+                    return (
+                      <td key={key} className="wide-column">
+                        <DroppableCell
+                          row={row}
+                          col={col}
+                          currentValue={answers[key]} // Ensure the cell value is pulled from answers
+                          onDrop={handleDrop}
+                          reviewMode={reviewMode}
+                          correctValue={info.correctAnswers[key]}
+                          onRemove={handleRemove}
+                        />
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

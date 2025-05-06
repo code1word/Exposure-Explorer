@@ -1,11 +1,13 @@
 // src/components/quiz/MatchImageQuestion.jsx
 import React, { useState, useContext, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import QuizPhotoSlider from "./QuizPhotoSlider"; 
+import QuizPhotoSlider from "./QuizPhotoSlider";
 import { QuizContext } from "../../context/QuizContextMatchImage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faSquareCheck, faSquareXmark } from "@fortawesome/free-solid-svg-icons";
-
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 const sliderValueMap = {
   0.0: 16.0,
@@ -20,7 +22,12 @@ const sliderValueMap = {
 };
 
 function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
-  const { sliderValues, recordSliderValue, selectedImages, recordSelectedImage } = useContext(QuizContext);
+  const {
+    sliderValues,
+    recordSliderValue,
+    selectedImages,
+    recordSelectedImage,
+  } = useContext(QuizContext);
 
   const initialValue = sliderValues[questionKey] ?? 0.2;
   const [sliderValue, setSliderValue] = useState(initialValue);
@@ -31,11 +38,9 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   //console.log("sliderValue", sliderValue);
   //console.log("currentImage", currentImage);
 
-
-
   const handleSliderChange = (newValue) => {
     setSliderValue(newValue); // Always update local UI
-  
+
     if (!reviewMode) {
       recordSliderValue(questionKey, newValue);
       const clamped = Math.max(0, Math.min(1, newValue));
@@ -47,19 +52,27 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
 
   const getStatus = () => {
     if (!reviewMode) return null;
-  
+
     const isCorrect = currentImage === info.referenceImage;
-  
+
     if (isCorrect) {
       return (
-        <div style={{ 
-          fontWeight: "bold", 
-          backgroundColor: "#d0f0c0", 
-          padding: "0.5rem", 
-          borderRadius: "0.5rem",
-          marginTop: "1rem" }}>
-          
-          {<FontAwesomeIcon icon={faSquareCheck} className="green-check" />}
+        <div
+          style={{
+            fontWeight: "bold",
+            backgroundColor: "#d0f0c0",
+            padding: "0.5rem",
+            borderRadius: "0.5rem",
+            marginTop: "1rem",
+          }}
+        >
+          {
+            <FontAwesomeIcon
+              icon={faCircleCheck}
+              className="green-check"
+              style={{ color: "#4CAF50" }}
+            />
+          }
           Correct Image
           <br />
           Image Matched.
@@ -70,24 +83,36 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
       // const correctEntry = Object.entries(portraitImageMap).find(
       //   ([_, image]) => image === info.referenceImage
       // );
-  
+
       // let correctValue = null;
       // if (correctEntry) {
       //   const correctIndex = Number(correctEntry[0]);
       //   correctValue = (correctIndex / 10).toFixed(2); // convert index back to 0.0–1.0 and format
       // }
 
-      const correctKey = Object.entries(info.imageMap).find(([_, img]) =>
-        img === info.referenceImage
+      const correctKey = Object.entries(info.imageMap).find(
+        ([_, img]) => img === info.referenceImage
       )?.[0];
-      const correctValue = correctKey ? (parseInt(correctKey) / 10).toFixed(1) : "?";
-  
+      const correctValue = correctKey
+        ? (parseInt(correctKey) / 10).toFixed(1)
+        : "?";
+
       return (
-        <div style={{ backgroundColor: "#f8d7da", padding: "0.5rem", borderRadius: "0.5rem", fontWeight: "bold" }}>
+        <div
+          style={{
+            backgroundColor: "#f8d7da",
+            padding: "0.5rem",
+            borderRadius: "0.5rem",
+            fontWeight: "bold",
+          }}
+        >
           <FontAwesomeIcon
-                icon={faSquareXmark} className="red-x"
+            icon={faCircleXmark}
+            className="red-x"
+            style={{ color: "#d9534f" }}
           />
-          Incorrect Image<br />
+          Incorrect Image
+          <br />
           The correct setting is: f/5.6
         </div>
       );
@@ -97,11 +122,10 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   return (
     <Container className="">
       <Row className="d-flex align-items-center">
-        
         <Row className="align-items-start">
           {/* Slider section */}
           <Col lg={6} xs={12}>
-            <div className="text-muted fst-italic text-center pt-3" >
+            <div className="text-muted fst-italic text-center pt-3">
               Adjust aperture using the slider
             </div>
             <QuizPhotoSlider
@@ -133,18 +157,18 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
 
           {/* Reference image section */}
           <Col lg={6} xs={12}>
-            <div className="text-muted fst-italic text-center pt-3" >
+            <div className="text-muted fst-italic text-center pt-3">
               Reference image
             </div>
             <Container className="text-center py-2">
               <img
                 src={info.referenceImage}
                 alt="Reference"
-                style={{ 
-                  maxWidth: "80%", 
-                  height: "auto", 
+                style={{
+                  maxWidth: "80%",
+                  height: "auto",
                   padding: "none",
-                  }}
+                }}
               />
               {reviewMode && (
                 <div style={{ marginTop: "1rem", fontWeight: "bold" }}>
@@ -154,16 +178,9 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
             </Container>
           </Col>
         </Row>
-
-        
-
       </Row>
     </Container>
   );
 }
 
 export default MatchImageQuestion;
-
-
-
-

@@ -2,18 +2,38 @@
 
 import React, { useState, useContext } from "react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { QuizContext } from "../../context/QuizContextMultipleChoice";
-
 
 function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
   const { selectedAnswers, recordAnswer } = useContext(QuizContext);
   const selectedAnswer = selectedAnswers[questionKey];
 
-  const getStatusEmoji = (option) => {
+  const getStatusIcon = (option) => {
     if (!reviewMode) return null;
-    if (option === info.answer) return "✅";
-    if (option === selectedAnswer) return "❌";
+
+    if (option === info.answer) {
+      return (
+        <FontAwesomeIcon
+          icon={faCircleCheck}
+          style={{ color: "#4CAF50", marginRight: "0.5rem" }} // Bootstrap green
+        />
+      );
+    }
+
+    if (option === selectedAnswer) {
+      return (
+        <FontAwesomeIcon
+          icon={faCircleXmark}
+          style={{ color: "#d9534f", marginRight: "0.5rem" }} // Bootstrap red
+        />
+      );
+    }
+
     return null;
   };
 
@@ -29,9 +49,11 @@ function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
         <Col md={12}>
           {info.options.map((option, i) => (
             <div key={i}>
-              <label style={{
-                fontSize: "1.5rem"
-              }}>
+              <label
+                style={{
+                  fontSize: "1.5rem",
+                }}
+              >
                 <input
                   type="radio"
                   name={`quiz-${info.question_number}`}
@@ -41,40 +63,54 @@ function MultipleChoiceQuestion({ info, questionKey, reviewMode = false }) {
                   disabled={reviewMode} // Prevent changes in review
                   readOnly
                 />
-                {option} {getStatusEmoji(option)}
+                {option} {getStatusIcon(option)}
               </label>
             </div>
           ))}
 
-          <div><br/></div>
+          <div>
+            <br />
+          </div>
 
           {reviewMode && (
             <div style={{ marginTop: "1rem" }}>
               {/* Always display the correct answer */}
               {selectedAnswer && selectedAnswer !== info.answer && (
-                <p><strong>❌ Incorrect.</strong></p>
+                <p>
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    style={{ color: "#d9534f", marginRight: "0.5rem" }}
+                  />
+                  <strong>Incorrect.</strong>
+                </p>
               )}
               {!selectedAnswer && (
-                <p><strong>❌ Incorrect.</strong></p>
+                <p>
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    style={{ color: "#d9534f", marginRight: "0.5rem" }}
+                  />
+                  <strong>Incorrect.</strong>
+                </p>
               )}
               {selectedAnswer === info.answer && (
-                <p>✅ You selected the correct answer!</p>
+                <p>
+                  <FontAwesomeIcon
+                    icon={faCircleCheck}
+                    style={{ color: "#4CAF50", marginRight: "0.5rem" }}
+                  />
+                  You selected the correct answer!
+                </p>
               )}
               <p>
                 <strong>Correct Answer:</strong> {info.answer}
               </p>
             </div>
           )}
-
         </Col>
-
-        
-        
       </Row>
-      
     </div>
   );
 }
 
 export default MultipleChoiceQuestion;
-

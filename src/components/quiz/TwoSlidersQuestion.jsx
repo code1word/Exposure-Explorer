@@ -2,7 +2,11 @@ import React, { useState, useContext, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import QuizTwoPhotoSliders from "./QuizTwoPhotoSliders";
 import { QuizContext } from "../../context/QuizContextTwoSliders";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 const sliderValueMapAperture = {
   0.0: 16.0,
@@ -10,8 +14,8 @@ const sliderValueMapAperture = {
   0.4: 11.0,
   0.6: 5.6,
   0.8: 2.8,
-  1.0: 1.4
-}
+  1.0: 1.4,
+};
 
 const sliderValueMapISO = {
   0.0: 50,
@@ -19,9 +23,8 @@ const sliderValueMapISO = {
   0.4: 150,
   0.6: 200,
   0.8: 250,
-  1.0: 300
-}
-
+  1.0: 300,
+};
 
 const displayApertureValue = (val) => {
   const rounded = Math.round(val * 10) / 10;
@@ -38,9 +41,17 @@ const displayISOValue = (val) => {
 //const sliderSteps = [0.3, 0.6, 0.9]; // match grid size
 const sliderSteps = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0];
 
-
-export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1", reviewMode = false }) {
-  const { sliderValues, recordSliderValue, selectedImages, recordSelectedImage } = useContext(QuizContext);
+export default function TwoSlidersQuestion({
+  info,
+  questionKey = "twoSlidersQ1",
+  reviewMode = false,
+}) {
+  const {
+    sliderValues,
+    recordSliderValue,
+    selectedImages,
+    recordSelectedImage,
+  } = useContext(QuizContext);
 
   const initial1 = sliderValues[`${questionKey}_1`] ?? 0.4;
   const initial2 = sliderValues[`${questionKey}_2`] ?? 1.0;
@@ -78,25 +89,49 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
 
   const getStatus = () => {
     if (!reviewMode) return null;
-  
+
     const isCorrect = currentImage === referenceImage;
-  
+
     return (
-      <div style={{ 
-        backgroundColor: isCorrect ? "#d0f0c0" : "#f8d7da", 
-        padding: "0.5rem", 
-        borderRadius: "0.5rem",
-        fontWeight: "bold",
-        marginTop: "1rem"
-      }}>
+      <div
+        style={{
+          backgroundColor: isCorrect ? "#d0f0c0" : "#f8d7da",
+          padding: "0.5rem",
+          borderRadius: "0.5rem",
+          fontWeight: "bold",
+          marginTop: "1rem",
+        }}
+      >
         {isCorrect ? (
           <>
-            ✅ Correct!<br />
+            <span
+              style={{
+                color: "#4CAF50",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+              }}
+            >
+              <FontAwesomeIcon icon={faCircleCheck} />
+              Correct!
+            </span>
+            <br />
             Image Matched.
           </>
         ) : (
           <>
-            ❌ Incorrect Image<br />
+            <span
+              style={{
+                color: "#d9534f",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+              }}
+            >
+              <FontAwesomeIcon icon={faCircleXmark} />
+              Incorrect Image
+            </span>
+            <br />
             The correct settings are f/1.4 and 150
           </>
         )}
@@ -106,7 +141,6 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
 
   return (
     <Container>
-
       <Row className="align-items-start">
         <Col lg={6} xs={12}>
           <div className="text-muted fst-italic text-center pt-3">
@@ -139,7 +173,7 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
           />
         </Col>
 
-        <Col lg={6} xs={12} >
+        <Col lg={6} xs={12}>
           <div className="text-muted fst-italic text-center pt-3">
             Reference image
           </div>
@@ -150,7 +184,7 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
               style={{ maxWidth: "80%", height: "auto" }}
             />
             {getStatus()}
-          </Container> 
+          </Container>
         </Col>
       </Row>
     </Container>
