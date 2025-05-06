@@ -3,26 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import QuizTwoPhotoSliders from "./QuizTwoPhotoSliders";
 import { QuizContext } from "../../context/QuizContextTwoSliders";
 
-// Image imports
-import img_010 from "../../data/quiz_images/orderPortrait.png";
-import img_01 from "../../data/quiz_images/orderLandscape.png";
-import img_02 from "../../data/quiz_images/orderActionShot.png"; // reference
-import img_10 from "../../data/quiz_images/orderLandscape.png";
-import img_11 from "../../data/quiz_images/orderPortrait.png";
-import img_12 from "../../data/quiz_images/orderLandscape.png";
-import img_20 from "../../data/quiz_images/orderPortrait.png";
-import img_21 from "../../data/quiz_images/orderLandscape.png";
-import img_22 from "../../data/quiz_images/orderPortrait.png";
-
-const imageGrid_orig = [
-  [img_010, img_01, img_02, img_010, img_01, img_02],
-  [img_10, img_11, img_12, img_010, img_01, img_02],
-  [img_20, img_21, img_22, img_010, img_01, img_02],
-  [img_010, img_01, img_02, img_010, img_01, img_02],
-  [img_10, img_11, img_12, img_010, img_01, img_02],
-  [img_20, img_21, img_22, img_010, img_01, img_02]
-];
-
 
 const sliderValueMapAperture = {
   0.0: 16.0,
@@ -117,7 +97,7 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
         ) : (
           <>
             ❌ Incorrect Image<br />
-            The correct settings are f/1.4 and 150
+            The correct settings are f/16.0 and 150
           </>
         )}
       </div>
@@ -130,15 +110,15 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
       <Row className="align-items-start">
         <Col lg={6} xs={12}>
           <div className="text-muted fst-italic text-center pt-3">
-            Adjust aperture and ISO.
+            Adjust aperture and ISO using the sliders
           </div>
           <QuizTwoPhotoSliders
             staticImage={currentImage}
             description=""
             slider1Config={{
               value: sliderValue1,
-              min: 0.2,
-              max: 1.0,
+              min: 0.0,
+              max: 0.8,
               step: 0.2,
               onChange: handleSlider1Change,
               unitPrefix: "f/",

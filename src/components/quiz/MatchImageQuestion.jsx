@@ -20,7 +20,7 @@ const sliderValueMap = {
 function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   const { sliderValues, recordSliderValue, selectedImages, recordSelectedImage } = useContext(QuizContext);
 
-  const initialValue = sliderValues[questionKey] ?? 0.6;
+  const initialValue = sliderValues[questionKey] ?? 0.2;
   const [sliderValue, setSliderValue] = useState(initialValue);
   const imageIndex = Math.round(Math.max(0, Math.min(1, sliderValue)) * 10);
   //const currentImage = portraitImageMap[imageIndex];
@@ -50,7 +50,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   
     if (isCorrect) {
       return (
-        <div style={{ backgroundColor: "#d0f0c0", padding: "0.5rem", borderRadius: "0.5rem" }}>
+        <div style={{ fontWeight: "bold", backgroundColor: "#d0f0c0", padding: "0.5rem", borderRadius: "0.5rem" }}>
           ✅ Correct!<br />
           Image Matched.
         </div>
@@ -75,7 +75,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
       return (
         <div style={{ backgroundColor: "#f8d7da", padding: "0.5rem", borderRadius: "0.5rem" }}>
           ❌ Incorrect Image<br />
-          The correct setting is: f/9.0
+          The correct setting is: f/5.6
         </div>
       );
     }
@@ -89,7 +89,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
           {/* Slider section */}
           <Col lg={6} xs={12}>
             <div className="text-muted fst-italic text-center pt-3" >
-              Change the image using the slider.
+              Adjust aperture using the slider
             </div>
             <QuizPhotoSlider
               title="Aperture"
