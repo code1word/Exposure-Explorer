@@ -121,7 +121,7 @@ function DroppableCell({
               icon={faCircleXmark}
               style={{ color: "#d9534f", marginRight: "0.5rem" }}
             />
-            {currentValue}
+            <span style={{ color: "#d9534f" }}>{currentValue}</span>
             <br />
           </span>
           <span style={{ fontSize: "12px", color: "#d9534f" }}>
@@ -321,13 +321,15 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
               <div
                 key={answer}
                 style={{
-                  padding: "5px",
-                  margin: "5px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                  backgroundColor: "#f0f0f0",
-                  color: "#999",
                   cursor: "not-allowed",
+                  padding: "5px 10px",
+                  margin: "5px",
+                  border: "2px solid #13275e",
+                  borderRadius: "10px",
+                  backgroundColor: "#dbe3ee",
+                  color: "#13275e",
+                  fontWeight: "bold",
+                  opacity: 0.5, // Make it look disabled
                 }}
               >
                 {answer}
