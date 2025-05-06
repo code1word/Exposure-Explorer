@@ -380,27 +380,16 @@ function QuizQuestion() {
   return (
     <Container className="py-4" style={{ fontSize: "1.25rem" }}>
       <ProgressBar
-        className="mb-3"
+        now={progress}
+        className="rounded-pill my-progress-bar"
         style={{
           height: "10px",
-          borderRadius: "999px",
           backgroundColor: "transparent",
-          overflow: "hidden",
           border: "2px solid #abe2fb",
+          overflow: "hidden",
         }}
-      >
-        <div
-          className="progress-bar"
-          style={{
-            width: `${progress}%`,
-            backgroundColor: "#13275e",
-            borderRadius: "999px",
-            height: "100%",
-            transition: "width 0.4s ease",
-            boxShadow: "none",
-          }}
-        />
-      </ProgressBar>
+      />
+      <br/>
 
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 style={{ fontWeight: "700", color: "#13275e" }}>

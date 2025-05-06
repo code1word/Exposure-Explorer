@@ -57,6 +57,12 @@ body {
   background-color: #abe2fb !important;
 }
 
+.my-progress-bar .progress-bar {
+  border-radius: 999px; /* or "inherit" */
+  box-shadow: none;
+  transition: width 0.4s ease;
+}
+
 .hint-button {
   background-color: #fff; /* Custom background color */
   border-color: #77d3fd; /* Custom border color */
