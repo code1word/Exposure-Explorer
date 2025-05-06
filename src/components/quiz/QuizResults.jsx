@@ -3,6 +3,10 @@
 import React, { useState, useContext, useEffect, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckCircle,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { Container, ProgressBar } from "react-bootstrap";
 //import { quizQuestionData } from "../../data/quizQuestionData";
 
@@ -12,16 +16,19 @@ import { QuizContext as QuizContextOrderImages } from "../../context/QuizContext
 import { QuizContext as QuizContextMatchImage } from "../../context/QuizContextMatchImage";
 import { QuizContext as QuizContextTwoSliders } from "../../context/QuizContextTwoSliders";
 
-import axios from 'axios';
-
+import axios from "axios";
 
 function QuizResults() {
-  const { selectedAnswers: selectedAnswersMC, resetQuiz: resetQuizMC } = useContext(QuizContextMultipleChoice);
-  const { selectedAnswers: selectedAnswersTable, resetQuiz: resetQuizTAB } = useContext(QuizContextTableFillBlanks);
-  const { selectedOrder: selectedOrderImages, resetQuiz: resetQuizORD } = useContext(QuizContextOrderImages);
-  const { selectedImages: selectedImageMatch1, resetQuiz: resetQuizMATCH1 } = useContext(QuizContextMatchImage);
-  const { selectedImages: selectedImageMatch2, resetQuiz: resetQuizMATCH2 } = useContext(QuizContextTwoSliders);
-
+  const { selectedAnswers: selectedAnswersMC, resetQuiz: resetQuizMC } =
+    useContext(QuizContextMultipleChoice);
+  const { selectedAnswers: selectedAnswersTable, resetQuiz: resetQuizTAB } =
+    useContext(QuizContextTableFillBlanks);
+  const { selectedOrder: selectedOrderImages, resetQuiz: resetQuizORD } =
+    useContext(QuizContextOrderImages);
+  const { selectedImages: selectedImageMatch1, resetQuiz: resetQuizMATCH1 } =
+    useContext(QuizContextMatchImage);
+  const { selectedImages: selectedImageMatch2, resetQuiz: resetQuizMATCH2 } =
+    useContext(QuizContextTwoSliders);
 
   const [quizQuestionData, setQuizQuestionData] = useState({});
   const [score, setScore] = useState(0);
@@ -31,7 +38,9 @@ function QuizResults() {
   useEffect(() => {
     const fetchQuizData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/get-quiz-questions");
+        const response = await axios.get(
+          "http://localhost:3000/get-quiz-questions"
+        );
         setQuizQuestionData(response.data); // Update state with fetched data
         //setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
@@ -42,52 +51,56 @@ function QuizResults() {
     fetchQuizData();
   }, []);
 
-  const questionKeys = useMemo(() => Object.keys(quizQuestionData), [quizQuestionData]);
+  const questionKeys = useMemo(
+    () => Object.keys(quizQuestionData),
+    [quizQuestionData]
+  );
 
   useEffect(() => {
     let calculatedScore = 0;
     let newCorrectness = {};
-  
+
     questionKeys.forEach((key) => {
       const question = quizQuestionData[key];
       const questionNum = question.question_number;
-  
+
       let isCorrect = false;
-  
+
       if (question.format === "multiple_choice") {
         isCorrect = selectedAnswersMC[key] === question.answer;
-      }
-      else if (question.format === "table_fill_blanks") {
+      } else if (question.format === "table_fill_blanks") {
         const userAnswers = selectedAnswersTable[key] || {};
         const correctAnswers = question.correctAnswers;
-        
+
         const allMatch = Object.entries(correctAnswers).every(
           ([cellKey, correctVal]) => userAnswers[cellKey] === correctVal
         );
-      
+
         isCorrect = allMatch;
-      }
-      else if (question.format === "order_images") {
+      } else if (question.format === "order_images") {
         const userOrder = selectedOrderImages[key];
         isCorrect =
           JSON.stringify(userOrder) === JSON.stringify(question.correctOrder);
-      }
-      else if (question.format === "match_image"){
+      } else if (question.format === "match_image") {
         isCorrect = selectedImageMatch1[key] === question.referenceImage;
-      }
-      else if (question.format === "two_sliders") {
+      } else if (question.format === "two_sliders") {
         isCorrect = selectedImageMatch2[key] === question.referenceImage;
       }
 
-  
       newCorrectness[questionNum] = isCorrect;
       if (isCorrect) calculatedScore++;
     });
-  
+
     setQuestionCorrectness(newCorrectness);
     setScore(calculatedScore);
-
-  }, [selectedAnswersMC, selectedAnswersTable, selectedOrderImages, selectedImageMatch1, selectedImageMatch2, questionKeys]);
+  }, [
+    selectedAnswersMC,
+    selectedAnswersTable,
+    selectedOrderImages,
+    selectedImageMatch1,
+    selectedImageMatch2,
+    questionKeys,
+  ]);
 
   const handleStart = () => {
     resetQuizMC();
@@ -100,13 +113,18 @@ function QuizResults() {
 
   return (
     <div className="navy" style={{ padding: "2rem", textAlign: "center" }}>
-      <br/>
+      <br />
       <h1>
-        <em><strong>You scored a {score}/{questionKeys.length}!</strong></em>
+        <em>
+          <strong>
+            You scored a {score}/{questionKeys.length}!
+          </strong>
+        </em>
       </h1>
-      
+
       <h3>
-        Feel free to review a topic, explore the simulator at your own pace, or get some more practice.
+        Feel free to review a topic, explore the simulator at your own pace, or
+        get some more practice.
       </h3>
       <br />
       <br />
@@ -122,22 +140,33 @@ function QuizResults() {
           return (
             <div key={key}>
               <Link to={`/quiz/${key}?reviewMode=true`}>
-                <button className="hint-button btn" style={{ margin: "0.5rem" }}>
-                  {isCorrect ? "✅" : "❌"} Question {index + 1}
+                <button
+                  className="hint-button btn"
+                  style={{ margin: "0.5rem" }}
+                >
+                  <FontAwesomeIcon
+                    icon={isCorrect ? faCheckCircle : faCircleXmark}
+                    style={{
+                      color: isCorrect ? "4CAF50" : "#d9534f",
+                      marginRight: "0.5rem",
+                    }}
+                  />
+                  Question {index + 1}
                 </button>
               </Link>
             </div>
           );
         })}
-
       </div>
-      <button onClick={handleStart} className="btn hint-button" style={{ marginTop: "2rem" }}>
+      <button
+        onClick={handleStart}
+        className="btn hint-button"
+        style={{ marginTop: "2rem" }}
+      >
         Try Again
       </button>
     </div>
   );
 }
-
-
 
 export default QuizResults;
