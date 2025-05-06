@@ -473,9 +473,9 @@ function QuizQuestion() {
             Hint
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>{modalContent}</Modal.Body>
+        <Modal.Body style={{ color: "#13275e" }}>{modalContent}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseHint}>
+          <Button variant="secondary" className="close-hint" onClick={handleCloseHint}>
             Close
           </Button>
         </Modal.Footer>
