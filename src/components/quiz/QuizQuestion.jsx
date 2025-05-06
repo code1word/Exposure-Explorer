@@ -361,10 +361,15 @@ function QuizQuestion() {
   if (!info) {
     return (
       <Container style={{ padding: "2rem" }}>
-        <h2>Not Found</h2>
-        <p>This quiz question doesn't exist.</p>
+        <h2>Not Found.</h2>
+        <h4>This quiz question doesn't exist.</h4>
+        <br/>
         <Link to="/quiz">
-          <button>← Back</button>
+          <button className="hint-button" style={{
+            height: "50px",
+            width: "100px",
+            borderRadius: "999px",
+          }}>← Back</button>
         </Link>
       </Container>
     );
