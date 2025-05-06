@@ -3,6 +3,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import QuizPhotoSlider from "./QuizPhotoSlider"; 
 import { QuizContext } from "../../context/QuizContextMatchImage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faSquareCheck, faSquareXmark } from "@fortawesome/free-solid-svg-icons";
 
 
 const sliderValueMap = {
@@ -50,8 +52,16 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
   
     if (isCorrect) {
       return (
-        <div style={{ fontWeight: "bold", backgroundColor: "#d0f0c0", padding: "0.5rem", borderRadius: "0.5rem" }}>
-          ✅ Correct!<br />
+        <div style={{ 
+          fontWeight: "bold", 
+          backgroundColor: "#d0f0c0", 
+          padding: "0.5rem", 
+          borderRadius: "0.5rem",
+          marginTop: "1rem" }}>
+          
+          {<FontAwesomeIcon icon={faSquareCheck} className="green-check" />}
+          Correct Image
+          <br />
           Image Matched.
         </div>
       );
@@ -73,8 +83,11 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
       const correctValue = correctKey ? (parseInt(correctKey) / 10).toFixed(1) : "?";
   
       return (
-        <div style={{ backgroundColor: "#f8d7da", padding: "0.5rem", borderRadius: "0.5rem" }}>
-          ❌ Incorrect Image<br />
+        <div style={{ backgroundColor: "#f8d7da", padding: "0.5rem", borderRadius: "0.5rem", fontWeight: "bold" }}>
+          <FontAwesomeIcon
+                icon={faSquareXmark} className="red-x"
+          />
+          Incorrect Image<br />
           The correct setting is: f/5.6
         </div>
       );
@@ -134,7 +147,7 @@ function MatchImageQuestion({ info, questionKey, reviewMode = false }) {
                   }}
               />
               {reviewMode && (
-                <div style={{ marginTop: "1rem", fontWeight: "bold", fontSize: "1.1rem" }}>
+                <div style={{ marginTop: "1rem", fontWeight: "bold" }}>
                   {getStatus()}
                 </div>
               )}

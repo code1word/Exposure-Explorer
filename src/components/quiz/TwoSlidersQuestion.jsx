@@ -97,7 +97,7 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
         ) : (
           <>
             ❌ Incorrect Image<br />
-            The correct settings are f/16.0 and 150
+            The correct settings are f/1.4 and 150
           </>
         )}
       </div>
@@ -117,8 +117,8 @@ export default function TwoSlidersQuestion({ info, questionKey = "twoSlidersQ1",
             description=""
             slider1Config={{
               value: sliderValue1,
-              min: 0.0,
-              max: 0.8,
+              min: 0.2,
+              max: 1.0,
               step: 0.2,
               onChange: handleSlider1Change,
               unitPrefix: "f/",
