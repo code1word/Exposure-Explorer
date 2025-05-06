@@ -170,9 +170,20 @@ function DroppableCell({
             width: "100%",
           }}
         >
-          <span style={{ color: "#13275e", fontWeight: "bold" }}>
-            {displayValue}
-          </span>
+          {displayValue && (
+            <span
+              style={{
+                color: "#13275e",
+                fontWeight: "bold",
+                // border: "2px solid #13275e",
+                // padding: "5px 10px",
+                // borderRadius: "10px",
+                // backgroundColor: "#dbe3ee",
+              }}
+            >
+              {displayValue}
+            </span>
+          )}
           {currentValue && (
             <button
               onClick={() => onRemove(row, col, currentValue)}
@@ -367,10 +378,9 @@ function TableFillBlanksQuestion({ info, questionKey, reviewMode }) {
             <tbody>
               {info.rows.map((row) => (
                 <tr key={row}>
-                  <td 
-                  className="navy"
-                  style={{ fontWeight: "bold" }}
-                  >{row}</td>
+                  <td className="navy" style={{ fontWeight: "bold" }}>
+                    {row}
+                  </td>
                   {info.columns.map((col) => {
                     const key = `${row}-${col}`;
                     return (
