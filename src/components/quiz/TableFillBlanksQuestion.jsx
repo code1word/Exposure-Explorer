@@ -122,7 +122,7 @@ function DroppableCell({
             {currentValue}
             <br />
           </span>
-          <span style={{ fontSize: "12px", color: "#555" }}>
+          <span style={{ fontSize: "12px", color: "#d9534f" }}>
             Correct answer: {correctValue}
           </span>
         </div>
@@ -146,7 +146,7 @@ function DroppableCell({
           <span
             style={{
               fontSize: "12px",
-              color: "#555",
+              color: "#d9534f",
             }}
           >
             Correct answer: {correctValue}
