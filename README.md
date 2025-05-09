@@ -13,7 +13,7 @@
 - 📝 **Quiz Mode**: Test your understanding through visually engaging questions.
 - 📋 **Cheat Sheet**: Handy presets for common photo scenarios like Portraits, Landscapes, and Night Photography.
 - 💾 **Progress Tracking**: Your learning progress is saved using persistent session memory.
-- 💅 **Beautiful UI**: Styled with React Bootstrap, FontAwesome, and custom animations for a modern, polished experience.
+- 🫧 **Clean UI**: Styled with React Bootstrap, FontAwesome, and custom animations for a modern, polished experience.
 
 ---
 
@@ -72,7 +72,3 @@ React will run at: `http://localhost:5173`. Make sure Flask is running in parall
 - **Flask-CORS** for API access from React
 - **OpenCV (cv2)** for image simulation and manipulation
 - **Session-backed progress tracking**
-
----
-
-## 🗂 Project Structure
