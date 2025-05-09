@@ -61,7 +61,7 @@ quiz_questions = {
         "Narrower Aperture-Depth of Field": "Deeper",
         "Narrower Aperture-F-stop": "Large f-stop",
       },
-      "hint": "A larger aperture increases exposure and focuses on a smaller part of the image. Think about what this suggests about the properties specified in the table."
+      "hint": "A larger aperture results in a brighter image and isolates a narrower zone of sharpness. Think about how these effects relate to the properties listed in the table."
     },
     "4": {
       "format": "order_images",
@@ -79,7 +79,7 @@ quiz_questions = {
         "http://localhost:3000/static/images_q4/orderPortrait.jpg",
         "http://localhost:3000/static/images_q4/orderActionShot.jpg"
       ],
-      "hint": "Categorize each of these images according to what you learned from the Settings Cheat Sheet, then recall the recommended shutter speed for each type of photo."
+      "hint": "Categorize each of these images according to what you learned from the Settings Cheat Sheet, and then recall the recommended shutter speed for each type of photo."
     },
     "5": {
       "format": "match_image",
@@ -145,7 +145,7 @@ quiz_questions = {
         "http://localhost:3000/static/images_q6/Aperture0.0_ISO250.jpg",
         "http://localhost:3000/static/images_q6/Aperture0.0_ISO300.jpg"],
       ],
-      "hint": "Recall that a wider aperture causes increased exposure and deeper depth of field. A faster shutter speed decreases exposure and captures motion freeze.",
+      "hint": "Recall that a wider aperture increases exposure and results in a shallower depth of field. A faster shutter speed decreases exposure and helps freeze motion.",
     },
 }
 
