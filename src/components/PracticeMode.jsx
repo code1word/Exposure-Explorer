@@ -10,6 +10,13 @@ import { QuizContext as QuizContextOrderImages } from "../context/QuizContextOrd
 import { QuizContext as QuizContextMatchImage } from "../context/QuizContextMatchImage";
 import { QuizContext as QuizContextTwoSliders } from "../context/QuizContextTwoSliders";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlay,
+  faQuestionCircle,
+  faCameraRetro,
+} from "@fortawesome/free-solid-svg-icons";
+
 function PracticeMode() {
   const navigate = useNavigate();
   const [quizQuestionData, setQuizQuestionData] = useState({});
@@ -51,12 +58,22 @@ function PracticeMode() {
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #ABE2FB, #ffffff)",
-        minHeight: "90vh",
+        paddingBottom: "3rem",
       }}
     >
+      <div className="camera-thought-wrapper">
+        <FontAwesomeIcon icon={faCameraRetro} className="central-camera" />
+        <div className="thought-bubble">
+          <FontAwesomeIcon icon={faQuestionCircle} className="bubble-icon" />
+          <div className="trail-bubbles">
+            <span className="bubble bubble1" />
+            <span className="bubble bubble2" />
+            <span className="bubble bubble3" />
+          </div>
+        </div>
+      </div>
+
       <h2
         style={{
           fontSize: "2.5rem",
@@ -77,7 +94,35 @@ function PracticeMode() {
         settings to applying them in real scenarios.
       </h3>
       <br></br>
-      <Button size="lg" className="quiz-start-button" onClick={handleStart}>
+      <Button
+        size="lg"
+        className="quiz-start-button"
+        onClick={handleStart}
+        style={{
+          border: "2px solid #13275e",
+          backgroundColor: "#13275e",
+          color: "white",
+          fontWeight: "bold",
+          transition: "all 0.2s ease",
+          borderRadius: "0.5rem",
+          padding: "0.5rem 1rem",
+          fontSize: "1.5rem",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.75rem",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "#ABE2FB";
+          e.currentTarget.style.color = "#13275e";
+          e.currentTarget.style.transform = "scale(1.05)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "#13275e";
+          e.currentTarget.style.color = "white";
+          e.currentTarget.style.transform = "scale(1)";
+        }}
+      >
+        <FontAwesomeIcon icon={faPlay} />
         Start Quiz
       </Button>
     </Container>

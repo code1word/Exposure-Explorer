@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckCircle,
   faCircleXmark,
+  faRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { Container, ProgressBar } from "react-bootstrap";
 //import { quizQuestionData } from "../../data/quizQuestionData";
@@ -142,7 +143,23 @@ function QuizResults() {
               <Link to={`/quiz/${key}?reviewMode=true`}>
                 <button
                   className="hint-button btn"
-                  style={{ margin: "0.5rem" }}
+                  style={{
+                    margin: "0.5rem",
+                    border: "2px solid #13275e",
+                    color: "white",
+                    backgroundColor: "#13275e",
+                    transition: "all 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#ABE2FB";
+                    e.currentTarget.style.color = "#13275e";
+                    e.currentTarget.style.transform = "scale(1.05)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "#13275e";
+                    e.currentTarget.style.color = "white";
+                    e.currentTarget.style.transform = "scale(1)";
+                  }}
                 >
                   <FontAwesomeIcon
                     icon={isCorrect ? faCheckCircle : faCircleXmark}
@@ -158,13 +175,48 @@ function QuizResults() {
           );
         })}
       </div>
-      <button
+      <div
         onClick={handleStart}
-        className="btn hint-button"
-        style={{ marginTop: "2rem" }}
+        onMouseEnter={(e) => {
+          const circle = e.currentTarget.querySelector(".try-again-circle");
+          circle.style.backgroundColor = "#cdd6e0";
+          circle.style.transform = "scale(1.1)";
+        }}
+        onMouseLeave={(e) => {
+          const circle = e.currentTarget.querySelector(".try-again-circle");
+          circle.style.backgroundColor = "#dbe3ee";
+          circle.style.transform = "scale(1)";
+        }}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.5rem",
+          cursor: "pointer",
+          fontStyle: "italic",
+          fontSize: "1.15rem",
+          color: "#999",
+          marginTop: "2rem",
+        }}
       >
-        Try Again
-      </button>
+        <div
+          className="try-again-circle"
+          style={{
+            backgroundColor: "#dbe3ee",
+            width: "48px",
+            height: "48px",
+            borderRadius: "50%",
+            display: "grid",
+            placeItems: "center",
+            transition: "all 0.2s ease",
+          }}
+        >
+          <FontAwesomeIcon
+            icon={faRotateLeft}
+            style={{ fontSize: "20px", color: "#13275e" }}
+          />
+        </div>
+        <span>Try Again</span>
+      </div>
     </div>
   );
 }

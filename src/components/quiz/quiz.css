@@ -1,16 +1,99 @@
 .wide-column {
-    min-width: 190px;
-    width: 190px;
-  }
+  min-width: 190px;
+  width: 190px;
+}
 
 .qtitle-length {
-    height: 175px; 
-    overflowY: auto;
-          
+  height: 175px;
+  /* overflowY: auto; */
 }
 
 .question-length {
-    height: 400px; 
-    overflowY: auto;
-    justify-content: center;
+  height: 400px;
+  /* overflowY: auto; */
+  justify-content: center;
+}
+
+.camera-thought-wrapper {
+  position: relative;
+  margin-bottom: 3rem;
+  margin-top: 8rem;
+}
+
+.central-camera {
+  font-size: 6rem;
+  color: #13275e;
+  animation: camera-bounce 3s ease-in-out infinite;
+  transform: scaleX(-1);
+}
+
+@keyframes camera-bounce {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.1);
+  }
+}
+
+.bubble-icon {
+  font-size: 2rem;
+}
+
+.thought-bubble {
+  position: absolute;
+  top: -80px;
+  right: -90px;
+  background: #abe2fb;
+  border-radius: 50% / 40%;
+  padding: 0.75rem 1.25rem;
+  font-size: 1.6rem;
+  color: #13275e;
+  animation: float-bounce 3s ease-in-out infinite;
+  transform-origin: bottom left;
+}
+
+@keyframes float-bounce {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(5deg) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-5deg) scale(1.2);
+  }
+}
+
+.trail-bubbles {
+  position: absolute;
+  bottom: 10px;
+  left: 2px;
+}
+
+.bubble {
+  display: block;
+  background-color: #abe2fb;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.bubble1 {
+  width: 15px;
+  height: 15px;
+  bottom: -28px;
+  left: 10px;
+}
+
+.bubble2 {
+  width: 11px;
+  height: 11px;
+  bottom: -42px;
+  left: 4px;
+}
+
+.bubble3 {
+  width: 8px;
+  height: 8px;
+  bottom: -52px;
+  left: -6px;
 }

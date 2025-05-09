@@ -38,7 +38,7 @@ quiz_questions = {
     "3": {
       "format": "table_fill_blanks",
       "question_number": "3",
-      "question": "Fill in the table for aperture below using the word bank.",
+      "question": "Drag the words from the word bank into the table to complete the aperture chart. Click a word in the table to return it to the word bank.",
       "wordBank": [
         "Large f-stop", 
         "Shallower",
@@ -66,7 +66,7 @@ quiz_questions = {
     "4": {
       "format": "order_images",
       "question_number": "4",
-      "question": "Different types of photos require different settings. Drag and drop the following types of pictures to order them from lowest to highest shutter speed.",
+      "question": "Different types of photos require different shutter speeds. Drag and drop the images below to arrange them from the lowest to the highest shutter speed.",
       "images": [
         "http://localhost:3000/static/images_q4/orderLandscape.jpg",
         "http://localhost:3000/static/images_q4/orderActionShot.jpg",
@@ -84,7 +84,7 @@ quiz_questions = {
     "5": {
       "format": "match_image",
       "question_number": "5",
-      "question": "Adjust the image using the slider until it matches the reference image.",
+      "question": "Use the slider to adjust the cat photo until it matches the reference image.",
       "referenceImage": "http://localhost:3000/static/images_q5/cat_f5.6.jpg",
       "correctSetting": "f/5.6",
       "imageMap": {
@@ -104,7 +104,7 @@ quiz_questions = {
     "6": {
       "format": "two_sliders",
       "question_number": "6",
-      "question": "Adjust the image using the slider until it matches the reference image.",
+      "question": "Adjust both sliders to make the image match the reference image.",
       "referenceImage": "http://localhost:3000/static/images_q6/Aperture0.0_ISO150.jpg",
       "correctSetting": "Aperture: f/0.30, ISO: 250",
       "imageGrid": [

@@ -389,71 +389,77 @@ function QuizQuestion() {
           overflow: "hidden",
         }}
       />
-      <br/>
+      <br />
 
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 style={{ fontWeight: "700", color: "#13275e" }}>
-          Question {currentIndex + 1}: {info.question}
-        </h2>
-        {!reviewMode && (
-          <OverlayTrigger
-            placement="bottom"
-            overlay={
-              <Tooltip
-                id="hint-tooltip"
-                style={{ fontSize: "0.9rem", fontStyle: "italic" }}
-              >
-                Reveal a hint
-              </Tooltip>
-            }
+      <div className="mb-4">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-start w-100">
+          <h2
+            style={{ fontWeight: "700", color: "#13275e" }}
+            className="mb-2 mb-md-0"
           >
-            <div
-              onClick={handleShowHint}
-              onMouseEnter={(e) => {
-                const circle = e.currentTarget.querySelector(".circle");
-                circle.style.backgroundColor = "#cdd6e0";
-                circle.style.transform = "scale(1.1)";
-              }}
-              onMouseLeave={(e) => {
-                const circle = e.currentTarget.querySelector(".circle");
-                circle.style.backgroundColor = "#dbe3ee";
-                circle.style.transform = "scale(1)";
-              }}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                cursor: "pointer",
-                fontStyle: "italic",
-                fontSize: "1.1rem",
-                color: "#999",
-              }}
+            Question {currentIndex + 1}: {info.question}
+          </h2>
+          {!reviewMode && (
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip
+                  id="hint-tooltip"
+                  style={{ fontSize: "0.9rem", fontStyle: "italic" }}
+                >
+                  Reveal a hint
+                </Tooltip>
+              }
             >
               <div
-                className="circle"
+                onClick={handleShowHint}
+                onMouseEnter={(e) => {
+                  const circle = e.currentTarget.querySelector(".circle");
+                  circle.style.backgroundColor = "#cdd6e0";
+                  circle.style.transform = "scale(1.1)";
+                }}
+                onMouseLeave={(e) => {
+                  const circle = e.currentTarget.querySelector(".circle");
+                  circle.style.backgroundColor = "#dbe3ee";
+                  circle.style.transform = "scale(1)";
+                }}
                 style={{
-                  backgroundColor: "#dbe3ee",
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  display: "grid",
-                  placeItems: "center",
-                  transition: "all 0.2s ease",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  cursor: "pointer",
+                  fontStyle: "italic",
+                  fontSize: "1.1rem",
+                  color: "#999",
+                  alignSelf: "flex-end",
                 }}
               >
-                <FontAwesomeIcon
-                  icon={faLightbulb}
-                  style={{ fontSize: "20px", color: "#13275e" }}
-                />
+                <div
+                  className="circle"
+                  style={{
+                    backgroundColor: "#dbe3ee",
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    display: "grid",
+                    placeItems: "center",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faLightbulb}
+                    style={{ fontSize: "20px", color: "#13275e" }}
+                  />
+                </div>
+                <span style={{ whiteSpace: "nowrap" }}>
+                  {usedHintsRef.current.has(type)
+                    ? `See hint`
+                    : `Hint (${hintsLeft})`}
+                </span>
               </div>
-              <span style={{ whiteSpace: "nowrap" }}>
-                {usedHintsRef.current.has(type)
-                  ? `See hint`
-                  : `Hint (${hintsLeft})`}
-              </span>
-            </div>
-          </OverlayTrigger>
-        )}
+            </OverlayTrigger>
+          )}
+        </div>
       </div>
 
       {renderQuestionContent(info)}

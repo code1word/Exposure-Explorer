@@ -11,22 +11,100 @@ import {
 } from "react-bootstrap";
 import dialIcon from "../assets/manual_mode.png";
 
-const apertureSteps = [1, 2, 3, 4, 5, 6];
-const shutterSteps = [0.25, 0.5, 1.0, 2.0, 4.0];
-const isoSteps = [0.25, 0.5, 1.0, 2.0, 4.0];
+// Replace existing arrays
+const apertureSteps = [1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 11.0, 16.0];
+const shutterSteps = [250, 500, 1000, 2000, 3000, 4000, 4500, 5000]; // in ms
+const isoSteps = [50, 100, 200, 400, 600, 800, 1200, 1600];
 
-// Closest match function
+// Closest match function (unchanged)
 const getClosest = (val, steps) =>
   steps.reduce((prev, curr) =>
     Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev
   );
 
-// Constructs dynamic image path
+// Updated dynamic image path generator
+const formatFStop = (num) => {
+  const forceDecimal = new Set([2, 4, 8]); // these need ".0"
+  return forceDecimal.has(num) ? num.toFixed(1) : num.toString();
+};
+
 const getImagePath = (aperture, shutter, iso) => {
-  const a = getClosest(aperture, apertureSteps);
-  const s = getClosest(shutter, shutterSteps).toFixed(2);
-  const i = getClosest(iso, isoSteps).toFixed(2);
-  return `/output_images/aperture_${a}_shutter_x${s}_iso_x${i}.jpg`;
+  const a = formatFStop(getClosest(aperture, apertureSteps));
+  const s = getClosest(shutter, shutterSteps);
+  const i = getClosest(iso, isoSteps);
+  return `/interactive_sim/statue_f${a}_shutter${s}ms_iso${i}.jpg`;
+};
+
+const getExposureDescription = (apertureIdx, shutterIdx, isoIdx) => {
+  const apertureVal = apertureSteps[apertureIdx];
+  const shutterVal = shutterSteps[shutterIdx];
+  const isoVal = isoSteps[isoIdx];
+
+  const normShutter =
+    (Math.log2(shutterVal) - Math.log2(shutterSteps[0])) /
+    (Math.log2(shutterSteps[shutterSteps.length - 1]) -
+      Math.log2(shutterSteps[0]));
+
+  const normISO =
+    (Math.log2(isoVal) - Math.log2(isoSteps[0])) /
+    (Math.log2(isoSteps[isoSteps.length - 1]) - Math.log2(isoSteps[0]));
+
+  const avgExposure = (normShutter + normISO) / 2;
+
+  let description = "";
+
+  const isMinExposure =
+    shutterVal === shutterSteps[0] && isoVal === isoSteps[0];
+  const isMaxExposure =
+    shutterVal === shutterSteps[shutterSteps.length - 1] &&
+    isoVal === isoSteps[isoSteps.length - 1];
+
+  if (avgExposure < 0.35) {
+    if (isMinExposure) {
+      description +=
+        "Exposure is at its minimum, and the image may appear nearly black. ";
+    }
+
+    if (apertureVal <= 2.8) {
+      description +=
+        "A wide aperture improves subject isolation, but overall brightness is still very low.";
+    } else if (apertureVal >= 8.0) {
+      description +=
+        "The scene is dark, and a small aperture limits light intake even further.";
+    } else {
+      description +=
+        "Underexposed, with moderate depth of field and minimal background separation.";
+    }
+  } else if (avgExposure > 0.65) {
+    if (isMaxExposure) {
+      description +=
+        "Exposure is at its highest. Highlights may be clipped, and finer details can be lost. ";
+    }
+
+    if (apertureVal <= 2.8) {
+      description +=
+        "A wide aperture provides strong background blur, but consider lowering exposure to preserve highlight detail.";
+    } else if (apertureVal >= 8.0) {
+      description +=
+        "Bright and sharp throughout, ideal for well-lit scenes — but some highlight control may be needed.";
+    } else {
+      description +=
+        "Exposure is high, with a mid-range aperture providing a balance of blur and clarity.";
+    }
+  } else {
+    if (apertureVal <= 2.8) {
+      description +=
+        "Exposure is balanced, and the wide aperture helps focus attention on the subject with background blur.";
+    } else if (apertureVal >= 8.0) {
+      description +=
+        "Well-exposed and sharp across the frame — suitable for detailed or landscape shots.";
+    } else {
+      description +=
+        "A balanced combination of light and focus depth — versatile for general shooting conditions.";
+    }
+  }
+
+  return description;
 };
 
 function InteractiveSim() {
@@ -36,10 +114,14 @@ function InteractiveSim() {
   const [showHoverHint, setShowHoverHint] = useState(true);
   const [hasHovered, setHasHovered] = useState(false);
 
-  const imageSrc = getImagePath(aperture, shutter, iso);
+  const imageSrc = getImagePath(
+    apertureSteps[aperture],
+    shutterSteps[shutter],
+    isoSteps[iso]
+  );
 
   return (
-    <div style={{ position: "relative", minHeight: "100vh" }}>
+    <div style={{ position: "relative" }}>
       <Container className="py-4">
         <h2
           className="mb-4 text-center"
@@ -83,12 +165,26 @@ function InteractiveSim() {
                 }}
               />
             </div>
+            <p
+              style={{
+                marginTop: "1rem",
+                fontSize: "1.1rem",
+                color: "#13275e",
+                fontStyle: "italic",
+                maxWidth: "90%",
+                textAlign: "center",
+                // transition: "min-height 0.3s ease",
+              }}
+            >
+              {getExposureDescription(aperture, shutter, iso)}
+            </p>
           </Col>
 
           {/* Sliders */}
           <Col
             md={6}
-            className="d-flex flex-column justify-content-between px-3"
+            className="d-flex flex-column px-3"
+            style={{ alignItems: "stretch" }}
           >
             <p
               className="text-muted"
@@ -103,74 +199,66 @@ function InteractiveSim() {
             </p>
 
             {/* Aperture */}
-            <div style={{ marginBottom: "2rem", color: "#13275e" }}>
+            <div style={{ marginBottom: "3rem", color: "#13275e" }}>
               <div className="d-flex justify-content-between">
-                <strong>Small Aperture</strong>
                 <strong>Large Aperture</strong>
+                <strong>Small Aperture</strong>
               </div>
               <Slider
-                min={2}
-                max={6}
+                min={0}
+                max={apertureSteps.length - 1}
                 step={1}
                 value={aperture}
                 onChange={setAperture}
-                marks={{ 2: "f/5", 3: "f/4", 4: "f/3", 5: "f/2", 6: "f/1" }}
-                tipFormatter={(val) => `Step ${val}`}
+                marks={apertureSteps.reduce((acc, val, idx) => {
+                  acc[idx] = `f/${val}`;
+                  return acc;
+                }, {})}
               />
             </div>
 
             {/* Shutter Speed */}
-            <div style={{ marginBottom: "2rem", color: "#13275e" }}>
+            <div style={{ marginBottom: "3rem", color: "#13275e" }}>
               <div className="d-flex justify-content-between">
                 <strong>Fast Shutter</strong>
                 <strong>Slow Shutter</strong>
               </div>
               <Slider
-                min={0.25}
-                max={4.0}
-                step={0.01}
+                min={0}
+                max={shutterSteps.length - 1}
+                step={1}
                 value={shutter}
                 onChange={setShutter}
-                marks={{
-                  0.25: "1/4s",
-                  0.5: "1/2s",
-                  1: "1s",
-                  2: "2s",
-                  4: "4s",
-                }}
-                tipFormatter={(val) =>
-                  val >= 1 ? `${val.toFixed(1)}s` : `1/${Math.round(1 / val)}s`
-                }
+                marks={shutterSteps.reduce((acc, val, idx) => {
+                  acc[idx] = val < 1000 ? `${val}ms` : `${val / 1000}s`;
+                  return acc;
+                }, {})}
               />
             </div>
 
             {/* ISO */}
-            <div style={{ marginBottom: "2rem", color: "#13275e" }}>
+            <div style={{ marginBottom: "3rem", color: "#13275e" }}>
               <div className="d-flex justify-content-between">
                 <strong>Low ISO</strong>
                 <strong>High ISO</strong>
               </div>
               <Slider
-                min={0.25}
-                max={4.0}
-                step={0.01}
+                min={0}
+                max={isoSteps.length - 1}
+                step={1}
                 value={iso}
                 onChange={setISO}
-                marks={{
-                  0.25: "50",
-                  0.5: "100",
-                  1: "200",
-                  2: "400",
-                  4: "800",
-                }}
-                tipFormatter={(val) => `ISO ${val * 200}`}
+                marks={isoSteps.reduce((acc, val, idx) => {
+                  acc[idx] = `${val}`;
+                  return acc;
+                }, {})}
               />
             </div>
 
             {/* Dial Tooltip */}
             <div
-              className="d-flex justify-content-end align-items-end"
-              style={{ height: "100px", position: "relative" }}
+              className="d-flex justify-content-end"
+              style={{ marginTop: "2rem" }}
             >
               <OverlayTrigger
                 placement="left"

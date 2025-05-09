@@ -76,11 +76,13 @@ function DroppableCell({
   let style = {
     width: "170px",
     border: "1px solid #ccc",
+    borderRadius: "5px",
     margin: "5px",
     textAlign: "center",
     padding: "5px",
     lineHeight: "1.2",
-    backgroundColor: isOver ? "#e0f7fa" : "white",
+    backgroundColor: isOver ? "#e9f4fc" : currentValue ? "#f8fbff" : "white",
+    transition: "background-color 0.5s ease",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -165,40 +167,27 @@ function DroppableCell({
           style={{
             display: "flex",
             alignItems: "center",
-            textAlign: "center",
             justifyContent: "center",
             width: "100%",
           }}
+          onClick={() => currentValue && onRemove(row, col, currentValue)} // 👈 click to remove
         >
-          {displayValue && (
+          {currentValue && (
             <span
+              title="Click to remove"
               style={{
+                padding: "5px 10px",
+                border: "2px solid #13275e",
+                borderRadius: "10px",
+                backgroundColor: "#dbe3ee",
                 color: "#13275e",
                 fontWeight: "bold",
-                // border: "2px solid #13275e",
-                // padding: "5px 10px",
-                // borderRadius: "10px",
-                // backgroundColor: "#dbe3ee",
-              }}
-            >
-              {displayValue}
-            </span>
-          )}
-          {currentValue && (
-            <button
-              onClick={() => onRemove(row, col, currentValue)}
-              className="navy"
-              style={{
-                marginLeft: "10px",
                 cursor: "pointer",
-                fontSize: "12pt",
-                border: "none",
-                backgroundColor: "transparent",
-                color: "#888",
+                opacity: 0.8,
               }}
             >
-              <FontAwesomeIcon icon={faTrashAlt} />
-            </button>
+              {currentValue}
+            </span>
           )}
         </div>
       ) : (
