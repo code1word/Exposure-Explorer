@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "/exposure_explorer.png";
 
 function OurNavbar() {
@@ -62,7 +62,7 @@ function OurNavbar() {
                   key={idx}
                   className={`nav-link-wrapper ${isActive ? "active" : ""}`}
                 >
-                  <Nav.Link href={item.href} className="nav-link-clean">
+                  <Nav.Link as={Link} to={item.href} className="nav-link-clean">
                     <span className="nav-link-text">
                       {item.label}
                       <span className="nav-corner nav-tl" />
