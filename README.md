@@ -1,12 +1,78 @@
-# React + Vite
+# 📸 Exposure Explorer (COMS W4170 UI Design Final Project)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Group Members:** Dhruv Yalamanchi, Joyce Li, Stephanie Jung, Gabriel Trigo
 
-Currently, two official plugins are available:
+**Exposure Explorer** is an interactive web app that helps users intuitively learn the core concepts of manual photography (**Aperture**, **Shutter Speed**, and **ISO**) through simulations, sliders, quizzes, and cheat sheets.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🧠 **Learn Settings**: Step-by-step interactive modules explaining Aperture, Shutter Speed, and ISO with visual sliders and image comparisons.
+- 🎮 **Interactive Simulator**: Explore how different combinations of settings affect exposure in real-time.
+- 📝 **Quiz Mode**: Test your understanding through visually engaging questions.
+- 📋 **Cheat Sheet**: Handy presets for common photo scenarios like Portraits, Landscapes, and Night Photography.
+- 💾 **Progress Tracking**: Your learning progress is saved using persistent session memory.
+- 💅 **Beautiful UI**: Styled with React Bootstrap, FontAwesome, and custom animations for a modern, polished experience.
+
+---
+
+## 🚀 Getting Started
+
+### Clone the Repository
+
+```
+git clone https://github.com/code1word/Exposure-Explorer.git
+cd Exposure-Explorer
+```
+
+---
+
+## ⚙️ Backend Setup (Flask + OpenCV)
+
+### 📦 Install dependencies
+
+Ensure Python 3.8+ is installed.
+
+```
+python -m venv venv
+source venv/bin/activate # or venv\Scripts\activate on Windows
+pip install -r requirements.txt
+python backend/app.py
+```
+
+Flask will then run at:  
+`http://localhost:3000`
+
+---
+
+## 💻 Frontend Setup (React)
+
+```
+npm install
+npm run dev
+```
+
+React will run at: `http://localhost:5173`. Make sure Flask is running in parallel for full functionality.
+
+---
+
+## 🧱 Tech Stack
+
+### Frontend
+
+- **React** (with `react-bootstrap` for layout)
+- **FontAwesome** icons
+- **RC-Slider** for intuitive setting adjustments
+- **Custom CSS animations**
+
+### Backend
+
+- **Flask** (Python microframework)
+- **Flask-CORS** for API access from React
+- **OpenCV (cv2)** for image simulation and manipulation
+- **Session-backed progress tracking**
+
+---
+
+## 🗂 Project Structure
