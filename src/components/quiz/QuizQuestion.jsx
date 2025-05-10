@@ -359,22 +359,81 @@ function QuizQuestion() {
 
   if (!info) {
     return (
-      <Container style={{ padding: "2rem" }}>
-        <h2>Not Found.</h2>
-        <h4>This quiz question doesn't exist.</h4>
-        <br />
-        <Link to="/quiz">
-          <button
-            className="hint-button"
+      <Container className="py-4 text-center" style={{ padding: "2rem" }}>
+        {/* Back Button */}
+        <div className="d-flex justify-content-start mb-4">
+          <div
+            onClick={() => navigate("/quiz")}
+            onMouseEnter={(e) => {
+              const circle = e.currentTarget.querySelector(".back-circle");
+              circle.style.backgroundColor = "#cdd6e0";
+              circle.style.transform = "scale(1.1)";
+            }}
+            onMouseLeave={(e) => {
+              const circle = e.currentTarget.querySelector(".back-circle");
+              circle.style.backgroundColor = "#dbe3ee";
+              circle.style.transform = "scale(1)";
+            }}
             style={{
-              height: "50px",
-              width: "100px",
-              borderRadius: "999px",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              cursor: "pointer",
+              fontStyle: "italic",
+              fontSize: "1.25rem",
+              color: "#999",
+              lineHeight: 1,
             }}
           >
-            ← Back
-          </button>
-        </Link>
+            <div
+              className="back-circle"
+              style={{
+                backgroundColor: "#dbe3ee",
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                display: "grid",
+                placeItems: "center",
+                transition: "all 0.2s ease",
+                transformOrigin: "center",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faArrowLeft}
+                style={{
+                  fontSize: "20px",
+                  color: "#13275e",
+                  display: "block",
+                  lineHeight: "1",
+                }}
+              />
+            </div>
+            <span style={{ display: "inline-block" }}>Back</span>
+          </div>
+        </div>
+
+        {/* Message */}
+        <h2
+          className="mb-3"
+          style={{
+            fontSize: "2.5rem",
+            fontWeight: 700,
+            letterSpacing: "-1px",
+            color: "#13275e",
+          }}
+        >
+          Not Found.
+        </h2>
+        <h4 style={{ color: "#444", fontWeight: 500, fontSize: "2.25rem" }}>
+          This quiz question doesn't exist.
+        </h4>
+        <p style={{ color: "#777", marginTop: "1rem", fontSize: "1.5rem" }}>
+          You may be seeing this because the quiz data is still loading from the
+          server. Please wait a few moments and try again.
+        </p>
       </Container>
     );
   }
