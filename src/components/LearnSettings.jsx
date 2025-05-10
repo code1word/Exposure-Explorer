@@ -190,8 +190,8 @@ function LearnSettings() {
             }}
           >
             Check out the{" "}
-            <a
-              href="/learn/cheatsheet"
+            <Link
+              to="/learn/cheatsheet"
               style={{
                 textDecoration: "none",
                 color: "#13275e",
@@ -199,7 +199,7 @@ function LearnSettings() {
               }}
             >
               Cheat Sheet
-            </a>{" "}
+            </Link>{" "}
             to learn which setting combinations work best for portraits,
             landscapes, nighttime scenes, and action photography!
           </p>

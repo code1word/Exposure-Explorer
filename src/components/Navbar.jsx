@@ -27,7 +27,8 @@ function OurNavbar() {
     >
       <Container>
         <Navbar.Brand
-          href="/"
+          as={Link}
+          to="/"
           style={{
             color: "#13275e",
             fontSize: "1.5rem",
