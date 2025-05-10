@@ -27,7 +27,7 @@ function Aperture() {
 
       if (duration > 1) {
         axios
-          .post("http://localhost:3000/api/log-time", {
+          .post(`${import.meta.env.VITE_API_BASE_URL}/api/log-time`, {
             page: "learn/aperture",
             startTime: start.toISOString(),
             endTime: end.toISOString(),
@@ -146,7 +146,6 @@ function Aperture() {
 
   return (
     <Container className="py-4" style={{ fontSize: "1.25rem" }}>
-      
       <ProgressBar
         now={progressWidth}
         className="rounded-pill my-progress-bar"

@@ -49,7 +49,9 @@ function QuizQuestion() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/get-quiz-questions");
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/get-quiz-questions`
+        );
         setQuizQuestionData(res.data);
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
@@ -198,7 +200,7 @@ function QuizQuestion() {
     });
 
     try {
-      await axios.post("http://localhost:3000/submit-quiz", {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/submit-quiz`, {
         score: calculatedScore,
         total: questionKeys.length,
         answers: sanitizedResults,

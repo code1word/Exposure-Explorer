@@ -31,7 +31,9 @@ function PracticeMode() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/get-quiz-questions");
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/get-quiz-questions`
+        );
         setQuizQuestionData(res.data);
         //setLoading(false);
       } catch (error) {

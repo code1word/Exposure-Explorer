@@ -27,7 +27,7 @@ function ISO() {
 
       if (duration > 1) {
         axios
-          .post("http://localhost:3000/api/log-time", {
+          .post(`${import.meta.env.VITE_API_BASE_URL}/api/log-time`, {
             page: "learn/iso",
             startTime: start.toISOString(),
             endTime: end.toISOString(),
