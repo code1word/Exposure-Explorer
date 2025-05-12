@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Button } from "react-bootstrap";
 //import { quizQuestionData } from "../data/quizQuestionData";
 import axios from "axios";
-
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { QuizContext as QuizContextMultipleChoice } from "../context/QuizContextMultipleChoice";
 import { QuizContext as QuizContextTableFillBlanks } from "../context/QuizContextTable";
 import { QuizContext as QuizContextOrderImages } from "../context/QuizContextOrderImages";
@@ -20,7 +20,7 @@ import {
 function PracticeMode() {
   const navigate = useNavigate();
   const [quizQuestionData, setQuizQuestionData] = useState({});
-  //const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const { resetQuiz: resetQuizMC } = useContext(QuizContextMultipleChoice);
   const { resetQuiz: resetQuizTAB } = useContext(QuizContextTableFillBlanks);
@@ -28,30 +28,48 @@ function PracticeMode() {
   const { resetQuiz: resetQuizMATCH1 } = useContext(QuizContextMatchImage);
   const { resetQuiz: resetQuizMATCH2 } = useContext(QuizContextTwoSliders);
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/get-quiz-questions`
-        );
-        setQuizQuestionData(res.data);
-        //setLoading(false);
-      } catch (error) {
-        console.error("Error fetching quiz questions:", error);
-      }
-    };
-    fetchQuestions();
-  }, []);
+  // useEffect(() => {
+  //   const fetchQuestions = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `${import.meta.env.VITE_API_BASE_URL}/get-quiz-questions`
+  //       );
+  //       setQuizQuestionData(res.data);
+  //     } catch (error) {
+  //       console.error("Error fetching quiz questions:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchQuestions();
+  // }, []);
 
-  const handleStart = () => {
-    resetQuizMC();
-    resetQuizTAB();
-    resetQuizORD();
-    resetQuizMATCH1();
-    resetQuizMATCH2();
-    const firstQuestionKey = Object.keys(quizQuestionData)[0];
-    //console.log("firstQuestionKey", firstQuestionKey);
-    navigate(`/quiz/${firstQuestionKey}`);
+  const handleStart = async () => {
+    setLoading(true);
+
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/get-quiz-questions`
+      );
+      const data = res.data;
+      setQuizQuestionData(data);
+
+      resetQuizMC();
+      resetQuizTAB();
+      resetQuizORD();
+      resetQuizMATCH1();
+      resetQuizMATCH2();
+
+      const firstQuestionKey = Object.keys(data)[0];
+      navigate(`/quiz/${firstQuestionKey}`, {
+        state: { quizQuestionData: data },
+      });
+    } catch (error) {
+      console.error("Error fetching quiz questions:", error);
+      alert("Failed to load quiz data. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -100,9 +118,11 @@ function PracticeMode() {
         size="lg"
         className="quiz-start-button"
         onClick={handleStart}
+        disabled={loading}
         style={{
           border: "2px solid #13275e",
-          backgroundColor: "#13275e",
+          // backgroundColor: "#13275e",
+          backgroundColor: loading ? "#999" : "#13275e",
           color: "white",
           fontWeight: "bold",
           transition: "all 0.2s ease",
@@ -112,6 +132,8 @@ function PracticeMode() {
           display: "inline-flex",
           alignItems: "center",
           gap: "0.75rem",
+          opacity: loading ? 0.6 : 1,
+          cursor: loading ? "not-allowed" : "pointer",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.backgroundColor = "#ABE2FB";
@@ -124,8 +146,21 @@ function PracticeMode() {
           e.currentTarget.style.transform = "scale(1)";
         }}
       >
-        <FontAwesomeIcon icon={faPlay} />
-        Start Quiz
+        {loading ? (
+          <>
+            <FontAwesomeIcon
+              icon={faSpinner}
+              spin
+              style={{ fontSize: "1.25rem" }}
+            />
+            <span className="ms-2">Loading...</span>
+          </>
+        ) : (
+          <>
+            <FontAwesomeIcon icon={faPlay} />
+            <span>Start Quiz</span>
+          </>
+        )}
       </Button>
     </Container>
   );

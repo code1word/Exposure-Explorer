@@ -1,6 +1,7 @@
 // src/components/QuizQuestion.jsx
 
 import React, { useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import {
   useParams,
   Link,
@@ -41,12 +42,21 @@ import axios from "axios";
 
 function QuizQuestion() {
   const { type } = useParams();
-  const [quizQuestionData, setQuizQuestionData] = useState({});
+  // const [quizQuestionData, setQuizQuestionData] = useState({});
+
   const [searchParams] = useSearchParams();
   const reviewMode = searchParams.get("reviewMode") === "true";
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const passedData = location.state?.quizQuestionData;
+
+  const [quizQuestionData, setQuizQuestionData] = useState(passedData || {});
+  const [loading, setLoading] = useState(!passedData);
+
   useEffect(() => {
+    if (passedData) return; // skip if we got it from navigation
+
     const fetchQuestions = async () => {
       try {
         const res = await axios.get(
@@ -55,8 +65,11 @@ function QuizQuestion() {
         setQuizQuestionData(res.data);
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchQuestions();
   }, []);
 
@@ -356,6 +369,16 @@ function QuizQuestion() {
         return <p>Unsupported question format.</p>;
     }
   };
+
+  if (loading) {
+    return (
+      <Container className="py-4 text-center">
+        <h2 style={{ fontSize: "2rem", color: "#13275e" }}>
+          Loading quiz question...
+        </h2>
+      </Container>
+    );
+  }
 
   if (!info) {
     return (
